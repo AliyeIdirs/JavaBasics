@@ -1,0 +1,5 @@
+TestUser,Password,Role
+admin,test,admin
+clinicadmin,test,cilinic Admin
+tom,test,thetherapist
+natalie,test,receptions

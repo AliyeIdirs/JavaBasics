@@ -1,0 +1,25 @@
+{
+  "TestName": "Login",
+  "TestModule": "Dashboard",
+  "TestType": "Regression",
+  "TestSteps": [
+    {
+      "Id": 1,
+      "Step": "Open browser"
+    },
+    {
+      "Id": 2,
+      "Step": "Enter user name"
+    },
+    {
+      "Id": 3,
+      "Step": "Enter user password"
+    },
+    {
+      "Id": 4,
+      "Step": "Click on Login button"
+    }
+  ],
+  "Verification": "Logout link should display",
+  "Note": "Login test note."
+}

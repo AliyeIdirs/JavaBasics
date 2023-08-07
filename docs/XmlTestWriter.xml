@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TestCases>
+  <Test id="2">
+    <Name>Logout</Name>
+    <TestModule>Inventory Module</TestModule>
+    <TestType>Regression Test</TestType>
+    <TestExecution>Automated</TestExecution>
+  </Test>
+</TestCases>

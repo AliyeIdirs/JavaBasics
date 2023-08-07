@@ -1,0 +1,4 @@
+TestID,TestModule,TestType
+1,Login,Regression
+2,Logout,Regression
+3,Change User Settings,Regression

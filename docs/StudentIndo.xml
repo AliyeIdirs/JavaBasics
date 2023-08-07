@@ -1,0 +1,20 @@
+<studentinfo>
+    <student id="1">
+        <firstname>FisrtNameA</firstname>
+        <lastname>LastNameA</lastname>
+        <major>Math</major>
+        <department>Science</department>
+    </student>
+    <student id="2">
+        <firstname>FirstNameB</firstname>
+        <lastname>LastNameB</lastname>
+        <major>Programming</major>
+        <department>Science</department>
+    </student>
+    <student id="3">
+        <firstname>FirstNameC</firstname>
+        <lastname>LastNameC</lastname>
+        <major>English</major>
+        <department>Liberal Art</department>
+    </student>
+</studentinfo>

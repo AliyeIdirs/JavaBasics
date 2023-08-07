@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>ConsoleInputJavaCode.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ConsoleInputJavaCode.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.unitedcoder.homework</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ConsoleInputJavaCode {</span>
+    <span class="s0">public static void </span><span class="s1">main (String[] args){</span>
+        <span class="s0">int </span><span class="s1">x= </span><span class="s2">34</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">y= </span><span class="s2">87</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;x = %d</span><span class="s0">\n</span><span class="s3">y= %d&quot;</span><span class="s0">,</span><span class="s1">x</span><span class="s0">,</span><span class="s1">y))</span><span class="s0">;</span>
+
+        <span class="s4">//The sum of the two numbers;</span>
+        <span class="s0">int </span><span class="s1">sum= x+y</span><span class="s0">;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;%d + %d = %d&quot;</span><span class="s0">,</span><span class="s1">x</span><span class="s0">,</span><span class="s1">y</span><span class="s0">,</span><span class="s1">sum))</span><span class="s0">;</span>
+
+        <span class="s4">//The difference between the two numbers;</span>
+        <span class="s0">int </span><span class="s1">diff= x-y</span><span class="s0">;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;Difference = %d - %d = %d&quot;</span><span class="s0">, </span><span class="s1">x</span><span class="s0">, </span><span class="s1">y</span><span class="s0">,</span><span class="s1">diff))</span><span class="s0">;</span>
+
+        <span class="s4">//The product (multiplication) of the two numbers;</span>
+        <span class="s0">int </span><span class="s1">multip= x*y</span><span class="s0">;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;%d * %d = %d&quot;</span><span class="s0">, </span><span class="s1">x</span><span class="s0">,</span><span class="s1">y</span><span class="s0">,</span><span class="s1">multip))</span><span class="s0">;</span>
+
+        <span class="s4">//The average of the two numbers;</span>
+        <span class="s0">float </span><span class="s1">average = (x + y)/</span><span class="s2">2f</span><span class="s0">;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;Average = (%d + %d )/ 2 =%.2f&quot;</span><span class="s0">, </span><span class="s1">x</span><span class="s0">,</span><span class="s1">y</span><span class="s0">,</span><span class="s1">average))</span><span class="s0">;</span>
+
+        <span class="s4">//The absolute values of the two number differences;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;⎢%d-%d⎥ = %d&quot;</span><span class="s0">,</span><span class="s1">x</span><span class="s0">,</span><span class="s1">y</span><span class="s0">,</span><span class="s1">Math.abs(x-y)))</span><span class="s0">;</span>
+
+        <span class="s4">//The maximum of the two numbers;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;Maximum is = %d&quot;</span><span class="s0">,</span><span class="s1">Math.max(x</span><span class="s0">,</span><span class="s1">y)))</span><span class="s0">;</span>
+
+        <span class="s4">//The minimum of the two numbers;</span>
+        <span class="s1">System.out.println(String.format(</span><span class="s3">&quot;Minimum is= %d&quot;</span><span class="s0">,</span><span class="s1">Math.min(x</span><span class="s0">,</span><span class="s1">y)))</span><span class="s0">;</span>
+
+        <span class="s4">//The comparison of the two numbers</span>
+        <span class="s0">int </span><span class="s1">comp= Integer.compare(x</span><span class="s0">,</span><span class="s1">y)</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(comp &gt;</span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;x &gt; y&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(comp &lt;</span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;x &lt; y&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot; x = y&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

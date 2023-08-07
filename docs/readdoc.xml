@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TestCases>
+    <Test id="1">
+        <Name>Login</Name>
+        <TestModule>Login Dashboard</TestModule>
+        <TestType>Smoke Test</TestType>
+        <TestExecution>Manual</TestExecution>
+    </Test>
+    <Test id="2">
+        <Name>Logout</Name>
+        <TestModule>Login Dashboard</TestModule>
+        <TestType>Smoke Test</TestType>
+        <TestExecution>Automated</TestExecution>
+    </Test>
+    <Test id="3">
+        <Name>Add New Client</Name>
+        <TestModule>Admin Dashboard</TestModule>
+        <TestType>Smoke Test</TestType>
+        <TestExecution>Automated</TestExecution>
+    </Test>
+
+</TestCases>

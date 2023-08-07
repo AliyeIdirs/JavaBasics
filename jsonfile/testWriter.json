@@ -1,0 +1,18 @@
+{
+  "login-user": {
+    "username": "testautomation1",
+    "password": "automation123!"
+  },
+  "Customer": {
+    "firstName": "Michle",
+    "lastName": "Scofiold",
+    "email": "michles@outlook.com"
+  },
+  "product": {
+    "product-name": "Macbook Air M2",
+    "product-code": "M2023",
+    "manufacturer": "manufacturer1",
+    "category": "Electronic Device"
+  },
+  "url": "http://cubecartuat.unitedcoder.com/admin_tu8sml.php"
+}

@@ -1,0 +1,18 @@
+{
+  "login-user": {
+    "username": "testautomation1",
+    "password": "automation123!"
+  },
+  "customer": {
+    "firstName": "testA",
+    "lastName": "Mike",
+    "email": "testa12@gmail.com"
+  },
+  "product": {
+    "product-name": "Iphone 14 Pro",
+    "product-code": 123,
+    "manufacturer": "Apple",
+    "category": "Electronic Device"
+  },
+  "url": "http://cubecartuat.unitedcoder.com/admin_tu8sml.php"
+}
