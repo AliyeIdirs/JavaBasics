@@ -1,8 +1,0 @@
-Hello Test
-Selenium Master
-Java Tutorial
-FileReader
-Buffered readerThis is example of random access file
-
-This is second example of random access file
-This is second example of random access file
