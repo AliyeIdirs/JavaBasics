@@ -2,6 +2,8 @@ package regressionsuit.junitframework;
 
 import org.junit.jupiter.api.*;
 
+import java.util.Date;
+
 public class JunitTestDemo1 {
     @BeforeAll
     public static void setUp(){
@@ -19,13 +21,28 @@ public class JunitTestDemo1 {
     public static void tearDown(){
         System.out.println("AfterClass run once after all tests");
     }
-
+@Disabled
     @Test
     public void squareRootTest(){
         System.out.println("Testing a square root");
         Assertions.assertTrue(Math.sqrt(9)==3);
     }
-    @Disabled
+    @Test
+    @Timeout(10)
+    public void timeoutTest(){
+        long startTime;
+        long endTime=0;
+        long elapseTime;
+        startTime=new Date().getTime();
+        System.out.println("Start time: "+startTime);
+        for(int i=0; i<100000; i++){
+            endTime=new Date().getTime();
+        }
+        System.out.println("End time: "+endTime);
+        elapseTime=endTime-startTime;
+        System.out.println(elapseTime);
+        Assertions.assertEquals(10,elapseTime);
+    }
     @Test
     public void compareTwoString(){
         String s1="selenium";
