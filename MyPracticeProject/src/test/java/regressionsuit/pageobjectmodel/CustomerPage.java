@@ -30,7 +30,7 @@ public class CustomerPage {
     @FindBy(css="div.success")
     WebElement successMessage;
     public void addCustomer(){
-        functionLibrary.explicitWait(addCustomerLink);
+        functionLibrary.waitForElementPresent(addCustomerLink);
         addCustomerLink.click();
         functionLibrary.sleep();
         firstNameField.sendKeys(functionLibrary.generateFakeName(0));

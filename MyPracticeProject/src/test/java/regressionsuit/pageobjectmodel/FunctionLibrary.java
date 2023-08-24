@@ -23,9 +23,10 @@ public class FunctionLibrary {
             throw new RuntimeException(e);
         }
     }
-    public void explicitWait(WebElement element){
+    public void waitForElementPresent(WebElement element){
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOf(element));
+
     }
     public void waitAlertPresent(){
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(2));

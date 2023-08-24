@@ -17,13 +17,13 @@ public class CategoryPage {
         functionLibrary=new FunctionLibrary(driver);
     }
 
-    @FindBy(css = ".fa.fa-trach")
+    @FindBy(css = ".fa.fa-trash")
     WebElement deleteIcon;
     @FindBy(xpath = "//*[contains(text(),'deleted.')]")
     WebElement successMessage;
 
     public void deleteCategory(){
-        functionLibrary.explicitWait(deleteIcon);
+        functionLibrary.waitForElementPresent(deleteIcon);
         deleteIcon.click();
         Alert alert= driver.switchTo().alert();
         functionLibrary.waitAlertPresent();

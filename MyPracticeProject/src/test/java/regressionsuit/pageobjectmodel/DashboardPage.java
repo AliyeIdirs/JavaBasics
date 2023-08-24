@@ -29,11 +29,11 @@ public class DashboardPage {
     }
 
     public void clickCustomerList(){
-        functionLibrary.explicitWait(customerListLink);
+        functionLibrary.waitForElementPresent(customerListLink);
         customerListLink.click();
     }
     public void clickCategories(){
-        functionLibrary.explicitWait(categoriesLink);
+        functionLibrary.waitForElementPresent(categoriesLink);
         categoriesLink.click();
     }
     public void clickLogOut(){

@@ -1,6 +1,5 @@
 package regressionsuit.pageobjectmodel;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,11 +22,9 @@ public class LoginPage {
     WebElement loginButton;
 
     public void enterUerName(String userName){
-        functionLibrary.explicitWait(userNameField);
         userNameField.sendKeys(userName);
     }
     public void enterPassword(String password){
-        functionLibrary.explicitWait(passwordField);
         passwordField.sendKeys(password);
     }
     public void clickLoginButton(){

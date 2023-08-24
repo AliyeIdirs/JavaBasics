@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
 public class JunitTestRunner extends TestBase{
-    static WebDriver driver;
     static LoginPage loginPage;
     static DashboardPage dashboardPage;
     static CustomerPage customerPage;
