@@ -81,7 +81,7 @@ public class FunctionLibrary {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void addCustomer(Customer customer){
+    public static boolean addCustomer(Customer customer){
         WebElement customerListLink = driver.findElement(By.linkText("Customer List"));
         customerListLink.click();
 
@@ -105,14 +105,18 @@ public class FunctionLibrary {
                     ("//*[contains(text(),'Customer successfully added.')]"));
             if (successMessage.isDisplayed()) {
                 System.out.println(customer.getLastName() + " added successfully");
+
             }
+            return true;
         }catch (Exception e){
             System.out.println("Add customer Failed!!!");
             e.printStackTrace();
+            return false;
         }
+
     }
 
-    public static void addProduct(Product product){
+    public static boolean addProduct(Product product){
         WebElement products=driver.findElement(By.id("nav_products"));
         products.click();
         WebElement addProduct=driver.findElement(By.linkText("Add Product"));
@@ -140,9 +144,10 @@ public class FunctionLibrary {
             if (successMessage.isDisplayed()) {
                 System.out.println("Product Added Successfully");
             }
+            return true;
         }catch (Exception e){
             System.out.println("Add Product Failed!");
-
+            return false;
         }
     }
 }

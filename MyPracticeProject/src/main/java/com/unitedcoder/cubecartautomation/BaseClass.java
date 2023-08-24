@@ -1,6 +1,5 @@
 package com.unitedcoder.cubecartautomation;
 
-import com.unitedcoder.configutility.ApplicationConfig;
 import com.unitedcoder.configutility.UiUtility;
 import com.unitedcoder.homework.week11cubecartproject.AdminUser;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -12,7 +11,6 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.security.auth.login.FailedLoginException;
 import java.time.Duration;
 
 public class BaseClass {
@@ -51,6 +49,31 @@ public class BaseClass {
                 System.out.println("Login failed.");
                 return false;
             }
+
+    }
+
+    public static boolean login( String userName, String password) {
+        WebElement userNameField = driver.findElement(By.id("username"));
+        userNameField.sendKeys(userName);
+        WebElement passwordField = driver.findElement(By.id("password"));
+        passwordField.sendKeys(password);
+        WebElement loginButton = driver.findElement(By.id("login"));
+        loginButton.click();
+        uiUtility.takeScreenShot(userName+System.currentTimeMillis()+".jpg");
+        try {
+            WebElement dashBoard = driver.findElement(By.xpath("//*[@id=\"dashboard\"]/h3"));
+            if (dashBoard.getText().equalsIgnoreCase("dashboard"))
+                System.out.println("Login Successful");
+            return true;
+        }
+        catch(Exception e) {
+            WebElement failMessage= driver.findElement(By.xpath("//li[contains(text(),\"Invalid username or password\")]"));
+            if(failMessage.isDisplayed()){
+                System.out.println("Invalid username or password");
+            }
+            System.out.println("Login failed.");
+            return false;
+        }
 
     }
 
