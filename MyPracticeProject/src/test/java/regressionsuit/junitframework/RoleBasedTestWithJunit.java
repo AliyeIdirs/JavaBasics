@@ -25,7 +25,7 @@ public class RoleBasedTestWithJunit extends BaseClass {
     @Test
     public void multipleLogin(){
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php?");
-        Assertions.assertTrue(logIn(userName,password));
+        Assertions.assertTrue(login(userName,password));
     }
 
 }

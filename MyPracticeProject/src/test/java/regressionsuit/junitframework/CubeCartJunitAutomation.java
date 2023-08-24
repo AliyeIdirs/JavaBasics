@@ -23,8 +23,7 @@ public class CubeCartJunitAutomation extends FunctionLibrary {
     public void AddCustomerTest(){
         customer=new Customer("Ahmed"+getCurrentTime(),"Aziz"+getCurrentTime(),
                 "aaziz"+System.currentTimeMillis()+"@hotmail.com");
-        boolean isCustomerAdded= addCustomer(customer);
-        Assertions.assertTrue(isCustomerAdded);
+        Assertions.assertTrue(addCustomer(customer));
     }
     @Test
     public void AddProductTest(){
