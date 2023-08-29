@@ -43,4 +43,12 @@ class JunitTestDemo2 {
         Assertions.assertTrue(Math.pow(10,2)==100);
     }
 
+    @Test
+    public void anyTest(){
+        for (int i=0; i<5;i++){
+            System.out.println(System.currentTimeMillis());
+
+        }
+    }
+
 }
