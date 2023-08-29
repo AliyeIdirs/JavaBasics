@@ -1,8 +1,17 @@
 package regressionsuit.junitframework;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.*;
+import regressionsuit.week16junitproject.FunctionLibrary;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class JunitTestDemo1 {
     @BeforeAll
@@ -55,6 +64,18 @@ public class JunitTestDemo1 {
     public void power(){
         System.out.println("Testing the power of a number");
         Assertions.assertTrue(Math.pow(10,2)==100);
+    }
+    @Test
+    public void test(){
+        /*Date startDate=new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("28-8-2023");
+        System.out.println(dateFormat.format(startDate));
+        Date endDate=new Date();*/
+        String randomTime=String.valueOf(Faker.instance().date().future(365,TimeUnit.DAYS));
+        String[] timeContent=randomTime.split(" ");
+        String liveDate=timeContent[2]+" "+timeContent[1]+" "+timeContent[5]+" "+timeContent[3];
+        System.out.println(liveDate);
+
     }
 
 }
