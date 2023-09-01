@@ -9,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 public class CustomerPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    int timeout=2;
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
@@ -38,8 +37,18 @@ public class CustomerPage {
         emailField.sendKeys(functionLibrary.generateFakeName(0)+"@hotmail.com");
         saveButton.click();
     }
-    public void verifyAddCustomerSuccessfully(){
-        Assertions.assertTrue(successMessage.isDisplayed());
+    public void addCustomer(String firstName,String lastName,String email){
+        functionLibrary.waitForElementPresent(addCustomerLink);
+        addCustomerLink.click();
+        functionLibrary.sleep();
+        firstNameField.sendKeys(firstName);
+        lastNameField.sendKeys(lastName);
+        emailField.sendKeys(email);
+        saveButton.click();
+    }
+    public boolean verifyAddCustomerSuccessfully(){
+        functionLibrary.waitForElementPresent(successMessage);
+        return successMessage.isDisplayed();
     }
 
 }

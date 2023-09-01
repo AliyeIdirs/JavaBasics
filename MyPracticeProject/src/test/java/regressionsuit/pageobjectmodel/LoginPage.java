@@ -35,4 +35,11 @@ public class LoginPage {
         enterPassword(password);
         clickLoginButton();
     }
+    public void multiLoginTest(String username,String password){
+        enterUerName(username);
+        enterPassword(password);
+        clickLoginButton();
+        DashboardPage dashboardPage=new DashboardPage(driver);
+        dashboardPage.clickLogOut();
+    }
 }
