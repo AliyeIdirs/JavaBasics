@@ -24,8 +24,10 @@ public class DashboardPage {
     WebElement customerListLink;
     @FindBy(linkText = "Categories")
     WebElement categoriesLink;
-    public void verifyDashboardPage(){
-        Assertions.assertTrue(dashBoardText.isDisplayed());
+    @FindBy(linkText = "Products")
+    WebElement productsLink;
+    public boolean verifyDashboardPage(){
+        return dashBoardText.isDisplayed();
     }
 
     public void clickCustomerList(){
@@ -35,6 +37,10 @@ public class DashboardPage {
     public void clickCategories(){
         functionLibrary.waitForElementPresent(categoriesLink);
         categoriesLink.click();
+    }
+    public void clickOnProductsLink(){
+        functionLibrary.waitForElementPresent(productsLink);
+        productsLink.click();
     }
     public void clickLogOut(){
         logoutLink.click();

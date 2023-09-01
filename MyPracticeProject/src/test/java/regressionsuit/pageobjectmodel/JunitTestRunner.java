@@ -1,9 +1,9 @@
 package regressionsuit.pageobjectmodel;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
 
 public class JunitTestRunner extends TestBase{
     static LoginPage loginPage;
@@ -19,13 +19,13 @@ public class JunitTestRunner extends TestBase{
         customerPage=new CustomerPage(driver);
         categoryPage=new CategoryPage(driver);
         loginPage.Login("testautomation1","automation123!");
-        dashboardPage.verifyDashboardPage();
+        Assertions.assertTrue(dashboardPage.verifyDashboardPage());
     }
     @Test
     public void addCustomerTest(){
         dashboardPage.clickCustomerList();
         customerPage.addCustomer();
-        customerPage.verifyAddCustomerSuccessfully();
+        Assertions.assertTrue(customerPage.verifyAddCustomerSuccessfully());
     }
     @Test
     public void deleteCategory(){
