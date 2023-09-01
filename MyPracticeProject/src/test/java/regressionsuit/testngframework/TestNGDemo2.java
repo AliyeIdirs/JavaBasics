@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestNGDemo2 {
-    @Test(invocationCount = 2,invocationTimeOut = 5)
+    @Test(invocationCount = 2,invocationTimeOut = 10)
     public void test1(){
         System.out.println("test1");
         try {

@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CubeCart Functional Test">
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter"></listener>
+    </listeners>
+    <test name="Demo-Test1">
+        <classes>
+            <class name="regressionsuit.testngframework.TestNGDemo1"></class>
+            <class name="regressionsuit.testngframework.TestNGRunner2">
+                <methods>
+                    <include name="viewProduct" />
+                    <exclude name="addCustomer"></exclude>
+                </methods>
+            </class>
+            <class name="regressionsuit.testngframework.TestNGDemo2"></class>
+        </classes>
+    </test>
+    <test name="Demo-test2">
+        <classes>
+            <class name="regressionsuit.testngframework.TestNGRunner2"></class>
+        </classes>
+    </test>
+</suite>

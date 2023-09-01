@@ -4,6 +4,14 @@ import org.junit.Assert;
 import org.testng.annotations.*;
 
 public class TestNGDemo1 {
+    @BeforeSuite
+    public void beforeSuite(){
+        System.out.println("Before suite");
+    }
+    @BeforeTest
+    public void beforeTest(){
+        System.out.println("Before test");
+    }
     @BeforeClass
     public void setUp(){
         System.out.println("Before class...");
@@ -39,5 +47,13 @@ public class TestNGDemo1 {
     @AfterClass
     public void afterClass(){
         System.out.println("After class...");
+    }
+    @AfterTest
+    public void afterTest(){
+        System.out.println("After test");
+    }
+    @AfterSuite
+    public void afterSuite(){
+        System.out.println("After suite");
     }
 }
