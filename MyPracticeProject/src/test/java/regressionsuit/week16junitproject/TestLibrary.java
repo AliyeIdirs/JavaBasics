@@ -85,7 +85,9 @@ public class TestLibrary extends TestBase{
     }
 
     public boolean verifyProductAddedSuccessfully(){
+        functionLibrary.sleep();
         WebElement successMessage = driver.findElement(By.className("success"));
+        FunctionLibrary.waitElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
 
@@ -95,12 +97,12 @@ public class TestLibrary extends TestBase{
         WebElement deleteIcon = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]//parent::tr//following-sibling::td//a/i[@title='Delete']", productCode)));
         deleteIcon.click();
         Alert alert = driver.switchTo().alert();
-        functionLibrary.waitAlertPresent();
+        FunctionLibrary.waitAlertPresent();
         alert.accept();
     }
         public boolean verifyProductDeleteSuccessfully(){
             WebElement successMessage = driver.findElement(By.id("gui_message"));
-            functionLibrary.waitElementPresent(successMessage);
+            FunctionLibrary.waitElementPresent(successMessage);
             if(successMessage.isDisplayed()){
                 return true;
             }else{

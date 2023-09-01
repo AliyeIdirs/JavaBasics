@@ -8,7 +8,7 @@
     <parameter name="password" value="automation123!"></parameter>
     <test name="Demo-Test1">
         <classes>
-            <class name="regressionsuit.testngframework.LoginTestDemo"></class>
+            <class name="regressionsuit.testngframework.TestNGParametersDemo"></class>
         </classes>
     </test>
 </suite>

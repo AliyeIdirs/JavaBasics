@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class TestBase {
     static WebDriver driver;
+    static FunctionLibrary functionLibrary= new FunctionLibrary();
     public static void openBrowser(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options= new ChromeOptions();
@@ -28,8 +29,10 @@ public class TestBase {
         passwordField.sendKeys(password);
         WebElement loginButton = driver.findElement(By.id("login"));
         loginButton.click();
+        functionLibrary.sleep();
         try {
             WebElement dashBoard = driver.findElement(By.xpath("//*[@id=\"dashboard\"]/h3"));
+            FunctionLibrary.waitElementPresent(dashBoard);
             if (dashBoard.getText().equalsIgnoreCase("dashboard"))
                 System.out.println("Login Successful");
         }
@@ -44,6 +47,7 @@ public class TestBase {
 
     public static void logOut(){
         WebElement logOutLink=driver.findElement(By.cssSelector(".fa.fa-sign-out"));
+        FunctionLibrary.waitElementPresent(logOutLink);
         logOutLink.click();
     }
 
