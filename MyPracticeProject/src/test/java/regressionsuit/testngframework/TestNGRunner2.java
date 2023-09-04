@@ -20,7 +20,7 @@ public class TestNGRunner2 extends TestBaseForTestNG{
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     @BeforeClass
-    public void setUp(){
+    public void setUp(ITestContext iTestContext){
         openBrowser();
         loginPage=new LoginPage(driver);
         loginPage.Login(userName,password);
