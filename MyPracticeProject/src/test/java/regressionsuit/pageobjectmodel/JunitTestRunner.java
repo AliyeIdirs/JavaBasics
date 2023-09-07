@@ -18,7 +18,7 @@ public class JunitTestRunner extends TestBase{
         dashboardPage=new DashboardPage(driver);
         customerPage=new CustomerPage(driver);
         categoryPage=new CategoryPage(driver);
-        loginPage.Login("testautomation1","automation123!");
+        loginPage.login("testautomation1","automation123!");
         Assertions.assertTrue(dashboardPage.verifyDashboardPage());
     }
     @Test

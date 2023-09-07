@@ -23,7 +23,7 @@ public class TestNGRunner1 extends TestBaseForTestNG{
     public void setUp(ITestContext context){
         openBrowser();
         loginPage=new LoginPage(driver);
-        loginPage.Login(userName,password);
+        loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
         productPage=new ProductPage(driver);

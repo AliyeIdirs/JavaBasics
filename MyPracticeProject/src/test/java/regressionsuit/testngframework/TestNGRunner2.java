@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
@@ -23,7 +22,7 @@ public class TestNGRunner2 extends TestBaseForTestNG{
     public void setUp(ITestContext iTestContext){
         openBrowser();
         loginPage=new LoginPage(driver);
-        loginPage.Login(userName,password);
+        loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
         productPage=new ProductPage(driver);

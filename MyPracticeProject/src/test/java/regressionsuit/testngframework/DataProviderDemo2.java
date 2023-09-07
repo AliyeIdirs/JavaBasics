@@ -26,7 +26,7 @@ public class DataProviderDemo2 extends TestBaseForTestNG{
     }
     @Test(dataProvider = "loginData")
     public void loginTest(String username, String password){
-        loginPage.Login(username,password);
+        loginPage.login(username,password);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
     }
     @Test(dataProvider = "customerData",dependsOnMethods = "loginTest",invocationCount = 3)

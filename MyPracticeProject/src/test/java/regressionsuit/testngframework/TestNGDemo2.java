@@ -1,6 +1,7 @@
 package regressionsuit.testngframework;
 
 
+import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -25,5 +26,10 @@ public class TestNGDemo2 {
             throw new RuntimeException(e);
         }
         Assert.assertEquals(10,10);
+    }
+    @Test
+    public void anyTest(){
+        String address= Faker.instance().address().city();
+        System.out.println(address);
     }
 }

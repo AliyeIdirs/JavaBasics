@@ -19,7 +19,7 @@ public class TestNGParametersDemo {
         driver.navigate().to(url);
         driver.manage().window().maximize();
         LoginPage loginPage=new LoginPage(driver);
-        loginPage.Login(userName,password);
+        loginPage.login(userName,password);
     }
     @AfterClass
     public void closeBrowser(){

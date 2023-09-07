@@ -26,6 +26,11 @@ public class DashboardPage {
     WebElement categoriesLink;
     @FindBy(linkText = "Products")
     WebElement productsLink;
+
+    @FindBy(linkText = "Newsletters")
+    WebElement newslettersLink;
+    @FindBy(linkText = "Orders")
+    WebElement ordersLink;
     public boolean verifyDashboardPage(){
         return dashBoardText.isDisplayed();
     }
@@ -41,6 +46,15 @@ public class DashboardPage {
     public void clickOnProductsLink(){
         functionLibrary.waitForElementPresent(productsLink);
         productsLink.click();
+    }
+    public void clickOnNewsletters(){
+        functionLibrary.waitForElementPresent(newslettersLink);
+        newslettersLink.click();
+    }
+
+    public void clickOnOrders(){
+        functionLibrary.waitForElementPresent(ordersLink);
+        ordersLink.click();
     }
     public void clickLogOut(){
         logoutLink.click();

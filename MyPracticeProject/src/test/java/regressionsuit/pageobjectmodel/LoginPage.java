@@ -30,7 +30,7 @@ public class LoginPage {
     public void clickLoginButton(){
         loginButton.click();
     }
-    public void Login(String userName,String password){
+    public void login(String userName, String password){
         enterUerName(userName);
         enterPassword(password);
         clickLoginButton();
