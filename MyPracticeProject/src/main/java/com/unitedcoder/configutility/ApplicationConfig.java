@@ -15,7 +15,6 @@ public class ApplicationConfig {
             throw new RuntimeException(e);
         }
         value=properties.getProperty(key);
-        System.out.printf("%s=%s%n",key,value);
         return value;
     }
 }

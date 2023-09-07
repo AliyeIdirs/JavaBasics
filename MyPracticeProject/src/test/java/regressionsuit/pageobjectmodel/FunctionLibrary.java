@@ -1,20 +1,13 @@
 package regressionsuit.pageobjectmodel;
 
 import com.github.javafaker.Faker;
-import com.unitedcoder.configutility.ApplicationConfig;
-import org.apache.commons.io.FileUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.time.Duration;
 
 public class FunctionLibrary {
