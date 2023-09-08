@@ -29,7 +29,7 @@ public class TestNGDemo2 {
     }
     @Test
     public void anyTest(){
-        String address= Faker.instance().address().city();
+        String address= Faker.instance().phoneNumber().cellPhone();
         System.out.println(address);
     }
 }

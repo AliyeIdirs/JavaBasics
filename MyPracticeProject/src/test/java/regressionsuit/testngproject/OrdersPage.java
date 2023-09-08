@@ -1,10 +1,15 @@
 package regressionsuit.testngproject;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import regressionsuit.pageobjectmodel.FunctionLibrary;
 
 import java.util.List;
@@ -12,8 +17,9 @@ import java.util.List;
 public class OrdersPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    public String customerName;
     String customerEmail;
+    String productName;
+    public String orderNumber;
 
     public OrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -30,8 +36,6 @@ public class OrdersPage {
     WebElement billingLink;
     @FindBy(id = "sum_name")
     WebElement findCustomerField;
-    @FindBy(xpath = "//span/em[text()='Eric']/following-sibling::div[text()='1251692950180829@gmail.com']")
-    WebElement targetCustomer;
     @FindBy(xpath = "//*[@class='address-list textbox' and @rel='sum']")
     WebElement addressDropDown;
     @FindBy(linkText = "Delivery")
@@ -56,10 +60,8 @@ public class OrdersPage {
     WebElement quantityField;
     @FindBy(id = "ajax_name")
     WebElement productNameField;
-    @FindBy(xpath = "//span/em[text()='Coff']/following-sibling::div[contains(text(),'80')]")
-    WebElement targetProduct;
     @FindBy(xpath = "//a[@target='inventory-list']")
-    WebElement ProductPlusSign;
+    WebElement productPlusSign;
     @FindBy(id = "discount_type")
     WebElement discountDropDown;
     @FindBy(id = "discount")
@@ -72,6 +74,8 @@ public class OrdersPage {
     WebElement taxInputField;
     @FindBy(id = "total_tax")
     WebElement totalTaxField;
+    @FindBy(id = "subtotal")
+    WebElement subTotalField;
     @FindBy(id = "total")
     WebElement totalField;
     @FindBy(xpath = "//a[@target='tax-list']")
@@ -91,4 +95,94 @@ public class OrdersPage {
     )
     List<WebElement> verifyMessage;
 
+    @FindBy(linkText = "Search Orders")
+    WebElement searchOrderLink;
+    @FindBy(name = "search[order_number]")
+    WebElement orderNumberField;
+    @FindBy(xpath = "//input[@value='Search']")
+    WebElement searchButton;
+    @FindAll(
+            @FindBy(css = ".success")
+    )
+    List<WebElement> searchSuccessMessage;
+    public void createOrder(String orderStatus,String customerEmail,String dispatchDate,String shippingMethod,String shippingDate,
+                           List<String> trackingInfo,double weight,int quantity,String productName,String discountType,
+                            double discountAmount,double shippingCost,double taxAmount,String internalNotes,String publicNotes) {
+        createOrderLink.click();
+        functionLibrary.waitForElementPresent(orderStatusField);
+        Select selectStatus = new Select(orderStatusField);
+        selectStatus.selectByVisibleText(orderStatus);
+        functionLibrary.waitForElementPresent(billingLink);
+        billingLink.click();
+        findCustomerField.sendKeys(customerEmail);
+        functionLibrary.sleep();
+        WebElement targetCustomer = driver.findElement(By.xpath(String.format("//div[text()='%s']", customerEmail)));
+        functionLibrary.waitForElementPresent(targetCustomer);
+        targetCustomer.click();
+        Select selectAddress = new Select(addressDropDown);
+        selectAddress.selectByIndex(1);
+        deliveryLink.click();
+        copyFromBillingAddress.click();
+        Select selectDeliveryAddress = new Select(deliveryPageAddressField);
+        selectDeliveryAddress.selectByIndex(1);
+        dispatchDateField.sendKeys(dispatchDate);
+        shippingMethodField.sendKeys(shippingMethod);
+        shippingProductField.sendKeys(shippingDate);
+        deliveryTrackingField.sendKeys(trackingInfo.toString());
+        weightField.sendKeys(String.valueOf(weight));
+        functionLibrary.waitForElementPresent(inventoryLink);
+        inventoryLink.click();
+        functionLibrary.waitForElementPresent(quantityField);
+        quantityField.sendKeys(String.valueOf(quantity));
+        productNameField.sendKeys(productName);
+        functionLibrary.sleep();
+        driver.findElement(By.xpath(String.format("//span/em[text()='%s']", productName))).click();
+        productPlusSign.click();
+        Select selectDiscountType = new Select(discountDropDown);
+        selectDiscountType.selectByVisibleText(discountType);
+        discountInputField.sendKeys(String.valueOf(discountAmount));
+        shippingField.sendKeys(String.valueOf(shippingCost));
+        taxInputField.sendKeys(String.valueOf(taxAmount));
+        taxPlusSign.click();
+        switch (discountDropDown.getText()) {
+            case "Fixed Price Discount":
+                if (((Double.parseDouble(subTotalField.getText()) - discountAmount + shippingCost + taxAmount == Double.parseDouble(totalField.getText())))) {
+                    notesLink.click();
+                } else {
+                    System.out.println("Total mismatch, please check amount");
+                    break;
+                }
+            case "Percentage Discount":
+                if (((Double.parseDouble(subTotalField.getText()) - (Double.parseDouble(subTotalField.getText()) * (discountAmount / 100)) + shippingCost + taxAmount == Double.parseDouble(totalField.getText())))) {
+                    notesLink.click();
+                } else {
+                    System.out.println("Total mismatch, please check amount");
+                    break;
+                }
+        }
+        internalNotesField.sendKeys(internalNotes);
+        publicNotesField.sendKeys(publicNotes);
+        saveButton.click();
+        DateTime now=new DateTime();
+        DateTimeFormatter formatter= DateTimeFormat.forPattern("hh:mm");
+        String orderCreateDate=now.toString(formatter);
+        System.out.println(orderCreateDate);
+        WebElement orderNumberField=driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]/ancestor::tr/td[2]",orderCreateDate)));
+        orderNumber=orderNumberField.getText();
+        System.out.println(orderNumber);
+    }
+
+    public boolean verifyCreateOrderSuccessful(){
+        return verifyMessage.size()>=1;
+    }
+
+    public void searchOrder(String orderNumber){
+        searchOrderLink.click();
+        functionLibrary.waitForElementPresent(orderNumberField);
+        orderNumberField.sendKeys(orderNumber);
+        searchButton.click();
+    }
+    public boolean verifySearchOrder(){
+        return searchSuccessMessage.size()>=1;
+    }
 }

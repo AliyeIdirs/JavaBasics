@@ -19,8 +19,8 @@ public class TestData {
     String lastName=faker.name().lastName();
     String customerNotes=faker.friends().quote();
     String email=faker.internet().emailAddress();
-    String phone=String.valueOf(faker.phoneNumber());
-    String cellPhone=String.valueOf(faker.phoneNumber());
+    String phone=String.valueOf(faker.phoneNumber().phoneNumber());
+    String cellPhone=String.valueOf(faker.phoneNumber().cellPhone());
     String password=faker.internet().password();
     String confirmPassword=password;
     public String addressDescription(){
