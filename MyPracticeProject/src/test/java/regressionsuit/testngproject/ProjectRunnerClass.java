@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
+import regressionsuit.pageobjectmodel.ProductPage;
 
 public class ProjectRunnerClass extends TestBaseForTestNG{
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
@@ -17,6 +18,7 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
+    ProductPage productPage;
 
     @BeforeClass
     public void setUp(){
@@ -27,6 +29,7 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
         dashboardPage.verifyDashboardPage();
         customerPage=new CustomerPage(driver);
         testData=new TestData();
+        productPage=new ProductPage(driver);
     }
 
     @Test(dataProvider = "customersData")
@@ -37,6 +40,21 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
         customerPage.addCustomer(title,firstName,lastName,customerNotes,email,phone,cellPhone,password,confirmPassword,
                 addressDescription,companyName,address,city,country,state,zipCode,customerGroup);
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
+    }
+    @Test
+    public void addProductTest(String productName,String manufacturer,String condition,String productCode,String productWeight,
+                               String dimensionUnit,String productWidth,String productHeight,String productDepth,
+                               String liveDate,int stockLevel, int stockLevelWarning,String upcCode,String eanCode,
+                               String janCode,String isbnCode,String gtinCode,String mpnCode,String googleCategory,
+                               String description, String shortDescription,double retailPrice,double salePrice,
+                               String costPrice,String taxType,int minQuantity, int maxQuantity,int bulkQuantity, double bulkPrice,
+                               String categories,String metaTitle,String seoPath,String metaDescription){
+        dashboardPage.clickOnProductsLink();
+        productPage.addProduct(productName,manufacturer,condition,productCode,productWeight,dimensionUnit,productWidth,
+                productHeight,productDepth,liveDate,stockLevel,stockLevelWarning,upcCode,eanCode,janCode,isbnCode,
+                gtinCode,mpnCode,googleCategory,description,shortDescription,retailPrice,salePrice,costPrice,taxType,minQuantity,
+                maxQuantity,bulkQuantity,bulkPrice,categories,metaTitle,seoPath,metaDescription);
+        Assert.assertTrue(productPage.verifyProductAddedSuccessfully());
     }
     @AfterClass
     public void tearDown(){
@@ -50,6 +68,12 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
                 testData.phone,testData.cellPhone,testData.password,testData.confirmPassword,testData.addressDescription(),
                 testData.companyName,testData.address,testData.city,testData.country,testData.state,testData.zipCode,
                 testData.customerGroup}
+        };
+        return data;
+    }
+    @DataProvider
+    public Object[][] productData(){
+        Object[][] data=new Object[][]{
         };
         return data;
     }

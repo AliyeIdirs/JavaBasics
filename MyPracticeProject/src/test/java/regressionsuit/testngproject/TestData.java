@@ -56,5 +56,11 @@ public class TestData {
             return value;
         }
     }
-
+    String productName=faker.commerce().productName();
+    String manufacturer(){
+        List<String> manufacturers=new ArrayList<>(Arrays.asList("Amazon Essentials","Apple","Crayola","HP","manufacturer1"));
+        Random randomOption=new Random();
+        String result=manufacturers.get(randomOption.nextInt(manufacturers.size()));
+        return result;
+    }
 }
