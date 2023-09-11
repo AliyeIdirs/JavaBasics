@@ -1,15 +1,17 @@
 package regressionsuit.pageobjectmodel;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import regressionsuit.testngproject.DataBase;
+import regressionsuit.cubecartobjects.ProductObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ProductPage {
     WebDriver driver;
@@ -101,7 +103,7 @@ public class ProductPage {
     @FindBy(css ="input[value='Save']")
     WebElement saveButton;
     @FindAll(
-            @FindBy(className = "\"success\"")
+            @FindBy(className = "success")
     )
     List<WebElement> successMessage;
     @FindAll(
@@ -114,41 +116,118 @@ public class ProductPage {
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
     }
+    public void selectProductCondition(){
+        Select select=new Select(conditionDropDown);
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.condition.NEW.getValue(),
+                DataBase.condition.DAMAGED.getValue(), DataBase.condition.USED.getValue(), DataBase.condition.REFURBISHED.getValue()));
+        Random random=new Random();
+        String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
+        select.selectByVisibleText(toBeSelected);
+    }
+    public void selectDimensionUnit(){
+        Select selectDimensionUnit = new Select(dimensionDropDown);
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.dimensionUnit.CENTIMETERS.getValue(),
+                DataBase.dimensionUnit.INCHES.getValue()));
+        Random random=new Random();
+        String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
+        selectDimensionUnit.selectByVisibleText(toBeSelected);
+    }
+
+    public void selectTaxType(){
+        Select select=new Select(taxDropDown);
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.taxType.STANDART_TAX.getValue(),
+                DataBase.taxType.REDUCED_RATE.getValue(), DataBase.taxType.TAX_EXEMPT.getValue()));
+        Random random=new Random();
+        String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
+        select.selectByVisibleText(toBeSelected);
+    }
 
     public boolean viewProductList() {
         return productList.size() >= 1;
     }
+    public void addProduct(ProductObject productObject) {
+        addProductLink.click();
+        productNameField.sendKeys(productObject.getProductName());
+        Select selectManufacturer = new Select(manufacturerDropDown);
+        selectManufacturer.selectByVisibleText(productObject.getManufacturer());
+        selectProductCondition();
+        productCodeField.sendKeys(productObject.getProductCode());
+        productWeightField.sendKeys(String.valueOf(productObject.getWeight()));
+        selectDimensionUnit();
+        productWidthField.sendKeys(String.valueOf(productObject.getWidth()));
+        productHeightField.sendKeys(String.valueOf(productObject.getHeight()));
+        productDepthField.sendKeys(String.valueOf(productObject.getDepth()));
+        liveDateField.sendKeys(productObject.getLiveDate());
+        stockLevelField.sendKeys(String.valueOf(productObject.getStockLevel()));
+        stockLevelWarningField.sendKeys(String.valueOf(productObject.getStockLevelWarning()));
+        upcCodeField.sendKeys(productObject.getUpcCode());
+        eanCodeField.sendKeys(productObject.getEanCode());
+        janCodeField.sendKeys(productObject.getJanCode());
+        isbnCodeField.sendKeys(productObject.getIsbnCode());
+        gtinCodeField.sendKeys(productObject.getGtinCode());
+        mpnCodeField.sendKeys(productObject.getMpnCode());
+        functionLibrary.waitForElementPresent(googleCategoryDropdown);
+        googleCategoryDropdown.click();
+        googleCategoryInputField.sendKeys(productObject.getGoogleCategory());
+        descriptionLink.click();
+        driver.switchTo().frame(iframeOfDescription);
+        functionLibrary.sleep();
+        descriptionInputField.sendKeys(productObject.getDescription());
+        driver.switchTo().defaultContent();
+        functionLibrary.sleep();
+        driver.switchTo().frame(iframeOfShortDescription);
+        functionLibrary.waitForElementPresent(shortDescriptionInputField);
+        shortDescriptionInputField.sendKeys(productObject.getShortDescription());
+        functionLibrary.sleep();
+        driver.switchTo().defaultContent();
+        pricingLink.click();
+        retailPriceField.sendKeys(String.valueOf(productObject.getRetailPrice()));
+        salePriceField.sendKeys(String.valueOf(productObject.getSalePrice()));
+        costPriceField.sendKeys(String.valueOf(productObject.getCostPrice()));
+        selectTaxType();
+        taxIncludeCheckBox.click();
+        minimumQuantityField.sendKeys(String.valueOf(productObject.getMinQuantity()));
+        maximumQuantityField.sendKeys(String.valueOf(productObject.getMaxQuantity()));
+        bulkQuantityField.sendKeys(String.valueOf(productObject.getBulkQuantity()));
+        bulkPriceField.sendKeys(String.valueOf(productObject.getBulkPrice()));
+        plusSign.click();
+        functionLibrary.sleep();
+        categoriesLink.click();
+        functionLibrary.sleep();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement checkbox = driver.findElement(By.xpath(String.format("//td[text()='%s']/preceding-sibling::td/div[@class='custom-checkbox']", productObject.getCategory())));
+        js.executeScript("arguments[0].scrollIntoView(true)", checkbox);
+        functionLibrary.waitForElementPresent(checkbox);
+        checkbox.click();
+        WebElement radioButton = driver.findElement(By.xpath(String.format("//td[text()='%s']/preceding-sibling::td/input[@type='radio']", productObject.getCategory())));
+        //js.executeScript("arguments[0].scrollIntoView(true)",radioButton);
+        functionLibrary.waitForElementPresent(radioButton);
+        radioButton.click();
 
-    public void addProduct(String productName,String manufacturer,String condition,String productCode,String productWeight,
-                           String dimensionUnit,String productWidth,String productHeight,String productDepth,
+        functionLibrary.sleep();
+        searchEnginesLink.click();
+        metaTitleField.sendKeys(productObject.getMetaTitle());
+        seoURLPathField.sendKeys(productObject.getSeoPath());
+        metaDescriptionField.sendKeys(productObject.getMetaDescription());
+        saveButton.click();
+        System.out.println("Product name is: " + productObject.getProductName());
+    }
+
+    public void addProduct(String productName,String manufacturer,String productCode,String productWeight,
+                         String productWidth,String productHeight,String productDepth,
                            String liveDate,int stockLevel, int stockLevelWarning,String upcCode,String eanCode,
                            String janCode,String isbnCode,String gtinCode,String mpnCode,String googleCategory,
                            String description, String shortDescription,double retailPrice,double salePrice,
-                           String costPrice,String taxType,int minQuantity, int maxQuantity,int bulkQuantity, double bulkPrice,
-                           String categories,String metaTitle,String seoPath,String metaDescription) {
+                           double costPrice,int minQuantity, int maxQuantity,int bulkQuantity, double bulkPrice,
+                           String category,String metaTitle,String seoPath,String metaDescription) {
         addProductLink.click();
         productNameField.sendKeys(productName);
         Select selectManufacturer = new Select(manufacturerDropDown);
         selectManufacturer.selectByVisibleText(manufacturer);
-        Select selectCondition = new Select(conditionDropDown);
-        List<WebElement> conditions = selectCondition.getOptions();
-        for (WebElement element : conditions) {
-            String conditionText = element.getText();
-            if (conditionText.equalsIgnoreCase(condition)) {
-                element.click();
-            }
-        }
+        selectProductCondition();
         productCodeField.sendKeys(productCode);
         productWeightField.sendKeys(productWeight);
-        Select selectDimensionUnit = new Select(dimensionDropDown);
-        List<WebElement> dimensions = selectDimensionUnit.getOptions();
-        for (WebElement dimension : dimensions) {
-            String dimensionText = dimension.getText();
-            if (dimensionText.contains(dimensionUnit)) {
-                dimension.click();
-                break;
-            }
-        }
+        selectDimensionUnit();
         productWidthField.sendKeys(productWidth);
         productHeightField.sendKeys(productHeight);
         productDepthField.sendKeys(productDepth);
@@ -173,12 +252,12 @@ public class ProductPage {
         functionLibrary.waitForElementPresent(shortDescriptionInputField);
         shortDescriptionInputField.sendKeys(shortDescription);
         functionLibrary.sleep();
+        driver.switchTo().defaultContent();
         pricingLink.click();
         retailPriceField.sendKeys(String.valueOf(retailPrice));
         salePriceField.sendKeys(String.valueOf(salePrice));
         costPriceField.sendKeys(String.valueOf(costPrice));
-        Select selectTax=new Select(taxDropDown);
-        selectTax.selectByVisibleText(taxType);
+        selectTaxType();
         taxIncludeCheckBox.click();
         minimumQuantityField.sendKeys(String.valueOf(minQuantity));
         maximumQuantityField.sendKeys(String.valueOf(maxQuantity));
@@ -188,19 +267,25 @@ public class ProductPage {
         functionLibrary.sleep();
         categoriesLink.click();
         functionLibrary.sleep();
-        WebElement radioButton=driver.findElement(By.xpath(String.format("(//td[text()='%s']/preceding-sibling::td/input[@type='radio'])[1]",categories)));
-        radioButton.click();
-        WebElement checkbox=driver.findElement(By.xpath(String.format("(//td[text()='%s']/preceding-sibling::td/*[@class='custom-checkbox'])[1]",categories)));
+        JavascriptExecutor js=(JavascriptExecutor)driver;
+        WebElement checkbox=driver.findElement(By.xpath(String.format("//td[text()='%s']/preceding-sibling::td/div[@class='custom-checkbox']",category)));
+        js.executeScript("arguments[0].scrollIntoView(true)",checkbox);
+        functionLibrary.waitForElementPresent(checkbox);
         checkbox.click();
+        WebElement radioButton=driver.findElement(By.xpath(String.format("//td[text()='%s']/preceding-sibling::td/input[@type='radio']",category)));
+        //js.executeScript("arguments[0].scrollIntoView(true)",radioButton);
+        functionLibrary.waitForElementPresent(radioButton);
+        radioButton.click();
+
         functionLibrary.sleep();
         searchEnginesLink.click();
         metaTitleField.sendKeys(metaTitle);
         seoURLPathField.sendKeys(seoPath);
         metaDescriptionField.sendKeys(metaDescription);
         saveButton.click();
+        System.out.println("Product name is: "+productName);
     }
     public boolean verifyProductAddedSuccessfully() {
-        functionLibrary.sleep();
         return successMessage.size()>=1;
     }
 }

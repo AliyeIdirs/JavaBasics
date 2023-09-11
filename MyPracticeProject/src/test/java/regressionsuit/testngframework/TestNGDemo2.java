@@ -2,6 +2,10 @@ package regressionsuit.testngframework;
 
 
 import com.github.javafaker.Faker;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -29,7 +33,10 @@ public class TestNGDemo2 {
     }
     @Test
     public void anyTest(){
-        String address= Faker.instance().phoneNumber().cellPhone();
-        System.out.println(address);
+        DateTime now=new DateTime();
+        DateTimeFormatter formatter= DateTimeFormat.forPattern("HH:mm");
+        DateTimeZone utcTimeZone= DateTimeZone.forID("UTC");
+        DateTime utcTime=new DateTime(now.withZone(utcTimeZone));
+        System.out.println(utcTime.toString(formatter));
     }
 }

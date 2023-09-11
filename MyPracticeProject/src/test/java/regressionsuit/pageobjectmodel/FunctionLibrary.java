@@ -19,7 +19,14 @@ public class FunctionLibrary {
 
     public void sleep(){
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void sleep(int second){
+        try {
+            Thread.sleep(second*1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

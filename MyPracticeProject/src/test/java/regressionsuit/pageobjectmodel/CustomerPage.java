@@ -1,18 +1,17 @@
 package regressionsuit.pageobjectmodel;
 
-import com.unitedcoder.homework.week11cubecartproject.CustomerObject;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import regressionsuit.testngproject.TestData;
+import regressionsuit.cubecartobjects.CustomerGroupObject;
+import regressionsuit.cubecartobjects.CustomerObject;
+import regressionsuit.testngproject.DataBase;
 
-import java.util.InputMismatchException;
-import java.util.List;
+import java.util.*;
 
 public class CustomerPage {
     WebDriver driver;
@@ -91,6 +90,45 @@ public class CustomerPage {
     @FindAll(
             @FindBy(css="div.success"))
     List<WebElement> successMessage;
+    @FindBy(id = "group_add_name")
+    WebElement groupNameField;
+    @FindBy(id = "group_add_description")
+    WebElement groupDescriptionField;
+    @FindBy(name = "save")
+    WebElement groupSaveButton;
+    @FindBy(xpath = "//div[contains(text(),'group added.')]")
+    WebElement groupSuccessMessage;
+
+    public void addCustomerGroup(CustomerGroupObject customerGroupObject){
+        customerGroupsLink.click();
+        functionLibrary.waitForElementPresent(groupNameField);
+        groupNameField.sendKeys(customerGroupObject.getGroupName());
+        functionLibrary.waitForElementPresent(groupDescriptionField);
+        groupDescriptionField.sendKeys(customerGroupObject.getGroupDescription());
+        functionLibrary.waitForElementPresent(groupSaveButton);
+        groupSaveButton.click();
+        System.out.println("Customer Group Name: "+customerGroupObject.getGroupName());
+    }
+    public boolean verifyCustomerGroupAdded(){
+        functionLibrary.waitForElementPresent(groupSuccessMessage);
+        return groupSuccessMessage.isDisplayed();
+    }
+    public void selectCustomerType(){
+        Select select=new Select(customerTypeDropDown);
+        List<String> options=new ArrayList<>(Arrays.asList(DataBase.customerType.REGISTERED_CUSTOMER.getValue(),
+                DataBase.customerType.UNREGISTERED_CUSTOMER.getValue()));
+        Random random=new Random();
+        String toBeSelected=options.get(random.nextInt(options.size()));
+        select.selectByVisibleText(toBeSelected);
+    }
+    public void selectSubscriptionStatus(){
+        Select select=new Select(subscriptionDropDown);
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.subscriptionStatus.NO.getValue(),
+                DataBase.subscriptionStatus.YES1.getValue(), DataBase.subscriptionStatus.YES2.getValue()));
+        Random random=new Random();
+        String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
+        select.selectByVisibleText(toBeSelected);
+    }
     public void addCustomer(){
         functionLibrary.waitForElementPresent(addCustomerLink);
         addCustomerLink.click();
@@ -109,8 +147,73 @@ public class CustomerPage {
         emailField.sendKeys(email);
         saveButton.click();
     }
-
-    public void addCustomer(String title, String firstName, String lastName, String customerNotes, String email, String phone, String cellPhone,
+    public void addCustomer(CustomerObject customerObject) {
+        functionLibrary.waitForElementPresent(addCustomerLink);
+        addCustomerLink.click();
+        functionLibrary.waitForElementPresent(statusField);
+        statusField.click();
+        customerTitleField.sendKeys(customerObject.getTitle());
+        firstNameField.sendKeys(customerObject.getFirstName());
+        lastNameField.sendKeys(customerObject.getLastName());
+        selectCustomerType();
+        customerNotesField.sendKeys(customerObject.getCustomerNotes());
+        emailField.sendKeys(customerObject.getEmail());
+        phoneNumberField.sendKeys(customerObject.getPhone());
+        cellphoneNumberField.sendKeys(customerObject.getCellPhone());
+        Select selectSubscription = new Select(subscriptionDropDown);
+        selectSubscription.selectByVisibleText(DataBase.subscriptionStatus.YES1.getValue());
+        try {
+            passwordField.sendKeys(customerObject.getPassword());
+            confirmPasswordField.sendKeys(customerObject.getConfirmPassword());
+            if (!customerObject.getPassword().equalsIgnoreCase(customerObject.getConfirmPassword())) {
+                throw new InputMismatchException();
+            }
+        } catch (InputMismatchException i) {
+            System.out.println("password unmatched, please enter same passwords");
+        } finally {
+            addressLink.click();
+        }
+        addAddressLink.click();
+        functionLibrary.waitForElementPresent(descriptionField);
+        descriptionField.sendKeys(customerObject.getAddressDescription());
+        addressTitleField.sendKeys(customerObject.getTitle());
+        addressFirstNameField.sendKeys(customerObject.getFirstName());
+        addressLastNameField.sendKeys(customerObject.getLastName());
+        companyNameField.sendKeys(customerObject.getCompanyName());
+        functionLibrary.sleep();
+        if (customerObject.getAddress().length() > 35) {
+            addressLine1.sendKeys(StringUtils.substring(customerObject.getAddress(), 0, 35));
+            addressLine2.sendKeys(StringUtils.substring(customerObject.getAddress(), 35));
+        } else {
+            addressLine1.sendKeys(customerObject.getAddress());
+        }
+        townField.sendKeys(customerObject.getCity());
+        Select selectCountry = new Select(countryField);
+        selectCountry.selectByVisibleText(customerObject.getCountry());
+        functionLibrary.sleep();
+        if (stateField.getText().equalsIgnoreCase("-- None --")) {
+            Select select = new Select(stateField);
+            select.selectByIndex(1);
+        } else {
+            stateField.sendKeys(customerObject.getState());
+        }
+        zipCodeField.sendKeys(customerObject.getZipCode());
+        if (!billingAddressCheckBox.isEnabled()) {
+            billingAddressCheckBox.click();
+        }
+        if (!deliveryAddressCheckBox.isEnabled()) {
+            deliveryAddressCheckBox.click();
+        }
+        addButton.click();
+        functionLibrary.waitForElementPresent(customerGroupsLink);
+        customerGroupsLink.click();
+        functionLibrary.waitForElementPresent(customerGroupSelectField);
+        Select selectCustomerGroup = new Select(customerGroupSelectField);
+        selectCustomerGroup.selectByVisibleText(customerObject.getCustomerGroup());
+        saveButton.click();
+        System.out.println("Customer Name: " + customerObject.getFirstName());
+    }
+        public void addCustomer(String title, String firstName, String lastName, String customerNotes, String email, String phone, String cellPhone,
                             String password, String confirmPassword, String addressDescription, String companyName, String address, String city,
                             String country, String state, String zipCode, String customerGroup){
         functionLibrary.waitForElementPresent(addCustomerLink);
@@ -120,14 +223,13 @@ public class CustomerPage {
         customerTitleField.sendKeys(title);
         firstNameField.sendKeys(firstName);
         lastNameField.sendKeys(lastName);
-        Select selectType = new Select(customerTypeDropDown);
-        selectType.selectByVisibleText(TestData.customerType.REGISTERED_CUSTOMER.getValue());
+        selectCustomerType();
         customerNotesField.sendKeys(customerNotes);
         emailField.sendKeys(email);
         phoneNumberField.sendKeys(phone);
         cellphoneNumberField.sendKeys(cellPhone);
         Select selectSubscription=new Select(subscriptionDropDown);
-        selectSubscription.selectByVisibleText(TestData.subscriptionStatus.YES1.getValue());
+        selectSubscription.selectByVisibleText(DataBase.subscriptionStatus.YES1.getValue());
         try {
             passwordField.sendKeys(password);
             confirmPasswordField.sendKeys(confirmPassword);
@@ -177,6 +279,8 @@ public class CustomerPage {
         Select selectCustomerGroup = new Select(customerGroupSelectField);
         selectCustomerGroup.selectByVisibleText(customerGroup);
         saveButton.click();
+        System.out.println("Customer Name: "+firstName);
+
     }
     public boolean verifyAddCustomerSuccessfully(){
         return successMessage.size()>=1;

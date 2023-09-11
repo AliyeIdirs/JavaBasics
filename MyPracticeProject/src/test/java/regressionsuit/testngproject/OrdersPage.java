@@ -1,30 +1,35 @@
 package regressionsuit.testngproject;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import regressionsuit.pageobjectmodel.FunctionLibrary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class OrdersPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    String customerEmail;
-    String productName;
     public String orderNumber;
+    Actions actions;
 
     public OrdersPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         functionLibrary=new FunctionLibrary(driver);
+        actions=new Actions(driver);
     }
     @FindBy(linkText = "Create Order")
     WebElement createOrderLink;
@@ -46,6 +51,8 @@ public class OrdersPage {
     WebElement copyFromBillingAddress;
     @FindBy(id = "sum_ship_date")
     WebElement dispatchDateField;
+    @FindBy(id = "ui-datepicker-div")
+    WebElement calendar;
     @FindBy(id = "sum_ship_method")
     WebElement shippingMethodField;
     @FindBy(id = "sum_ship_product")
@@ -105,27 +112,74 @@ public class OrdersPage {
             @FindBy(css = ".success")
     )
     List<WebElement> searchSuccessMessage;
-    public void createOrder(String orderStatus,String customerEmail,String dispatchDate,String shippingMethod,String shippingDate,
-                           List<String> trackingInfo,double weight,int quantity,String productName,String discountType,
-                            double discountAmount,double shippingCost,double taxAmount,String internalNotes,String publicNotes) {
-        createOrderLink.click();
+    public void selectOrderStatus(){
         functionLibrary.waitForElementPresent(orderStatusField);
         Select selectStatus = new Select(orderStatusField);
-        selectStatus.selectByVisibleText(orderStatus);
+        List<String> options=new ArrayList<>(Arrays.asList(DataBase.orderStatus.ORDER_COMPLETE.getValue(),
+                DataBase.orderStatus.PROCESSING.getValue(),DataBase.orderStatus.DECLINED.getValue(),
+                DataBase.orderStatus.PENDING.getValue(),DataBase.orderStatus.CANCELLED.getValue(),
+                DataBase.orderStatus.FAILED_FRAUD_REVIEW.getValue()));
+        Random random=new Random();
+        String tobeSelected=options.get(random.nextInt(options.size()));
+        selectStatus.selectByVisibleText(tobeSelected);
+    }
+    public void selectDiscountType(){
+        functionLibrary.waitForElementPresent(discountDropDown);
+        Select select = new Select(discountDropDown);
+        List<String> options=new ArrayList<>(Arrays.asList(DataBase.discountType.FIXED_PRICE_DISCOUNT.getValue(),
+                DataBase.discountType.PERCENTAGE_DISCOUNT.getValue()));
+        Random random=new Random();
+        String tobeSelected=options.get(random.nextInt(options.size()));
+        select.selectByVisibleText(tobeSelected);
+    }
+    public void enterDispatchDate(int year,int month, int day){
+        functionLibrary.waitForElementPresent(dispatchDateField);
+        dispatchDateField.click();
+        while(true){
+            WebElement yearField=driver.findElement(By.className("ui-datepicker-year"));
+            String currentYear=yearField.getText();
+            if(Integer.parseInt(currentYear)<year) {
+                WebElement nextButton = driver.findElement(By.cssSelector(".ui-icon.ui-icon-circle-triangle-e"));
+                nextButton.click();
+            }else if(Integer.parseInt(currentYear)>year){
+                WebElement prevButton=driver.findElement(By.cssSelector(".ui-icon.ui-icon-circle-triangle-w"));
+                prevButton.click();
+            }else{
+                break;
+            }
+        }
+        functionLibrary.sleep();
+        WebElement monthField=driver.findElement(By.className("ui-datepicker-month"));
+        Select selectMonth=new Select(monthField);
+        selectMonth.selectByValue(String.valueOf(month-1));
+        WebElement dayField=driver.findElement(By.xpath(String.format("//a[text()='%s']",(day))));
+        dayField.click();
+    }
+    public void createOrder(String customerEmail,String dispatchDate,String shippingMethod,String shippingDate,
+                           List<String> trackingInfo,double weight,int quantity,String productName,
+                            double discountAmount,double shippingCost,double taxAmount,String internalNotes,String publicNotes) {
+        createOrderLink.click();
+        selectOrderStatus();
         functionLibrary.waitForElementPresent(billingLink);
         billingLink.click();
         findCustomerField.sendKeys(customerEmail);
-        functionLibrary.sleep();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         WebElement targetCustomer = driver.findElement(By.xpath(String.format("//div[text()='%s']", customerEmail)));
         functionLibrary.waitForElementPresent(targetCustomer);
-        targetCustomer.click();
+        actions.moveToElement(targetCustomer).click().build().perform();
+        functionLibrary.waitForElementPresent(addressDropDown);
         Select selectAddress = new Select(addressDropDown);
         selectAddress.selectByIndex(1);
         deliveryLink.click();
         copyFromBillingAddress.click();
         Select selectDeliveryAddress = new Select(deliveryPageAddressField);
         selectDeliveryAddress.selectByIndex(1);
-        dispatchDateField.sendKeys(dispatchDate);
+        String dispatchDateValue[]=dispatchDate.split("-");
+        enterDispatchDate(Integer.parseInt(dispatchDateValue[0]),Integer.parseInt(dispatchDateValue[1]),Integer.parseInt(dispatchDateValue[2]));
         shippingMethodField.sendKeys(shippingMethod);
         shippingProductField.sendKeys(shippingDate);
         deliveryTrackingField.sendKeys(trackingInfo.toString());
@@ -138,49 +192,35 @@ public class OrdersPage {
         functionLibrary.sleep();
         driver.findElement(By.xpath(String.format("//span/em[text()='%s']", productName))).click();
         productPlusSign.click();
-        Select selectDiscountType = new Select(discountDropDown);
-        selectDiscountType.selectByVisibleText(discountType);
+        selectDiscountType();
         discountInputField.sendKeys(String.valueOf(discountAmount));
         shippingField.sendKeys(String.valueOf(shippingCost));
         taxInputField.sendKeys(String.valueOf(taxAmount));
         taxPlusSign.click();
-        switch (discountDropDown.getText()) {
-            case "Fixed Price Discount":
-                if (((Double.parseDouble(subTotalField.getText()) - discountAmount + shippingCost + taxAmount == Double.parseDouble(totalField.getText())))) {
-                    notesLink.click();
-                } else {
-                    System.out.println("Total mismatch, please check amount");
-                    break;
-                }
-            case "Percentage Discount":
-                if (((Double.parseDouble(subTotalField.getText()) - (Double.parseDouble(subTotalField.getText()) * (discountAmount / 100)) + shippingCost + taxAmount == Double.parseDouble(totalField.getText())))) {
-                    notesLink.click();
-                } else {
-                    System.out.println("Total mismatch, please check amount");
-                    break;
-                }
-        }
+        notesLink.click();
         internalNotesField.sendKeys(internalNotes);
         publicNotesField.sendKeys(publicNotes);
         saveButton.click();
         DateTime now=new DateTime();
-        DateTimeFormatter formatter= DateTimeFormat.forPattern("hh:mm");
-        String orderCreateDate=now.toString(formatter);
-        System.out.println(orderCreateDate);
-        WebElement orderNumberField=driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]/ancestor::tr/td[2]",orderCreateDate)));
+        DateTimeFormatter formatter= DateTimeFormat.forPattern("HH:m");
+        DateTimeZone utcTimeZone= DateTimeZone.forID("UTC");
+        DateTime utcTime=new DateTime(now.withZone(utcTimeZone));
+        String orderCreationTime=utcTime.toString(formatter);
+        WebElement orderNumberField=driver.findElement(By.xpath(String.format("//td[contains(text(),'Today, %s')]/ancestor::tr/td[2]",orderCreationTime)));
         orderNumber=orderNumberField.getText();
-        System.out.println(orderNumber);
+        System.out.println("Order number is: "+orderNumber);
     }
 
     public boolean verifyCreateOrderSuccessful(){
         return verifyMessage.size()>=1;
     }
 
-    public void searchOrder(String orderNumber){
+    public void searchOrder(){
         searchOrderLink.click();
+        functionLibrary.sleep(5);
         functionLibrary.waitForElementPresent(orderNumberField);
-        orderNumberField.sendKeys(orderNumber);
-        searchButton.click();
+        actions.sendKeys(orderNumberField,orderNumber).build().perform();
+        actions.click(searchButton).perform();
     }
     public boolean verifySearchOrder(){
         return searchSuccessMessage.size()>=1;

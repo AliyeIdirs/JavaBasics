@@ -1,33 +1,25 @@
 package regressionsuit.cubecartobjects;
 
 public class ProductObject {
-    private String status;private String productName; private String manufacturer;
-    private String condition;private String productCode; private String autoGenerateProductCode;
-    private double weight; private String dimensionUnit; private double width;
-    private double height; private double depth; private String includeInFeaturedProduct;
-    private String includeInLatestProduct; private String availableForPurchase; private String listDate;
-    private String useStockLevel; private int stockLevel; private int stockLevelWarning; private String upcCode;
+    private String productName; private String manufacturer;
+    private String productCode; private double weight; private double width;
+    private double height; private double depth; private String liveDate;
+     private int stockLevel; private int stockLevelWarning; private String upcCode;
     private String eanCode; private String janCode; private String isbnCode; private  String gtinCode;
-    private String mpnCode; private String googleCategory;
+    private String mpnCode; private String googleCategory; private String description;private String shortDescription;
+    private double retailPrice;private double salePrice;private double costPrice;private int minQuantity;
+    private int maxQuantity;private int bulkQuantity;private double bulkPrice;private String category;
+    private String metaTitle;private String seoPath;private String metaDescription;
 
-
-    public ProductObject(String status, String productName, String manufacturer, String condition, String productCode, String autoGenerateProductCode, double weight, String productUnit, double width, double height, double depth, String includeInFeaturedProduct, String includeInLatestProduct, String availableForPurchase, String listDate, String useStockLevel, int stockLevel, int stockLevelWarning, String upcCode, String eanCode, String janCode, String isbnCode, String gtinCode, String mpnCode, String googleCategory) {
-        this.status = status;
+    public ProductObject(String productName, String manufacturer, String productCode, double weight, double width, double height, double depth,  String liveDate, int stockLevel, int stockLevelWarning, String upcCode, String eanCode, String janCode, String isbnCode, String gtinCode, String mpnCode, String googleCategory) {
         this.productName = productName;
         this.manufacturer = manufacturer;
-        this.condition = condition;
         this.productCode = productCode;
-        this.autoGenerateProductCode = autoGenerateProductCode;
         this.weight = weight;
-        this.dimensionUnit = productUnit;
         this.width = width;
         this.height = height;
         this.depth = depth;
-        this.includeInFeaturedProduct = includeInFeaturedProduct;
-        this.includeInLatestProduct = includeInLatestProduct;
-        this.availableForPurchase = availableForPurchase;
-        this.listDate = listDate;
-        this.useStockLevel = useStockLevel;
+        this.liveDate = liveDate;
         this.stockLevel = stockLevel;
         this.stockLevelWarning = stockLevelWarning;
         this.upcCode = upcCode;
@@ -37,6 +29,39 @@ public class ProductObject {
         this.gtinCode = gtinCode;
         this.mpnCode = mpnCode;
         this.googleCategory = googleCategory;
+    }
+
+    public ProductObject(String productName, String manufacturer, String productCode, double weight, double width, double height, double depth, String liveDate, int stockLevel, int stockLevelWarning, String upcCode, String eanCode, String janCode, String isbnCode, String gtinCode, String mpnCode, String googleCategory, String description, String shortDescription, double retailPrice, double salePrice, double costPrice, int minQuantity, int maxQuantity, int bulkQuantity, double bulkPrice, String category, String metaTitle, String seoPath, String metaDescription) {
+        this.productName = productName;
+        this.manufacturer = manufacturer;
+        this.productCode = productCode;
+        this.weight = weight;
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+        this.liveDate = liveDate;
+        this.stockLevel = stockLevel;
+        this.stockLevelWarning = stockLevelWarning;
+        this.upcCode = upcCode;
+        this.eanCode = eanCode;
+        this.janCode = janCode;
+        this.isbnCode = isbnCode;
+        this.gtinCode = gtinCode;
+        this.mpnCode = mpnCode;
+        this.googleCategory = googleCategory;
+        this.description = description;
+        this.shortDescription = shortDescription;
+        this.retailPrice = retailPrice;
+        this.salePrice = salePrice;
+        this.costPrice = costPrice;
+        this.minQuantity = minQuantity;
+        this.maxQuantity = maxQuantity;
+        this.bulkQuantity = bulkQuantity;
+        this.bulkPrice = bulkPrice;
+        this.category = category;
+        this.metaTitle = metaTitle;
+        this.seoPath = seoPath;
+        this.metaDescription = metaDescription;
     }
 
     //getter
@@ -64,8 +89,8 @@ public class ProductObject {
         return depth;
     }
 
-    public String getListDate() {
-        return listDate;
+    public String getLiveDate() {
+        return liveDate;
     }
 
     public int getStockLevel() {
@@ -100,165 +125,76 @@ public class ProductObject {
         return mpnCode;
     }
 
-    public String isStatus() {
-        return status;
-    }
-
     public String getManufacturer() {
         return manufacturer;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public String isAutoGenerateProductCode() {
-        return autoGenerateProductCode;
-    }
-
-    public String getDimensionUnit() {
-        return dimensionUnit;
-    }
-
-    public String isIncludeInFeaturedProduct() {
-        return includeInFeaturedProduct;
-    }
-
-    public String isIncludeInLatestProduct() {
-        return includeInLatestProduct;
-    }
-
-    public String isAvailableForPurchase() {
-        return availableForPurchase;
-    }
-
-    public String isUseStockLevel() {
-        return useStockLevel;
     }
 
     public String getGoogleCategory() {
         return googleCategory;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public double getRetailPrice() {
+        return retailPrice;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public double getSalePrice() {
+        return salePrice;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public double getCostPrice() {
+        return costPrice;
     }
 
-    public void setAutoGenerateProductCode(String autoGenerateProductCode) {
-        this.autoGenerateProductCode = autoGenerateProductCode;
+    public int getMinQuantity() {
+        return minQuantity;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public int getMaxQuantity() {
+        return maxQuantity;
     }
 
-    public void setDimensionUnit(String dimensionUnit) {
-        this.dimensionUnit = dimensionUnit;
+    public int getBulkQuantity() {
+        return bulkQuantity;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public double getBulkPrice() {
+        return bulkPrice;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public String getCategory() {
+        return category;
     }
 
-    public void setDepth(double depth) {
-        this.depth = depth;
+    public String getMetaTitle() {
+        return metaTitle;
     }
 
-    public void setIncludeInFeaturedProduct(String includeInFeaturedProduct) {
-        this.includeInFeaturedProduct = includeInFeaturedProduct;
+    public String getSeoPath() {
+        return seoPath;
     }
 
-    public void setIncludeInLatestProduct(String includeInLatestProduct) {
-        this.includeInLatestProduct = includeInLatestProduct;
-    }
-
-    public void setAvailableForPurchase(String availableForPurchase) {
-        this.availableForPurchase = availableForPurchase;
-    }
-
-    public void setListDate(String listDate) {
-        this.listDate = listDate;
-    }
-
-    public void setUseStockLevel(String useStockLevel) {
-        this.useStockLevel = useStockLevel;
-    }
-
-    public void setStockLevel(int stockLevel) {
-        this.stockLevel = stockLevel;
-    }
-
-    public void setStockLevelWarning(int stockLevelWarning) {
-        this.stockLevelWarning = stockLevelWarning;
-    }
-
-    public void setUpcCode(String upcCode) {
-        this.upcCode = upcCode;
-    }
-
-    public void setEanCode(String eanCode) {
-        this.eanCode = eanCode;
-    }
-
-    public void setJanCode(String janCode) {
-        this.janCode = janCode;
-    }
-
-    public void setIsbnCode(String isbnCode) {
-        this.isbnCode = isbnCode;
-    }
-
-    public void setGtinCode(String gtinCode) {
-        this.gtinCode = gtinCode;
-    }
-
-    public void setMpnCode(String mpnCode) {
-        this.mpnCode = mpnCode;
-    }
-
-    public void setGoogleCategory(String googleCategory) {
-        this.googleCategory = googleCategory;
+    public String getMetaDescription() {
+        return metaDescription;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
-                "status='" + status + '\'' +
+        return
                 ", productName='" + productName + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
-                ", condition='" + condition + '\'' +
                 ", productCode='" + productCode + '\'' +
-                ", autoGenerateProductCode='" + autoGenerateProductCode + '\'' +
                 ", weight=" + weight +
-                ", dimensionUnit='" + dimensionUnit + '\'' +
                 ", width=" + width +
                 ", height=" + height +
                 ", depth=" + depth +
-                ", includeInFeaturedProduct='" + includeInFeaturedProduct + '\'' +
-                ", includeInLatestProduct='" + includeInLatestProduct + '\'' +
-                ", availableForPurchase='" + availableForPurchase + '\'' +
-                ", listDate='" + listDate + '\'' +
-                ", useStockLevel='" + useStockLevel + '\'' +
+                ", listDate='" + liveDate + '\'' +
                 ", stockLevel=" + stockLevel +
                 ", stockLevelWarning=" + stockLevelWarning +
                 ", upcCode='" + upcCode + '\'' +
