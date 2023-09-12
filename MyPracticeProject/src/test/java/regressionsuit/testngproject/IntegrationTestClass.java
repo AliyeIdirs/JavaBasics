@@ -15,7 +15,7 @@ import regressionsuit.pageobjectmodel.*;
 
 import java.util.List;
 
-public class ProjectRunnerClass extends TestBaseForTestNG{
+public class IntegrationTestClass extends TestBaseForTestNG{
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;
@@ -97,6 +97,12 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
+    @Test(dependsOnMethods = "createOrderTest")
+    public void searchOrder(){
+        dashboardPage.clickOnOrders();
+        ordersPage.searchOrder();
+        Assert.assertTrue(ordersPage.verifySearchOrder());
+    }
     @Test(dataProvider = "newsletterData",enabled = false)
     public void createNewsLetterTest(String newsLetterSubject,String senderName,String senderEmail,
                                      String htmlContent,String plainTextContent,String recipientEmail){
@@ -152,7 +158,7 @@ public class ProjectRunnerClass extends TestBaseForTestNG{
     public Object[][] orderData(){
         return new Object[][]{
                 {customerObject.getEmail(),testData.dispatchDate(),testData.shippingMethod(),
-                testData.shippingDate(),testData.trackingInfo(),productObject.getWeight()* testData.orderQuantity,testData.orderQuantity,
+                testData.shippingDate(),testData.trackingInfo(),testData.productWeight,testData.orderQuantity,
                 productObject.getProductName(),testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
                 testData.publicNote}
 

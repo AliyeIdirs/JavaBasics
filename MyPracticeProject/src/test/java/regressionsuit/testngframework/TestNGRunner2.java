@@ -77,7 +77,7 @@ public class TestNGRunner2 extends TestBaseForTestNG{
     }
     @AfterClass
     public void tearDown(){
-       // dashboardPage.clickLogOut();
-        //closeBrowser();
+        dashboardPage.clickLogOut();
+        closeBrowser();
     }
 }

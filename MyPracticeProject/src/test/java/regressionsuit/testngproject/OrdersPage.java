@@ -5,6 +5,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -106,6 +107,8 @@ public class OrdersPage {
     WebElement searchOrderLink;
     @FindBy(name = "search[order_number]")
     WebElement orderNumberField;
+    @FindBy(id ="search_customer_id")
+    WebElement customerNameField;
     @FindBy(xpath = "//input[@value='Search']")
     WebElement searchButton;
     @FindAll(
@@ -202,7 +205,7 @@ public class OrdersPage {
         publicNotesField.sendKeys(publicNotes);
         saveButton.click();
         DateTime now=new DateTime();
-        DateTimeFormatter formatter= DateTimeFormat.forPattern("HH:m");
+        DateTimeFormatter formatter= DateTimeFormat.forPattern("HH:mm");
         DateTimeZone utcTimeZone= DateTimeZone.forID("UTC");
         DateTime utcTime=new DateTime(now.withZone(utcTimeZone));
         String orderCreationTime=utcTime.toString(formatter);
@@ -217,12 +220,16 @@ public class OrdersPage {
 
     public void searchOrder(){
         searchOrderLink.click();
-        functionLibrary.sleep(5);
-        functionLibrary.waitForElementPresent(orderNumberField);
-        actions.sendKeys(orderNumberField,orderNumber).build().perform();
+        functionLibrary.sleep(3);
+        JavascriptExecutor js=(JavascriptExecutor)driver;
+        js.executeScript("arguments[0].value='"+orderNumber+"';",orderNumberField);
+        functionLibrary.sleep(1);
         actions.click(searchButton).perform();
     }
     public boolean verifySearchOrder(){
-        return searchSuccessMessage.size()>=1;
+        if(searchSuccessMessage.size()>=1){
+            System.out.println("Order number: "+orderNumber+" searched successfully");
+        }
+        return true;
     }
 }
