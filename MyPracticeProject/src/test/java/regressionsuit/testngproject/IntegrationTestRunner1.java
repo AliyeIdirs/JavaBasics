@@ -15,7 +15,7 @@ import regressionsuit.pageobjectmodel.*;
 
 import java.util.List;
 
-public class IntegrationTestClass extends TestBaseForTestNG{
+public class IntegrationTestRunner1 extends TestBaseForTestNG{
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;

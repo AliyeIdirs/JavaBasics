@@ -10,8 +10,9 @@ import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.FunctionLibrary;
 import regressionsuit.pageobjectmodel.LoginPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
 
-public class DataProviderDemo2 extends TestBaseForTestNG{
+public class DataProviderDemo2 extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;

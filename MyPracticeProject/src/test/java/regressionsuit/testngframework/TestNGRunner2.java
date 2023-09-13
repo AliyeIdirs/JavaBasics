@@ -13,10 +13,11 @@ import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.DataBase;
 import regressionsuit.testngproject.OrdersPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
 
-public class TestNGRunner2 extends TestBaseForTestNG{
+public class TestNGRunner2 extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProductPage productPage;

@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.LoginPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
 
 public class DataProviderDemo1 extends TestBaseForTestNG {
     LoginPage loginPage;

@@ -4,10 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -115,6 +112,17 @@ public class OrdersPage {
             @FindBy(css = ".success")
     )
     List<WebElement> searchSuccessMessage;
+    @FindAll(
+            @FindBy(xpath = "//tbody/tr")
+    )
+    List<WebElement> ordersList;
+    @FindBy(xpath = "//a[text()='GDPR Tools']")
+    WebElement gdprToolsLink;
+    @FindBy(css = ".number-center")
+    WebElement monthInputField;
+    @FindBy(css = ".delete.submit_confirm.tiny")
+    WebElement goButton;
+
     public void selectOrderStatus(){
         functionLibrary.waitForElementPresent(orderStatusField);
         Select selectStatus = new Select(orderStatusField);
@@ -231,5 +239,71 @@ public class OrdersPage {
             System.out.println("Order number: "+orderNumber+" searched successfully");
         }
         return true;
+    }
+    public boolean viewOrders(){
+        try{
+            if(driver.findElement(By.xpath("//Strong[text()='No orders found.']")).isDisplayed())
+                System.out.println("No orders found");
+            if(driver.findElements(By.xpath("//tbody/tr")).size()>=1)
+                System.out.println("Orders have viewed.");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean editOrderFromOrderNumber(){
+        WebElement orderLink=driver.findElement(By.linkText(orderNumber));
+        orderLink.click();
+        selectOrderStatus();
+        functionLibrary.waitForElementPresent(saveButton);
+        saveButton.click();
+        try{
+            if (driver.findElement(By.xpath("//div[text()='Order successfully updated.']")).isDisplayed())
+                System.out.println("Order successfully updated.");
+                return true;
+        }catch (Exception e){
+            System.out.println("Update Order failed.");
+            return false;
+        }
+    }
+    public boolean editOrderFromEditIcon(){
+        WebElement editIcon=driver.findElement(By.xpath(String.format("(//a[text()='%s']//ancestor::tr/td/a[@title='Edit'])[2]",orderNumber)));
+        editIcon.click();
+        selectOrderStatus();
+        functionLibrary.waitForElementPresent(saveButton);
+        saveButton.click();
+        try{
+            if (driver.findElement(By.xpath("//div[text()='Order successfully updated.']")).isDisplayed()){
+                System.out.println("Order successfully updated.");
+               return true;
+            }
+        }catch (Exception e){
+            System.out.println("Update Order failed.");
+        }
+        return false;
+    }
+    public boolean deleteOrder(){
+        WebElement deleteIcon=driver.findElement(By.xpath(String.format("//a[text()='%s']//ancestor::tr/td/a[@class='delete']",orderNumber)));
+        deleteIcon.click();
+        Alert alert=(Alert) driver;
+        functionLibrary.waitAlertPresent();
+        alert.accept();
+        try{
+            if(driver.findElement(By.className("success")).isDisplayed())
+                System.out.println("Order: "+orderNumber+" successfully deleted");
+            return true;
+        }catch (Exception e){
+            System.out.println("Delete Failed!!!");
+            return false;
+        }
+    }
+    public void deleteOrderWithMonth(int monthNumber){
+        functionLibrary.waitForElementPresent(gdprToolsLink);
+        gdprToolsLink.click();
+        functionLibrary.waitForElementPresent(monthInputField);
+        monthInputField.sendKeys(String.valueOf(monthNumber));
+        goButton.click();
+        driver.switchTo().alert().accept();
     }
 }

@@ -11,8 +11,10 @@ import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.ProductPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
+
 @Listeners(TestResultListener.class)
-public class TestNGRunner1 extends TestBaseForTestNG{
+public class TestNGRunner1 extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProductPage productPage;
