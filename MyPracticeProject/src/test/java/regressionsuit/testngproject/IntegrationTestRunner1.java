@@ -103,7 +103,17 @@ public class IntegrationTestRunner1 extends TestBaseForTestNG{
         ordersPage.searchOrder();
         Assert.assertTrue(ordersPage.verifySearchOrder());
     }
-    @Test(dataProvider = "newsletterData",enabled = false)
+    @Test(dependsOnMethods = "createOrderTest")
+    public void editOrderTest(){
+        dashboardPage.clickOnOrders();
+        Assert.assertTrue(ordersPage.editOrderFromEditIcon());
+    }
+    @Test()
+    public void viewOrdersTest(){
+        dashboardPage.clickOnOrders();
+        Assert.assertTrue(ordersPage.viewOrders());
+    }
+    @Test(dataProvider = "newsletterData")
     public void createNewsLetterTest(String newsLetterSubject,String senderName,String senderEmail,
                                      String htmlContent,String plainTextContent,String recipientEmail){
         dashboardPage.clickOnNewsletters();

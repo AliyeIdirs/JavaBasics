@@ -10,7 +10,7 @@ import regressionsuit.pageobjectmodel.*;
 
 import java.util.List;
 
-public class OrdersFunctionRunner extends TestBaseForTestNG{
+public class OrdersTestRunner extends TestBaseForTestNG{
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;
@@ -27,7 +27,7 @@ public class OrdersFunctionRunner extends TestBaseForTestNG{
         testData=new DataBase();
         ordersPage=new OrdersPage(driver);
     }
-    @Test(dataProvider = "orderData")
+    @Test(dataProvider = "orderData",priority = 1)
     public void createOrderTest(String customerEmail, String dispatchDate, String shippingMethod, String shippingDate,
                                 List<String> trackingInfo, double weight, int quantity, String productName,
                                 double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes){
@@ -36,23 +36,23 @@ public class OrdersFunctionRunner extends TestBaseForTestNG{
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest")
+    @Test(dependsOnMethods = "createOrderTest",priority = 2)
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();
         Assert.assertTrue(ordersPage.verifySearchOrder());
     }
-    @Test
+    @Test(priority =4 )
     public void viewOrdersTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.viewOrders());
     }
-    @Test(dependsOnMethods = "createOrderTest")
+    @Test(dependsOnMethods = "createOrderTest",priority = 3)
     public void editOrderTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.editOrderFromEditIcon());
     }
-    @Test(dependsOnMethods = "createOrderTest")
+    @Test(dependsOnMethods = "createOrderTest",priority = 5)
     public void deleteOrderTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.deleteOrder());
@@ -64,11 +64,10 @@ public class OrdersFunctionRunner extends TestBaseForTestNG{
     @DataProvider
     public Object[][] orderData(){
         return new Object[][]{
-                {testData.email,testData.dispatchDate(),testData.shippingMethod(),
+                {"johnnie.wilkinson@hotmail.com",testData.dispatchDate(),testData.shippingMethod(),
                         testData.shippingDate(),testData.trackingInfo(),testData.productWeight,testData.orderQuantity,
-                        testData.productName,testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
+                        "Small Bronze Plate",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
                         testData.publicNote}
-
         };
     }
 }

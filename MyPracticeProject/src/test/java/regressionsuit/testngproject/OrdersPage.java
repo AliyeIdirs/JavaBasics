@@ -237,18 +237,19 @@ public class OrdersPage {
     public boolean verifySearchOrder(){
         if(searchSuccessMessage.size()>=1){
             System.out.println("Order number: "+orderNumber+" searched successfully");
-        }
-        return true;
-    }
-    public boolean viewOrders(){
-        try{
-            if(driver.findElement(By.xpath("//Strong[text()='No orders found.']")).isDisplayed())
-                System.out.println("No orders found");
-            if(driver.findElements(By.xpath("//tbody/tr")).size()>=1)
-                System.out.println("Orders have viewed.");
             return true;
-        }catch (Exception e){
-            e.printStackTrace();
+        }else {
+            return false;
+        }
+    }
+    public boolean viewOrders() {
+        try {
+            if(driver.findElements(By.xpath("//tbody/tr")).size() >= 1)
+                System.out.println("There is at least one order.");
+                return true;
+        } catch (Exception e) {
+            if (driver.findElement(By.xpath("//Strong[text()='No orders found.']")).isDisplayed())
+                System.out.println("No orders found.");
             return false;
         }
     }
@@ -286,9 +287,7 @@ public class OrdersPage {
     public boolean deleteOrder(){
         WebElement deleteIcon=driver.findElement(By.xpath(String.format("//a[text()='%s']//ancestor::tr/td/a[@class='delete']",orderNumber)));
         deleteIcon.click();
-        Alert alert=(Alert) driver;
-        functionLibrary.waitAlertPresent();
-        alert.accept();
+        driver.switchTo().alert().accept();
         try{
             if(driver.findElement(By.className("success")).isDisplayed())
                 System.out.println("Order: "+orderNumber+" successfully deleted");
