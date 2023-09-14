@@ -1,11 +1,16 @@
-package regressionsuit.pageobjectmodel;
+package regressionsuit.junitframework;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import regressionsuit.junitframework.TestBase;
+import regressionsuit.pageobjectmodel.CategoryPage;
+import regressionsuit.pageobjectmodel.CustomerPage;
+import regressionsuit.pageobjectmodel.DashboardPage;
+import regressionsuit.pageobjectmodel.LoginPage;
 
-public class JunitTestRunner extends TestBase{
+public class JunitTestRunner extends TestBase {
     static LoginPage loginPage;
     static DashboardPage dashboardPage;
     static CustomerPage customerPage;

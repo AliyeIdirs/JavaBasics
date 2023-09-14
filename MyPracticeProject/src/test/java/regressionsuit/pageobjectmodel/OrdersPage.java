@@ -1,4 +1,4 @@
-package regressionsuit.testngproject;
+package regressionsuit.pageobjectmodel;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -10,7 +10,8 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import regressionsuit.pageobjectmodel.FunctionLibrary;
+import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;

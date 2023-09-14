@@ -1,4 +1,4 @@
-package regressionsuit.testngframework;
+package regressionsuit.testngproject;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;

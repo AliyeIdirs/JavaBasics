@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import regressionsuit.testngproject.DataBase;
 import regressionsuit.cubecartobjects.ProductObject;
+import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;

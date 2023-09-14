@@ -8,7 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
-import regressionsuit.pageobjectmodel.FunctionLibrary;
+import regressionsuit.testngproject.FunctionLibrary;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.testngproject.TestBaseForTestNG;
 

@@ -5,7 +5,7 @@
     </listeners>
     <test name="Regression-Test" preserve-order="true">
         <classes>
-            <class name="regressionsuit.testngproject.IntegrationTestRunner1"></class>
+            <class name="regressionsuit.testrunnerclass.NewsletterTestRunner"></class>
         </classes>
     </test>
 </suite>

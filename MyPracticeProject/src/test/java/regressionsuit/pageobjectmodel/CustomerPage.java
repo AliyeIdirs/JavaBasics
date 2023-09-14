@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import regressionsuit.cubecartobjects.CustomerGroupObject;
 import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.*;
 
@@ -160,8 +161,7 @@ public class CustomerPage {
         emailField.sendKeys(customerObject.getEmail());
         phoneNumberField.sendKeys(customerObject.getPhone());
         cellphoneNumberField.sendKeys(customerObject.getCellPhone());
-        Select selectSubscription = new Select(subscriptionDropDown);
-        selectSubscription.selectByVisibleText(DataBase.subscriptionStatus.YES1.getValue());
+        selectSubscriptionStatus();
         try {
             passwordField.sendKeys(customerObject.getPassword());
             confirmPasswordField.sendKeys(customerObject.getConfirmPassword());

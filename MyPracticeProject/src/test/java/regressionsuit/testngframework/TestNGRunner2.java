@@ -12,7 +12,7 @@ import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.DataBase;
-import regressionsuit.testngproject.OrdersPage;
+import regressionsuit.pageobjectmodel.OrdersPage;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;

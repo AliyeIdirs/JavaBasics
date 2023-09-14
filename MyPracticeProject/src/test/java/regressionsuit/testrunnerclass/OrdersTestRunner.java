@@ -1,4 +1,4 @@
-package regressionsuit.testngproject;
+package regressionsuit.testrunnerclass;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
@@ -6,11 +6,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import regressionsuit.pageobjectmodel.*;
+import regressionsuit.pageobjectmodel.DashboardPage;
+import regressionsuit.pageobjectmodel.LoginPage;
+import regressionsuit.testngproject.DataBase;
+import regressionsuit.pageobjectmodel.OrdersPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
 
-public class OrdersTestRunner extends TestBaseForTestNG{
+public class OrdersTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;

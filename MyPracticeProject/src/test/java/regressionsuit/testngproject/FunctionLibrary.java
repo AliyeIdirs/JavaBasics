@@ -1,4 +1,4 @@
-package regressionsuit.pageobjectmodel;
+package regressionsuit.testngproject;
 
 import com.github.javafaker.Faker;
 

@@ -1,4 +1,4 @@
-package regressionsuit.testngproject;
+package regressionsuit.pageobjectmodel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,8 +8,9 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import regressionsuit.pageobjectmodel.FunctionLibrary;
-import regressionsuit.testngframework.ScreenShotUtility;
+import regressionsuit.cubecartobjects.NewsletterObject;
+import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,13 +20,11 @@ import java.util.Random;
 public class NewslettersPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    ScreenShotUtility screenShotUtility;
 
     public NewslettersPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         functionLibrary=new FunctionLibrary(driver);
-        screenShotUtility=new ScreenShotUtility();
     }
 
     @FindBy(linkText = "Create Newsletter")
@@ -67,6 +66,31 @@ public class NewslettersPage {
         Random random=new Random();
         String toBeSelected= options.get(random.nextInt(options.size()));
         select.selectByVisibleText(toBeSelected);
+    }
+    public void createNewsLetter(NewsletterObject newsletterObject){
+        functionLibrary.waitForElementPresent(createNewsLetterLink);
+        createNewsLetterLink.click();
+        newsLetterSubjectField.sendKeys(newsletterObject.getNewsLetterSubject());
+        senderNameField.sendKeys(newsletterObject.getSenderName());
+        senderEmailField.sendKeys(newsletterObject.getSenderEmail());
+        functionLibrary.sleep();
+        selectTemplate();
+        htmlContentLink.click();
+        functionLibrary.sleep();
+        driver.switchTo().frame(iframe);
+        Actions actions=new Actions(driver);
+        actions.sendKeys(htmlContentField, newsletterObject.getHtmlContent()).perform();
+        driver.switchTo().defaultContent();
+        functionLibrary.sleep();
+        plainTextContentLink.click();
+        functionLibrary.waitForElementPresent(textContentField);
+        textContentField.sendKeys(newsletterObject.getPlainTextContent());
+        functionLibrary.sleep();
+        sendTestEmailLink.click();
+        functionLibrary.waitForElementPresent(recipientEmailField);
+        recipientEmailField.sendKeys(newsletterObject.getRecipientEmail());
+        saveAndSendButton.click();
+        System.out.println("Newsletter subject is: "+newsletterObject.getNewsLetterSubject());
     }
     public void createNewsLetter(String newsletterSubject,String senderName,String senderEmail,
                                  String htmlContent, String plainTextContent, String recipientEmail){

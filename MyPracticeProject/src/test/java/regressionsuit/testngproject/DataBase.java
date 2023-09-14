@@ -218,7 +218,7 @@ public class DataBase {
             return value;
         }
     }
-    enum template {
+    public enum template {
         NONE("-- None --"), DEFAULT_EMAILS("Default Emails"), DEFAULT_NEWSLETTER("Default Newsletter");
         private final String value;
 
@@ -230,7 +230,7 @@ public class DataBase {
             return value;
         }
     }
-    enum orderStatus {
+    public enum orderStatus {
         PENDING("Pending"), PROCESSING("Processing"), ORDER_COMPLETE("Order Complete"), DECLINED("Declined"),
         FAILED_FRAUD_REVIEW("Failed Fraud Review"), CANCELLED("Cancelled");
         private final String value;
@@ -243,7 +243,7 @@ public class DataBase {
             return value;
         }
     }
-    enum discountType {
+    public enum discountType {
         FIXED_PRICE_DISCOUNT("Fixed Price Discount"), PERCENTAGE_DISCOUNT("Percentage Discount");
         private final String value;
 
@@ -254,5 +254,12 @@ public class DataBase {
         public String getValue() {
             return value;
         }
+    }
+    public List<String> emails(){
+        List<String> emails=new ArrayList<>();
+        for(int i=0; i<3; i++) {
+            emails.add(faker.internet().emailAddress());
+        }
+        return emails;
     }
 }

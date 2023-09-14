@@ -1,4 +1,4 @@
-package regressionsuit.testngproject;
+package regressionsuit.testrunnerclass;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
@@ -9,12 +9,17 @@ import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.cubecartobjects.ProductCategoryObject;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.pageobjectmodel.*;
-import regressionsuit.testngframework.TestResultListener;
+import regressionsuit.testngproject.DataBase;
+import regressionsuit.pageobjectmodel.NewslettersPage;
+import regressionsuit.pageobjectmodel.OrdersPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
+import regressionsuit.testngproject.TestResultListener;
 
 import java.util.List;
+
 @Listeners(TestResultListener.class)
 
-public class IntegrationTestRunner1 extends TestBaseForTestNG{
+public class IntegrationTestRunner extends TestBaseForTestNG {
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;

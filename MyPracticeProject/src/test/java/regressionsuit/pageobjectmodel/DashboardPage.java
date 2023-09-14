@@ -1,15 +1,14 @@
 package regressionsuit.pageobjectmodel;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import regressionsuit.testngproject.FunctionLibrary;
 
 public class DashboardPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    int timeout=2;
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -31,6 +30,8 @@ public class DashboardPage {
     WebElement newslettersLink;
     @FindBy(linkText = "Orders")
     WebElement ordersLink;
+    @FindBy(linkText = "Mailing List")
+    WebElement mailingListLink;
     public boolean verifyDashboardPage(){
         return dashBoardText.isDisplayed();
     }
@@ -55,6 +56,10 @@ public class DashboardPage {
     public void clickOnOrders(){
         functionLibrary.waitForElementPresent(ordersLink);
         ordersLink.click();
+    }
+    public void clickOnMailingList(){
+        functionLibrary.waitForElementPresent(mailingListLink);
+        mailingListLink.click();
     }
     public void clickLogOut(){
         logoutLink.click();

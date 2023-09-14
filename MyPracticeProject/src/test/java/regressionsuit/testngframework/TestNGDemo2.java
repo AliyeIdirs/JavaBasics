@@ -8,6 +8,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import regressionsuit.testngproject.DataBase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestNGDemo2 {
     @Test(invocationCount = 2,invocationTimeOut = 10)
@@ -33,10 +38,5 @@ public class TestNGDemo2 {
     }
     @Test
     public void anyTest(){
-        DateTime now=new DateTime();
-        DateTimeFormatter formatter= DateTimeFormat.forPattern("HH:mm");
-        DateTimeZone utcTimeZone= DateTimeZone.forID("UTC");
-        DateTime utcTime=new DateTime(now.withZone(utcTimeZone));
-        System.out.println(utcTime.toString(formatter));
     }
 }
