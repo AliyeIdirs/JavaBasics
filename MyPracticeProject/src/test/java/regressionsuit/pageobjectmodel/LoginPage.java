@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import regressionsuit.testngproject.FunctionLibrary;
 
 public class LoginPage {
     WebDriver driver;
@@ -30,10 +31,11 @@ public class LoginPage {
     public void clickLoginButton(){
         loginButton.click();
     }
-    public void Login(String userName,String password){
+    public void login(String userName, String password){
         enterUerName(userName);
         enterPassword(password);
         clickLoginButton();
+
     }
     public void multiLoginTest(String username,String password){
         enterUerName(username);

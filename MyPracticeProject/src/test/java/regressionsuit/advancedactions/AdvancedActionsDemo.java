@@ -11,8 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.pageobjectmodel.FunctionLibrary;
-import regressionsuit.testngframework.ScreenShotUtility;
+import regressionsuit.testngproject.FunctionLibrary;
+import regressionsuit.testngproject.ScreenShotUtility;
 
 import java.util.ArrayList;
 import java.util.List;

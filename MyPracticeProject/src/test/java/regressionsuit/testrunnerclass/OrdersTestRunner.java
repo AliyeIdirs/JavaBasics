@@ -1,57 +1,37 @@
-package regressionsuit.testngframework;
+package regressionsuit.testrunnerclass;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.DataBase;
 import regressionsuit.pageobjectmodel.OrdersPage;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
 
-public class TestNGRunner2 extends TestBaseForTestNG {
-    LoginPage loginPage;
-    DashboardPage dashboardPage;
-    ProductPage productPage;
-    CustomerPage customerPage;
-    DataBase testData;
-    OrdersPage ordersPage;
+public class OrdersTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
+    DataBase testData;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+    OrdersPage ordersPage;
     @BeforeClass
-    public void setUp(ITestContext iTestContext){
+    public void setUp(){
         openBrowser();
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        Assert.assertTrue(dashboardPage.verifyDashboardPage());
-        productPage=new ProductPage(driver);
-        customerPage=new CustomerPage(driver);
+        dashboardPage.verifyDashboardPage();
         testData=new DataBase();
         ordersPage=new OrdersPage(driver);
     }
-    @Test(enabled = false)
-    public void viewProduct(){
-        dashboardPage.clickOnProductsLink();
-        Assert.assertTrue(productPage.viewProductList());
-
-    }
-    @Test(enabled = false)
-    public void addCustomer(){
-        dashboardPage.clickCustomerList();
-        customerPage.addCustomer();
-        Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
-
-    }
-    @Test(dataProvider = "orderData")
+    @Test(dataProvider = "orderData",priority = 1)
     public void createOrderTest(String customerEmail, String dispatchDate, String shippingMethod, String shippingDate,
                                 List<String> trackingInfo, double weight, int quantity, String productName,
                                 double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes){
@@ -60,25 +40,38 @@ public class TestNGRunner2 extends TestBaseForTestNG {
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest")
+    @Test(dependsOnMethods = "createOrderTest",priority = 2)
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();
         Assert.assertTrue(ordersPage.verifySearchOrder());
     }
-    @DataProvider
-    public Object[][] orderData(){
-        return new Object[][]{
-                {"ernestine.morissette@yahoo.com",testData.dispatchDate(),testData.shippingMethod(),
-                        testData.shippingDate(),testData.trackingInfo(),100.54,testData.orderQuantity,
-                        "Sleek Plastic Table",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
-                        testData.publicNote}
-
-        };
+    @Test(priority =4 )
+    public void viewOrdersTest(){
+        dashboardPage.clickOnOrders();
+        Assert.assertTrue(ordersPage.viewOrders());
+    }
+    @Test(dependsOnMethods = "createOrderTest",priority = 3)
+    public void editOrderTest(){
+        dashboardPage.clickOnOrders();
+        Assert.assertTrue(ordersPage.editOrderFromEditIcon());
+    }
+    @Test(dependsOnMethods = "createOrderTest",priority = 5)
+    public void deleteOrderTest(){
+        dashboardPage.clickOnOrders();
+        Assert.assertTrue(ordersPage.deleteOrder());
     }
     @AfterClass
     public void tearDown(){
-        dashboardPage.clickLogOut();
         closeBrowser();
+    }
+    @DataProvider
+    public Object[][] orderData(){
+        return new Object[][]{
+                {"johnnie.wilkinson@hotmail.com",testData.dispatchDate(),testData.shippingMethod(),
+                        testData.shippingDate(),testData.trackingInfo(),testData.productWeight,testData.orderQuantity,
+                        "Small Bronze Plate",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
+                        testData.publicNote}
+        };
     }
 }

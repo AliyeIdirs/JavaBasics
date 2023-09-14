@@ -1,4 +1,4 @@
-package regressionsuit.testngframework;
+package regressionsuit.testngproject;
 
 
 import com.unitedcoder.configutility.ApplicationConfig;

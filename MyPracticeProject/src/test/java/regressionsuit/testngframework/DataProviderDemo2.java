@@ -8,10 +8,11 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
-import regressionsuit.pageobjectmodel.FunctionLibrary;
+import regressionsuit.testngproject.FunctionLibrary;
 import regressionsuit.pageobjectmodel.LoginPage;
+import regressionsuit.testngproject.TestBaseForTestNG;
 
-public class DataProviderDemo2 extends TestBaseForTestNG{
+public class DataProviderDemo2 extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
@@ -26,7 +27,7 @@ public class DataProviderDemo2 extends TestBaseForTestNG{
     }
     @Test(dataProvider = "loginData")
     public void loginTest(String username, String password){
-        loginPage.Login(username,password);
+        loginPage.login(username,password);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
     }
     @Test(dataProvider = "customerData",dependsOnMethods = "loginTest",invocationCount = 3)
