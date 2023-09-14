@@ -1,5 +1,6 @@
 package regressionsuit.testngproject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -7,7 +8,6 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.DataProvider;
 import regressionsuit.pageobjectmodel.FunctionLibrary;
 import regressionsuit.testngframework.ScreenShotUtility;
 
@@ -93,7 +93,28 @@ public class NewslettersPage {
         recipientEmailField.sendKeys(recipientEmail);
         saveAndSendButton.click();
         System.out.println("Newsletter subject is: "+newsletterSubject);
-        screenShotUtility.takeScreenShot("createNewsletterTest",driver);
+    }
+    public boolean editNewsletter(String newsLetterSubject){
+        WebElement editIcon=driver.findElement(By.xpath(String.format("//a[text()='%s']/ancestor::tr/td//a/i[@title='Edit']",newsLetterSubject)));
+        editIcon.click();
+        selectTemplate();
+        saveButton.click();
+        List<WebElement> editSuccessMessage=driver.findElements(By.xpath("//div[text()='Newsletter Saved.']"));
+        if (editSuccessMessage.size()>=1)
+            return true;
+        else
+            return false;
+    }
+    public boolean deleteNewsletter(String newLetterSubject){
+        WebElement deleteIcon=driver.findElement(By.xpath(String.format("//a[text()='%s']/ancestor::tr/td//a[@class='delete']",newLetterSubject)));
+        deleteIcon.click();
+        driver.switchTo().alert().accept();
+
+        List<WebElement> verifyMessage=driver.findElements(By.xpath("//div[text()='Newsletter deleted.']"));
+        if (verifyMessage.size()>=1)
+            return true;
+        else
+            return false;
     }
 
     public boolean verifyNewsletterCreated(){

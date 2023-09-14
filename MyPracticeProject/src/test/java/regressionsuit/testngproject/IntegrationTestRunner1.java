@@ -3,17 +3,16 @@ package regressionsuit.testngproject;
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import regressionsuit.cubecartobjects.CustomerGroupObject;
 import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.cubecartobjects.ProductCategoryObject;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.pageobjectmodel.*;
+import regressionsuit.testngframework.TestResultListener;
 
 import java.util.List;
+@Listeners(TestResultListener.class)
 
 public class IntegrationTestRunner1 extends TestBaseForTestNG{
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
@@ -32,7 +31,7 @@ public class IntegrationTestRunner1 extends TestBaseForTestNG{
     ProductObject productObject;
 
     @BeforeClass
-    public void setUp(){
+    public void setUp(ITestContext context){
         openBrowser();
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
@@ -44,6 +43,7 @@ public class IntegrationTestRunner1 extends TestBaseForTestNG{
         categoryPage=new CategoryPage(driver);
         newslettersPage=new NewslettersPage(driver);
         ordersPage=new OrdersPage(driver);
+        context.setAttribute("driver",driver);
     }
     @Test(dataProvider = "customerGroupsData")
     public void addCustomerGroupTest(String groupName,String groupDescription, ITestContext context){
