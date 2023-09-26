@@ -1,32 +1,57 @@
 package regressionsuit.databasetestautomation;
 
+import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import regressionsuit.testngproject.DataBase;
 
 import java.sql.Connection;
 
 public class DBTestRunner {
-    Connection connection=null;
-    String dbUrl="97.74.184.169";
-    String dbusername="ucautomation2023";
-    String dbpassword="testautomation123!";
-    String dbport="3306";
-    String dbname="i5751295_cc1";
+    String fileName="config.properties";
+    String dbUrl= ApplicationConfig.readConfigProperties(fileName,"dburl");
+    String dbPort=ApplicationConfig.readConfigProperties(fileName,"dbport");
+    String dbUserName=ApplicationConfig.readConfigProperties(fileName,"dbusername");
+    String dbPassword=ApplicationConfig.readConfigProperties(fileName,"dbpassword");
+    String defaultDB=ApplicationConfig.readConfigProperties(fileName,"dbname");
+    String standAloneDB=ApplicationConfig.readConfigProperties(fileName,"standalonedbname");
+    Connection connection;
+    DataBaseConnection dataBaseConnection;
+    DataAccess dataAccess;
+    DataBase dataBase;
     @BeforeClass
     public void establishConnection(){
-        connection=DataBaseConnection.connectToDataBaseServer(dbUrl,dbport,dbname,dbusername,dbpassword,
+        dataBaseConnection=new DataBaseConnection();
+        connection=dataBaseConnection.connectToDataBaseServer(dbUrl,dbPort,dbUserName,dbPassword,standAloneDB,
                 ConnectionType.MYSQL);
+        dataAccess=new DataAccess();
+        dataBase=new DataBase();
     }
     @Test(description = "Verify a product in the database")
     public void verifyProductTest(){
-        DataAccess dataAccess=new DataAccess();
-        boolean isProductExist=dataAccess.getProductInfo("smart watch",connection);
+        boolean isProductExist=dataAccess.getProductInfo("book",connection);
         Assert.assertTrue(isProductExist);
     }
+    @Test
+    public void verifyProductTest2(){
+        Assert.assertTrue(dataAccess.getProductInfo(connection,"book"));
+    }
+    @Test(description = "verify product exist in the database")
+    public void verifyCustomerInfo(){
+        Assert.assertTrue(dataAccess.getCustomerInfo(connection,"Bilal","sss@hotmail.com"));
+    }
+    @Test(description = "insert record into category table")
+    public void insertCategoryTable(){
+        Category category=new Category("Cosmetics","Huda beauty"+dataBase.timeStamp(),
+                1,0,0,0,0,0,dataBase.metaTitle,
+                dataBase.metaDescription,1,1,0,"meta"+dataBase.timeStamp());
+        Assert.assertTrue(dataAccess.insertNewCategory(connection,category));
+    }
+
     @AfterClass
     public void tearDown(){
-        DataBaseConnection.closeDataBaseConnection(connection);
+        dataBaseConnection.closeConnection(connection);
     }
 }
