@@ -11,6 +11,12 @@ public class CustomerObject {
     public CustomerObject() {
     }
 
+    public CustomerObject(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     //constructor with general info
     public CustomerObject(String title, String firstName, String lastName, String customerNotes, String email, String phone, String cellPhone, String password, String confirmPassword) {
         this.title = title;
