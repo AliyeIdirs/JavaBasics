@@ -32,6 +32,8 @@ public class DashboardPage {
     WebElement ordersLink;
     @FindBy(linkText = "Mailing List")
     WebElement mailingListLink;
+    @FindBy(linkText = "Email Log")
+    WebElement emailLogLink;
     public boolean verifyDashboardPage(){
         return dashBoardText.isDisplayed();
     }
@@ -60,6 +62,10 @@ public class DashboardPage {
     public void clickOnMailingList(){
         functionLibrary.waitForElementPresent(mailingListLink);
         mailingListLink.click();
+    }
+    public void clickOnEmailLogLink(){
+        functionLibrary.waitForElementPresent(emailLogLink);
+        emailLogLink.click();
     }
     public void clickLogOut(){
         logoutLink.click();
