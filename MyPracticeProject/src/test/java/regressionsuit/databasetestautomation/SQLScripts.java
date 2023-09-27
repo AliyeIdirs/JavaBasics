@@ -4,7 +4,7 @@ import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
 
-public class DataAccess {
+public class SQLScripts {
 
     //Aynigar code 2022
     public boolean getProductInfo(String productName, Connection connection){

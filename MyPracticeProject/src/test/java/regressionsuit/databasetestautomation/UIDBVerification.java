@@ -1,6 +1,5 @@
 package regressionsuit.databasetestautomation;
 
-import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -22,7 +21,7 @@ public class UIDBVerification extends TestBaseForTestNG {
     CustomerObject customerObject;
     Connection connection;
     DataBaseConnection dataBaseConnection;
-    DataAccess dataAccess;
+    SQLScripts SQLScripts;
 
     @BeforeClass
     public void setUp(){
@@ -36,7 +35,7 @@ public class UIDBVerification extends TestBaseForTestNG {
         dataBaseConnection=new DataBaseConnection();
         connection=dataBaseConnection.connectToDataBaseServer(dataBase.dbUrl, dataBase.dbPort, dataBase.dbUserName,
                 dataBase.dbPassword, dataBase.defaultDB, ConnectionType.MYSQL);
-        dataAccess=new DataAccess();
+        SQLScripts =new SQLScripts();
     }
     @Test
     public void addCustomerUITest(){
@@ -46,7 +45,7 @@ public class UIDBVerification extends TestBaseForTestNG {
     }
     @Test(dependsOnMethods = "addCustomerUITest")
     public void addCustomerDBTest(){
-        Assert.assertTrue(dataAccess.getCustomerInfo(connection,customerObject.getFirstName(),customerObject.getEmail()));
+        Assert.assertTrue(SQLScripts.getCustomerInfo(connection,customerObject.getFirstName(),customerObject.getEmail()));
     }
     @AfterClass
     public void tearDown(){
