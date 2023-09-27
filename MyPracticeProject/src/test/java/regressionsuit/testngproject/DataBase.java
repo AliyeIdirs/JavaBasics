@@ -12,8 +12,14 @@ import java.util.concurrent.TimeUnit;
 public class DataBase {
     String configFile = "config.properties";
     public String userName = ApplicationConfig.readConfigProperties(configFile, "username");
-    public String usePassword = ApplicationConfig.readConfigProperties(configFile, "password");
-    public String url = ApplicationConfig.readConfigProperties(configFile, "qaurl");
+    public String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
+    public String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");
+    public String dbUrl= ApplicationConfig.readConfigProperties(configFile,"dburl");
+    public String dbPort=ApplicationConfig.readConfigProperties(configFile,"dbport");
+    public String dbUserName=ApplicationConfig.readConfigProperties(configFile,"dbusername");
+    public String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
+    public String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
+    public String standAloneDB=ApplicationConfig.readConfigProperties(configFile,"standalonedbname");
     int timeOut = Integer.parseInt(ApplicationConfig.readConfigProperties(configFile, "timeout"));
     Faker faker = new Faker();
     public String firstName = faker.name().firstName();
