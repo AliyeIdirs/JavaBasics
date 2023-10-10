@@ -15,7 +15,7 @@ public class ReadJsonWithJackson {
             System.out.println("Reading JSON from a file");
             System.out.println("----------------------------");
             //convert the json string back to object
-            MainJson mainJson = objectMapper.readValue(new File("jsonfile/test.json"), MainJson.class);
+            MainJson mainJson = objectMapper.readValue(new File("jsonfile/dolkunteacher.json"), MainJson.class);
             System.out.println("Name Of Test Name: " + mainJson.getTestName());
             System.out.println("Name of Test Module: " + mainJson.getTestModule());
             System.out.println("Name of Test Type: " + mainJson.getTestType());

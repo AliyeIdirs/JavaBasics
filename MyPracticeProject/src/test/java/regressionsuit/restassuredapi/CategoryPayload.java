@@ -71,6 +71,10 @@ public class CategoryPayload {
         this.cat_hier_position = cat_hier_position;
     }
 
+    public CategoryPayload(String catName) {
+        this.catName = catName;
+    }
+
     public String getCatName() {
         return catName;
     }

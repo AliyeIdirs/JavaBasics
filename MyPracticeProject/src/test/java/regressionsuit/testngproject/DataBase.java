@@ -35,6 +35,7 @@ public class DataBase {
     public String ipAddress=faker.internet().ipV4Address();
     public String phone = String.valueOf(faker.phoneNumber().phoneNumber());
     public String cellPhone = String.valueOf(faker.phoneNumber().cellPhone());
+
     public String password = faker.internet().password();
     public String confirmPassword = password;
     public String companyName = faker.company().name();

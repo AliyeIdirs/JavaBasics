@@ -1,9 +1,7 @@
 package regressionsuit.restassuredapi;
 
-import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.PreemptiveAuthSpec;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -29,8 +27,8 @@ public class PostRequestTest {
         Assert.assertEquals(response.getStatusCode(),200);
         Assert.assertEquals(response.jsonPath().getString("email"),customerPayload.getEmail());
     }
-    @Test
-    public void addCategoryTest(){
+    @Test(description = "All fields are given")
+    public void addCategoryTest1(){
         CategoryPayload categoryPayload=new CategoryPayload(db.categoryName,db.description,1,0,0.00,
                 0.00,0.00,0.00,0,db.metaTitle,db.metaDescription,db.keyword,1,1,0);
         Response response=RestAssured.given().headers("Content-Type","application/json")
@@ -39,5 +37,14 @@ public class PostRequestTest {
         response.getBody().prettyPrint();
         Assert.assertEquals(response.jsonPath().getString("catName"),categoryPayload.getCatName());
     }
-
+    @Test(description = "Only necessary field is given")
+    public void addCategoryTest2(){
+        CategoryPayload categoryPayload=new CategoryPayload(db.categoryName);
+                Response response=RestAssured.given().headers("Content-Type","application/json")
+                        .and().body(PayloadUtility.getCategoryPayload(categoryPayload)).auth().basic(db.api_username,db.api_password)
+                .when().post(path+"category").then().extract().response();
+        response.getBody().prettyPrint();
+        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.jsonPath().getString("catName"),categoryPayload.getCatName());
+    }
 }
