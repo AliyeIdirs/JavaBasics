@@ -1,18 +1,7 @@
 package regressionsuit.testngframework;
 
-
-import com.github.javafaker.Faker;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TestNGDemo2 {
     @Test(invocationCount = 2,invocationTimeOut = 10)
@@ -38,5 +27,9 @@ public class TestNGDemo2 {
     }
     @Test
     public void anyTest(){
+                String a="/Users/user/Documents/Desktop Pics/image-from-rawpixel-id-3814725-jpeg.jpg";
+                String c=(a.split("/"))[a.split("/").length-1];
+
+        System.out.println(c);
     }
 }
