@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
-import static org.hamcrest.Matchers.equalTo;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +14,7 @@ import regressionsuit.testngproject.DataBase;
 
 import static io.restassured.RestAssured.given;
 
-public class PostPutIntegrationTest {
+public class CustomerPostPutIntegration {
     DataBase db;
     String path;
     String responseBody;
