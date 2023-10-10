@@ -26,7 +26,7 @@ public class CustomerPostPutIntegration {
     }
     @Test
     public void addCustomerApiTest(){
-        CustomerPayload customerPayload=new CustomerPayload(db.email,db.customerTitle(),db.firstName,db.lastName,0,db.phone,1,"en-GB",db.ipAddress,
+        CustomerPayload  customerPayload=new CustomerPayload(db.email,db.customerTitle(),db.firstName,db.lastName,0,db.phone,1,"en-GB",db.ipAddress,
                 1);
         Response response= given().headers("Content-Type","application/json")
                 .and().body(PayloadUtility.getCustomerPayload(customerPayload)).auth().basic(db.api_username,db.api_password)
@@ -38,7 +38,7 @@ public class CustomerPostPutIntegration {
         responseBody=response.getBody().asPrettyString();
         customerId=response.jsonPath().getInt("id");
     }
-    @Test
+    @Test(description = "update according to response body")
     public void updateCustomerApiTest(){
         ObjectMapper mapper = new ObjectMapper();
         JsonNode customer;
