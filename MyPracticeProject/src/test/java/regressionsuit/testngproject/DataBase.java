@@ -20,14 +20,22 @@ public class DataBase {
     public String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
     public String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
     public String standAloneDB=ApplicationConfig.readConfigProperties(configFile,"standalonedbname");
+
+    public String api_host=ApplicationConfig.readConfigProperties(configFile,"api_host");
+    public int api_port=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"api_port"));
+    public String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
+    public String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
     int timeOut = Integer.parseInt(ApplicationConfig.readConfigProperties(configFile, "timeout"));
     Faker faker = new Faker();
     public String firstName = faker.name().firstName();
     public String lastName = faker.name().lastName();
     public String customerNotes = faker.friends().quote();
+
     public String email = faker.internet().emailAddress();
+    public String ipAddress=faker.internet().ipV4Address();
     public String phone = String.valueOf(faker.phoneNumber().phoneNumber());
     public String cellPhone = String.valueOf(faker.phoneNumber().cellPhone());
+
     public String password = faker.internet().password();
     public String confirmPassword = password;
     public String companyName = faker.company().name();
@@ -76,6 +84,8 @@ public class DataBase {
     public double taxAmount = faker.number().randomDouble(2, 1, 30);
     public String internalNote = faker.harryPotter().quote();
     public String publicNote = faker.gameOfThrones().quote();
+    public String categoryName=faker.commerce().department();
+    public String keyword=faker.hipster().word();
 
     public String timeStamp() {
         long timeStamp = System.currentTimeMillis();
@@ -174,7 +184,6 @@ public class DataBase {
             return value;
         }
     }
-
     public enum subscriptionStatus {
         NO("No"), YES1("Yes"), YES2("Yes (Double Opt-In)");
         private final String value;
