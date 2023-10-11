@@ -134,4 +134,64 @@ public class CategoryPayload {
     public int getCat_hier_position() {
         return cat_hier_position;
     }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public void setCat_desc(String cat_desc) {
+        this.cat_desc = cat_desc;
+    }
+
+    public void setCat_parent_id(int cat_parent_id) {
+        this.cat_parent_id = cat_parent_id;
+    }
+
+    public void setCat_image(int cat_image) {
+        this.cat_image = cat_image;
+    }
+
+    public void setPer_ship(double per_ship) {
+        this.per_ship = per_ship;
+    }
+
+    public void setItem_ship(double item_ship) {
+        this.item_ship = item_ship;
+    }
+
+    public void setItem_int_ship(double item_int_ship) {
+        this.item_int_ship = item_int_ship;
+    }
+
+    public void setPer_int_ship(double per_int_ship) {
+        this.per_int_ship = per_int_ship;
+    }
+
+    public void setHide(int hide) {
+        this.hide = hide;
+    }
+
+    public void setSeo_meta_title(String seo_meta_title) {
+        this.seo_meta_title = seo_meta_title;
+    }
+
+    public void setSeo_meta_description(String seo_meta_description) {
+        this.seo_meta_description = seo_meta_description;
+    }
+
+    public void setSeo_meta_keywords(String seo_meta_keywords) {
+        this.seo_meta_keywords = seo_meta_keywords;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setCat_hier_position(int cat_hier_position) {
+        this.cat_hier_position = cat_hier_position;
+    }
 }

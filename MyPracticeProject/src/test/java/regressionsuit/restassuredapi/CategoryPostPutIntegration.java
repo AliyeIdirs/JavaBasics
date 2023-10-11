@@ -15,6 +15,7 @@ public class CategoryPostPutIntegration {
     DataBase db;
     String responseBody;
     int catId;
+    CategoryPayload categoryPayload;
     @BeforeClass
     public void setUp(){
         db=new DataBase();
@@ -24,7 +25,7 @@ public class CategoryPostPutIntegration {
     }
     @Test
     public void addCategoryApiTest(){
-        CategoryPayload categoryPayload=new CategoryPayload(db.categoryName);
+        categoryPayload=new CategoryPayload(db.categoryName);
         Response response= given().contentType(ContentType.JSON).and().body(categoryPayload)
                 .when().post("/category").then().assertThat().body("catName",equalTo(db.categoryName))
                 .and().assertThat().statusCode(200).extract().response();
@@ -36,9 +37,13 @@ public class CategoryPostPutIntegration {
     public void updateCategoryApiTest(){
         String newCateName= Faker.instance().commerce().department();
         System.out.println("New categoryName: "+newCateName);
+        categoryPayload.setCatName(newCateName);
 
-        given().contentType(ContentType.JSON).and()
+        /*given().contentType(ContentType.JSON).and()
                 .body(PayloadUtility.updatePayload(responseBody,"catName",newCateName))
+                .when().put("/category/"+catId).then().assertThat().statusCode(204);*/
+        given().contentType(ContentType.JSON).and()
+                .body(categoryPayload)
                 .when().put("/category/"+catId).then().assertThat().statusCode(204);
 
         Response getResponse=given().when().get("/category/"+catId);
