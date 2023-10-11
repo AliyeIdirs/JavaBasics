@@ -13,10 +13,21 @@ public class ApiTestRunner {
     public void setUp(){
         db=new DataBase();
         requestHandler=new ApiRequestHandler();
-        responseHandler= requestHandler.getAllCustomer(db.api_username,db.api_password,db.api_host,db.api_port,"customers");
     }
     @Test
     public void getAllCustomers(){
+        responseHandler= requestHandler.getAllInfo(db.api_username,db.api_password,db.api_host,db.api_port,"customers");
+        Assert.assertTrue(responseHandler.getResponseCode()==200);
+    }
+    @Test
+    public void getAllCategories(){
+        responseHandler= requestHandler.getAllInfo(db.api_username,db.api_password,db.api_host,db.api_port,"categories");
+        Assert.assertTrue(responseHandler.getResponseCode()==200);
+    }
+    @Test
+    public void getAllProducts(){
+        responseHandler= requestHandler.getAllInfo(db.api_username,db.api_password,db.api_host,db.api_port,"products");
+        System.out.println(responseHandler.getResponseContent());
         Assert.assertTrue(responseHandler.getResponseCode()==200);
     }
 }

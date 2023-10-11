@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,6 +29,7 @@ public class CategoryPostPutIntegration {
                 .when().post("/category").then().assertThat().body("catName",equalTo(db.categoryName))
                 .and().assertThat().statusCode(200).extract().response();
         responseBody=response.asPrettyString();
+        response.prettyPrint();
         catId=response.jsonPath().getInt("id");
     }
     @Test

@@ -1,5 +1,6 @@
 package regressionsuit.httpclientapi;
 
+import io.restassured.path.json.JsonPath;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -9,21 +10,22 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 public class ApiRequestHandler {
-    //get all customers
-    public ApiResponseHandler getAllCustomer(String userName,String password,String url,int port,String endPoint){
+    public ApiResponseHandler getAllInfo(String userName, String password, String url, int port, String endPoint){
             ApiResponseHandler responseHandler=new ApiResponseHandler();
             AuthenticationProvider authenticationProvider= new AuthenticationProvider();
-        StopWatch stopWatch=new StopWatch();
-        System.err.println(stopWatch);
+
         CloseableHttpClient httpClient= HttpClientBuilder.create()
                 .setDefaultCredentialsProvider(authenticationProvider.getCredentials(userName,password))
                 .build();
 
         //create get request
         HttpGet httpGet=new HttpGet(url+":"+port+"/"+endPoint);
+        StopWatch stopWatch=new StopWatch();
+        System.err.println(stopWatch);
         //get the response;
         CloseableHttpResponse response= null;
         try {
@@ -36,9 +38,13 @@ public class ApiRequestHandler {
             //response Body
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                String responseContent = EntityUtils.toString(entity);
+                /*String responseContent = EntityUtils.toString(entity);
                 System.out.println(responseContent);
-                responseHandler.setResponseContent(responseContent);
+                responseHandler.setResponseContent(responseContent);*/
+                InputStream inputStream=entity.getContent();
+                JsonPath jsonPath=new JsonPath(inputStream);
+                responseHandler.setResponseContent(jsonPath.prettify());
+
             }
         }catch (IOException e) {
                 throw new RuntimeException(e);
