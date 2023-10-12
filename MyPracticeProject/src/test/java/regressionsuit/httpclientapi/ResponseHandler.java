@@ -1,9 +1,12 @@
 package regressionsuit.httpclientapi;
 
-public class ApiResponseHandler {
+import io.restassured.path.json.JsonPath;
+
+public class ResponseHandler {
     private int responseCode;
     private String responseContent;
     private long responseTime;
+    private JsonPath jsonPath;
 
     public int getResponseCode() {
         return responseCode;
@@ -27,5 +30,13 @@ public class ApiResponseHandler {
 
     public void setResponseTime(long responseTime) {
         this.responseTime = responseTime;
+    }
+
+    public JsonPath getJsonPath() {
+        return jsonPath;
+    }
+
+    public void setJsonPath(JsonPath jsonPath) {
+        this.jsonPath = jsonPath;
     }
 }

@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -34,8 +35,7 @@ public class UpdateExistingCategory {
     }
     @Test
     public void getRandomCategory(){
-        Random random=new Random();
-        randomCatId=catIds.get(random.nextInt(catIds.size()));
+        randomCatId=catIds.get(new Random().nextInt(catIds.size()));
         responseBody=given().when().get("/category/"+randomCatId).then()
                 .assertThat().statusCode(200).and().extract().response().prettyPrint();
     }
@@ -43,11 +43,15 @@ public class UpdateExistingCategory {
     public void updateCategoryInfo(){
         String newCateName=db.categoryName;
         System.out.println("Value to be updated: "+newCateName);
+        JSONObject jsonObject=new JSONObject(responseBody);
+        jsonObject.put("catName",newCateName);
+        given().contentType(ContentType.JSON).and().body(jsonObject.toString()).when().put("/category/"+randomCatId)
+                .then().assertThat().statusCode(204);
 
-        given().contentType(ContentType.JSON)
+        /*given().contentType(ContentType.JSON)
                 .and().body(PayloadUtility.updatePayload(responseBody,"catName",newCateName))
                 .when().put("/category/"+randomCatId).then().assertThat().statusCode(204).extract().response();
-
+*/
         Response getResponse= given().when().get("/category/"+randomCatId);
         Assert.assertEquals(getResponse.jsonPath().getString("catName"),newCateName);
         System.out.println("After Update: ");

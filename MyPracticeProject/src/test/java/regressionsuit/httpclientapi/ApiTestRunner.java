@@ -7,12 +7,12 @@ import regressionsuit.testngproject.DataBase;
 
 public class ApiTestRunner {
     DataBase db;
-    ApiRequestHandler requestHandler;
-    ApiResponseHandler responseHandler;
+    RequestHandler requestHandler;
+    ResponseHandler responseHandler;
     @BeforeClass
     public void setUp(){
         db=new DataBase();
-        requestHandler=new ApiRequestHandler();
+        requestHandler=new RequestHandler();
     }
     @Test
     public void getAllCustomers(){

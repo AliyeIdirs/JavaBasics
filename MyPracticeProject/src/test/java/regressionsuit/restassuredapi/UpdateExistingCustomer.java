@@ -34,8 +34,7 @@ public class UpdateExistingCustomer {
     }
     @Test(description = "randomly pick up a customer id from the list and print")
     public void getRandomCustomer() {
-        Random random = new Random();
-        randomId = customerIds.get(random.nextInt(customerIds.size()));
+        randomId = customerIds.get(new Random().nextInt(customerIds.size()));
         System.out.println("Before Update:");
         responseBody = given().when().get( "/customer/" + randomId)
                 .then().assertThat().statusCode(200).extract().response().prettyPrint();

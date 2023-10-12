@@ -1,7 +1,6 @@
 package regressionsuit.restassuredapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class CategoryPayload {
     /*
@@ -25,7 +24,7 @@ public class CategoryPayload {
     @JsonProperty
     private String catName;
     @JsonProperty
-    private String cat_desc;
+    private String catDescription;
     @JsonProperty
     private int cat_parent_id;
     @JsonProperty
@@ -53,9 +52,9 @@ public class CategoryPayload {
     @JsonProperty
     private int cat_hier_position;
 
-    public CategoryPayload(String catName, String cat_desc, int cat_parent_id, int cat_image, double per_ship, double item_ship, double item_int_ship, double per_int_ship, int hide, String seo_meta_title, String seo_meta_description, String seo_meta_keywords, int priority, int status, int cat_hier_position) {
+    public CategoryPayload(String catName, String catDescription, int cat_parent_id, int cat_image, double per_ship, double item_ship, double item_int_ship, double per_int_ship, int hide, String seo_meta_title, String seo_meta_description, String seo_meta_keywords, int priority, int status, int cat_hier_position) {
         this.catName = catName;
-        this.cat_desc = cat_desc;
+        this.catDescription = catDescription;
         this.cat_parent_id = cat_parent_id;
         this.cat_image = cat_image;
         this.per_ship = per_ship;
@@ -75,12 +74,17 @@ public class CategoryPayload {
         this.catName = catName;
     }
 
+    public CategoryPayload(String catName, String catDescription) {
+        this.catName = catName;
+        this.catDescription = catDescription;
+    }
+
     public String getCatName() {
         return catName;
     }
 
-    public String getCat_desc() {
-        return cat_desc;
+    public String getCatDescription() {
+        return catDescription;
     }
 
     public int getCat_parent_id() {
@@ -139,8 +143,8 @@ public class CategoryPayload {
         this.catName = catName;
     }
 
-    public void setCat_desc(String cat_desc) {
-        this.cat_desc = cat_desc;
+    public void setCatDescription(String catDescription) {
+        this.catDescription = catDescription;
     }
 
     public void setCat_parent_id(int cat_parent_id) {
