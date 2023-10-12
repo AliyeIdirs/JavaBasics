@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import regressionsuit.restassuredapi.CategoryPayload;
 import regressionsuit.testngproject.DataBase;
 
-import javax.json.JsonObject;
 import java.util.List;
 import java.util.Random;
 

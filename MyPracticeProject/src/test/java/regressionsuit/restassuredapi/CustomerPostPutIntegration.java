@@ -15,6 +15,7 @@ public class CustomerPostPutIntegration {
     DataBase db;
     String responseBody;
     int customerId;
+    CustomerPayload  customerPayload;
     @BeforeClass
     public void setUp(){
         db =new DataBase();
@@ -24,7 +25,7 @@ public class CustomerPostPutIntegration {
     }
     @Test
     public void addCustomerApiTest(){
-        CustomerPayload  customerPayload=new CustomerPayload(db.email,db.customerTitle(),db.firstName,db.lastName,0,db.phone,1,"en-GB",db.ipAddress,
+        customerPayload=new CustomerPayload(db.email,db.customerTitle(),db.firstName,db.lastName,0,db.phone,1,"en-GB",db.ipAddress,
                 1);
         Response response= given().contentType(ContentType.JSON).and().body(customerPayload)
                 .when().post("/customer").then().assertThat().statusCode(200).extract().response();
@@ -41,10 +42,14 @@ public class CustomerPostPutIntegration {
 
         String newName= Faker.instance().name().firstName();
         System.out.println("Value to be updated: "+newName);
+        customerPayload.setFirstName(newName);
 
-        given().contentType(ContentType.JSON)
+        given().contentType(ContentType.JSON).and().body(customerPayload).when()
+                .put("/customer/"+customerId).then().assertThat().statusCode(204);
+
+        /*given().contentType(ContentType.JSON)
                 .and().body(PayloadUtility.updatePayload(responseBody,"firstName",newName))
-                .when().put("/customer/"+customerId).then().assertThat().statusCode(204);
+                .when().put("/customer/"+customerId).then().assertThat().statusCode(204);*/
 
         System.out.println("After Update:");
         Assert.assertTrue(given().when().get("/customer/" + customerId).prettyPrint().contains(newName));

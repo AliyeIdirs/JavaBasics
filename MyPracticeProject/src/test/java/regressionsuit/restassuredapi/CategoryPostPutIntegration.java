@@ -25,7 +25,7 @@ public class CategoryPostPutIntegration {
     }
     @Test
     public void addCategoryApiTest(){
-        categoryPayload=new CategoryPayload(db.categoryName);
+        categoryPayload=new CategoryPayload(db.categoryName,db.description);
         Response response= given().contentType(ContentType.JSON).and().body(categoryPayload)
                 .when().post("/category").then().assertThat().body("catName",equalTo(db.categoryName))
                 .and().assertThat().statusCode(200).extract().response();
