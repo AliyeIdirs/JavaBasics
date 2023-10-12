@@ -25,7 +25,8 @@ public class DashboardPage {
     WebElement categoriesLink;
     @FindBy(linkText = "Products")
     WebElement productsLink;
-
+    @FindBy(linkText = "Images")
+    WebElement imagesLink;
     @FindBy(linkText = "Newsletters")
     WebElement newslettersLink;
     @FindBy(linkText = "Orders")
@@ -66,6 +67,10 @@ public class DashboardPage {
     public void clickOnEmailLogLink(){
         functionLibrary.waitForElementPresent(emailLogLink);
         emailLogLink.click();
+    }
+    public void clickOnImagesLink(){
+        functionLibrary.waitForElementPresent(imagesLink);
+        imagesLink.click();
     }
     public void clickLogOut(){
         logoutLink.click();

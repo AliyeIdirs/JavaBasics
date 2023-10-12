@@ -20,7 +20,7 @@ public class PostRequestTest {
         CustomerPayload customerPayload=new CustomerPayload(db.email,db.customerTitle(),db.firstName,db.lastName,0,db.phone,1,"en-GB",db.ipAddress,
                 1);
         Response response= RestAssured.given().headers("Content-Type","application/json")
-                .and().body(PayloadUtility.getCustomerPayload(customerPayload)).auth().basic(db.api_username,db.api_password)
+                .and().body(customerPayload).auth().basic(db.api_username,db.api_password)
                         .when().post(path+"customer").then().extract().response();
         //Assert the response code and response body
         response.getBody().prettyPrint();
@@ -32,7 +32,7 @@ public class PostRequestTest {
         CategoryPayload categoryPayload=new CategoryPayload(db.categoryName,db.description,1,0,0.00,
                 0.00,0.00,0.00,0,db.metaTitle,db.metaDescription,db.keyword,1,1,0);
         Response response=RestAssured.given().headers("Content-Type","application/json")
-                .and().body(PayloadUtility.getCategoryPayload(categoryPayload)).auth().basic(db.api_username,db.api_password)
+                .and().body(categoryPayload).auth().basic(db.api_username,db.api_password)
                 .when().post(path+"category").then().extract().response();
         response.getBody().prettyPrint();
         Assert.assertEquals(response.jsonPath().getString("catName"),categoryPayload.getCatName());
@@ -41,7 +41,7 @@ public class PostRequestTest {
     public void addCategoryTest2(){
         CategoryPayload categoryPayload=new CategoryPayload(db.categoryName);
                 Response response=RestAssured.given().headers("Content-Type","application/json")
-                        .and().body(PayloadUtility.getCategoryPayload(categoryPayload)).auth().basic(db.api_username,db.api_password)
+                        .and().body(categoryPayload).auth().basic(db.api_username,db.api_password)
                 .when().post(path+"category").then().extract().response();
         response.getBody().prettyPrint();
         Assert.assertEquals(response.getStatusCode(),200);
