@@ -34,14 +34,6 @@ public class DBTestRunner {
         boolean isProductExist= SQLScripts.getProductInfo("book",connection);
         Assert.assertTrue(isProductExist);
     }
-    @Test
-    public void verifyProductTest2(){
-        Assert.assertTrue(SQLScripts.getProductInfo(connection,"book"));
-    }
-    @Test(description = "verify product exist in the database")
-    public void verifyCustomerInfo(){
-        Assert.assertTrue(SQLScripts.getCustomerInfo(connection,"Bilal","sss@hotmail.com"));
-    }
     @Test(description = "insert record into category table")
     public void insertCategoryTable(){
         Category category=new Category("Cosmetics","Huda beauty"+dataBase.timeStamp(),

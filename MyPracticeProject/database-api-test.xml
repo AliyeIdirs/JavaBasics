@@ -5,16 +5,9 @@
     </listeners>
     <test name="Regression-Test" preserve-order="true">
         <classes>
-                        <class name="regressionsuit.databasetestautomation.DBTestRunner"></class>
-                        <class name="regressionsuit.httpclientapi.CategoryModuleTestRunner"></class>
-                        <class name="regressionsuit.restassuredapi.CustomerPostPutIntegration"></class>
-            <class name="regressionsuit.testngframework.TestNGRunner2"></class>
+            <class name="regressionsuit.databasetestautomation.DBTestRunner"></class>
+            <class name="regressionsuit.httpclientapi.CategoryModuleTestRunner"></class>
+            <class name="regressionsuit.restassuredapi.CustomerPostPutIntegration"></class>
         </classes>
-    </test>
-    <test name="Integration-Test" preserve-order="true">
-        <packages>
-            <package name="regressionsuit.testrunnerclass" />
-            <package name="regressionsuit.week19project"></package>
-        </packages>
     </test>
 </suite>

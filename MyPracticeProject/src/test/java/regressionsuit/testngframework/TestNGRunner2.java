@@ -36,20 +36,20 @@ public class TestNGRunner2 extends TestBaseForTestNG {
         customerPage=new CustomerPage(driver);
         ordersPage=new OrdersPage(driver);
     }
-    @Test()
+    @Test
     public void viewProduct(){
         dashboardPage.clickOnProductsLink();
         Assert.assertTrue(productPage.viewProductList());
 
     }
-    @Test()
+    @Test
     public void addCustomer(){
         dashboardPage.clickCustomerList();
         customerPage.addCustomer();
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
 
     }
-    @Test(dataProvider = "orderData",enabled = false)
+    @Test(dataProvider = "orderData")
     public void createOrderTest(String customerEmail, String dispatchDate, String shippingMethod, String shippingDate,
                                 List<String> trackingInfo, double weight, int quantity, String productName,
                                 double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes){

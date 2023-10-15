@@ -3,16 +3,17 @@ package regressionsuit.testrunnerclass;
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import regressionsuit.cubecartobjects.NewsletterObject;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.NewslettersPage;
 import regressionsuit.testngproject.DataBase;
 import regressionsuit.testngproject.TestBaseForTestNG;
-import regressionsuit.testngproject.TestResultListener;
 
-@Listeners(TestResultListener.class)
 public class NewsletterTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");

@@ -108,7 +108,7 @@ public class ProductPage {
     )
     List<WebElement> successMessage;
     @FindAll(
-            @FindBy(xpath = "//div[@id='general']/table[3]/tbody/tr")
+            @FindBy(xpath = "//input[@name='delete[]']//ancestor::tr")
     )
     List<WebElement> productList;
 
