@@ -23,12 +23,16 @@ public class OrdersTestRunner extends TestBaseForTestNG {
     OrdersPage ordersPage;
     @BeforeClass
     public void setUp(){
-        openBrowser();
+        testData=new DataBase();
+        if (testData.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         dashboardPage.verifyDashboardPage();
-        testData=new DataBase();
         ordersPage=new OrdersPage(driver);
     }
     @Test(dataProvider = "orderData",priority = 1)

@@ -2,15 +2,19 @@ package regressionsuit.testngproject;
 
 import com.github.javafaker.Faker;
 
+import com.unitedcoder.configutility.ApplicationConfig;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -75,6 +79,7 @@ public class FunctionLibrary {
         String value= properties.getProperty(key);
         return value;
     }
+
 
     public String generateFakeName(int index){
         Faker faker=new Faker();

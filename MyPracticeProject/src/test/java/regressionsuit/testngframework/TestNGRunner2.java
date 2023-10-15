@@ -2,21 +2,15 @@ package regressionsuit.testngframework;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import regressionsuit.pageobjectmodel.CustomerPage;
-import regressionsuit.pageobjectmodel.DashboardPage;
-import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.pageobjectmodel.ProductPage;
+import regressionsuit.pageobjectmodel.*;
 import regressionsuit.testngproject.DataBase;
-import regressionsuit.pageobjectmodel.OrdersPage;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
-
 public class TestNGRunner2 extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
@@ -27,31 +21,35 @@ public class TestNGRunner2 extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     @BeforeClass
-    public void setUp(ITestContext iTestContext){
-        openBrowser();
+    public void setUp(){
+        testData=new DataBase();
+        if (testData.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
         productPage=new ProductPage(driver);
         customerPage=new CustomerPage(driver);
-        testData=new DataBase();
         ordersPage=new OrdersPage(driver);
     }
-    @Test(enabled = false)
+    @Test()
     public void viewProduct(){
         dashboardPage.clickOnProductsLink();
         Assert.assertTrue(productPage.viewProductList());
 
     }
-    @Test(enabled = false)
+    @Test()
     public void addCustomer(){
         dashboardPage.clickCustomerList();
         customerPage.addCustomer();
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
 
     }
-    @Test(dataProvider = "orderData")
+    @Test(dataProvider = "orderData",enabled = false)
     public void createOrderTest(String customerEmail, String dispatchDate, String shippingMethod, String shippingDate,
                                 List<String> trackingInfo, double weight, int quantity, String productName,
                                 double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes){
@@ -60,7 +58,7 @@ public class TestNGRunner2 extends TestBaseForTestNG {
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest")
+    @Test(dependsOnMethods = "createOrderTest",enabled = false)
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();

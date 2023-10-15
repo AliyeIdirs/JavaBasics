@@ -29,12 +29,17 @@ public class AnyTestRunner extends TestBaseForTestNG {
     FileManagerPage fileManagerPage;
     @BeforeClass
     public void setUp(ITestContext context){
-        openBrowser();
+        testData=new DataBase();
+        if (testData.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         dashboardPage.verifyDashboardPage();
-        testData=new DataBase();
+
         mailingListPage=new MailingListPage(driver);
         fileManagerPage=new FileManagerPage(driver);
         context.setAttribute("driver",driver);

@@ -22,12 +22,14 @@ public class AdvancedActionsDemo {
     WebDriver driver;
     FunctionLibrary functionLibrary;
     Actions actions;
+    ScreenShotUtility screenShotUtility;
     @BeforeClass
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver=new ChromeDriver();
         driver.manage().window().maximize();
         functionLibrary=new FunctionLibrary(driver);
+        screenShotUtility=new ScreenShotUtility();
         actions=new Actions(driver);
     }
     @Test
@@ -137,8 +139,7 @@ public class AdvancedActionsDemo {
         for(String eachUrl:urls){
                 driver.navigate().to(eachUrl);
                 functionLibrary.sleep();
-                ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-                screenShotUtility.takeScreenShot(eachUrl.substring(21).replace("/", ""), driver);
+                screenShotUtility.takeScreenshot(driver,eachUrl.substring(21).replace("/", ""));
                 count++;
                 if (count>5)
                     break;

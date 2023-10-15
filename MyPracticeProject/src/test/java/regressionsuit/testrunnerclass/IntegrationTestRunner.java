@@ -3,23 +3,24 @@ package regressionsuit.testrunnerclass;
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import regressionsuit.cubecartobjects.CustomerGroupObject;
 import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.cubecartobjects.ProductCategoryObject;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.pageobjectmodel.*;
 import regressionsuit.testngproject.DataBase;
-import regressionsuit.pageobjectmodel.NewslettersPage;
-import regressionsuit.pageobjectmodel.OrdersPage;
 import regressionsuit.testngproject.TestBaseForTestNG;
-import regressionsuit.testngproject.TestResultListener;
 
 import java.util.List;
 
-@Listeners(TestResultListener.class)
+//@Listeners(TestResultListener.class)
 
 public class IntegrationTestRunner extends TestBaseForTestNG {
+    int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     DataBase testData;
@@ -37,7 +38,11 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
 
     @BeforeClass
     public void setUp(ITestContext context){
-        openBrowser();
+        if(headlessMode==1){
+            setUpBrowserInHeadlessMode();;
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
