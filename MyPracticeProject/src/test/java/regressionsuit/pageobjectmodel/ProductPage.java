@@ -213,6 +213,14 @@ public class ProductPage {
         saveButton.click();
         System.out.println("Product name is: " + productObject.getProductName());
     }
+    public void addProduct(String productName, String productCode, int stockLevel){
+        addProductLink.click();
+        productNameField.sendKeys(productName);
+        productCodeField.sendKeys(productCode);
+        stockLevelField.sendKeys(String.valueOf(stockLevel));
+        saveButton.click();
+        System.out.println("Product name is: "+productName);
+    }
 
     public void addProduct(String productName,String manufacturer,String productCode,String productWeight,
                          String productWidth,String productHeight,String productDepth,
@@ -288,6 +296,25 @@ public class ProductPage {
     }
     public boolean verifyProductAddedSuccessfully() {
         return successMessage.size()>=1;
+    }
+
+    public void deleteProduct(String productCode) {
+        WebElement products = driver.findElement(By.id("nav_products"));
+        products.click();
+        WebElement deleteIcon = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]//parent::tr//following-sibling::td//a/i[@title='Delete']", productCode)));
+        deleteIcon.click();
+        Alert alert = driver.switchTo().alert();
+        functionLibrary.waitAlertPresent();
+        alert.accept();
+    }
+    public boolean verifyProductDeleteSuccessfully(){
+        WebElement successMessage = driver.findElement(By.id("gui_message"));
+        functionLibrary.waitForElementPresent(successMessage);
+        if(successMessage.isDisplayed()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

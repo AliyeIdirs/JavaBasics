@@ -134,11 +134,7 @@ public class DataBase {
     }
 
     public String category() {
-        List<String> categories = new ArrayList<>(Arrays.asList("Animals & Pet Supplies", "Apparel & Accessories",
-                "Beauty & Cosmetics", "Arts & Entertainment", "Baby & Toddler", "Business & Industrial", "Cameras & Optics",
-                "Electronics", "Food, Beverages & Tobacco", "Furniture", "Hardware", "Health & Sports", "Home & Garden",
-                "Luggage & Bags", "Mature", "Media", "Office Supplies", "Religious & Ceremonial", "Software",
-                "Sporting Goods", "Toys & Games", "Vehicles & Parts"));
+        List<String> categories = new ArrayList<>(Arrays.asList("kitchenware","Music & Shoes","Postern of Fate"));
         Random randomCategory = new Random();
         String result = categories.get(randomCategory.nextInt(categories.size()));
         return result;
