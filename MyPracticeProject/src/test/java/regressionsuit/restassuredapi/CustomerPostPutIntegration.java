@@ -37,7 +37,7 @@ public class CustomerPostPutIntegration {
 
 
     }
-    @Test(description = "update according to response body")
+    @Test(description = "update according to response body",dependsOnMethods = "addCustomerApiTest")
     public void updateCustomerApiTest(){
 
         String newName= Faker.instance().name().firstName();

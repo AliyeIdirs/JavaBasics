@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CubeCart Functional Test" verbose="1">
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter" ></listener>
+    </listeners>
+    <test name="Regression-Test" preserve-order="true">
+        <classes>
+            <class name="regressionsuit.databasetestautomation.DBTestRunner"></class>
+            <class name="regressionsuit.httpclientapi.CategoryModuleTestRunner"></class>
+            <class name="regressionsuit.restassuredapi.CustomerPostPutIntegration"></class>
+        </classes>
+    </test>
+</suite>

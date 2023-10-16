@@ -47,6 +47,10 @@ public class UIDBVerification extends TestBaseForTestNG {
     public void addCustomerDBTest(){
         Assert.assertTrue(SQLScripts.getCustomerInfo(connection,customerObject.getFirstName(),customerObject.getEmail()));
     }
+    @Test(description = "verify product exist in the database")
+    public void verifyCustomerInfo(){
+        Assert.assertTrue(SQLScripts.getCustomerInfo(connection,"Bilal","sss@hotmail.com"));
+    }
     @AfterClass
     public void tearDown(){
         closeBrowser();

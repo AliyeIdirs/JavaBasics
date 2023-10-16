@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class ScreenShotUtility {
-    public void takeScreenShot(String imageName, WebDriver driver) {
+    public ScreenShotUtility() {
+    }
+    public void takeScreenshot(WebDriver driver,String imageName){
         DateTime dateTime = new DateTime();
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd-HH:ss");
         String timeStamp = dateTime.toString(formatter);

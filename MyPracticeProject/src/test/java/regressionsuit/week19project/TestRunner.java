@@ -15,8 +15,12 @@ public class TestRunner extends TestBaseForTestNG {
     DataBase dataBase;
     @BeforeClass
     public void setUp(){
-        openBrowser();
         dataBase=new DataBase();
+        if (dataBase.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(dataBase.userName, dataBase.userPassword);
         dashboardPage=new DashboardPage(driver);

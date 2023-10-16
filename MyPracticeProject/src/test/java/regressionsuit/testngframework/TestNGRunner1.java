@@ -2,7 +2,6 @@ package regressionsuit.testngframework;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -20,18 +19,22 @@ public class TestNGRunner1 extends TestBaseForTestNG {
     DashboardPage dashboardPage;
     ProductPage productPage;
     CustomerPage customerPage;
+    int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     @BeforeClass
-    public void setUp(ITestContext context){
-        openBrowser();
+    public void setUp(){
+        if (headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         Assert.assertTrue(dashboardPage.verifyDashboardPage());
         productPage=new ProductPage(driver);
         customerPage=new CustomerPage(driver);
-        context.setAttribute("driver",driver);
     }
     @Test
     public void viewProduct(){

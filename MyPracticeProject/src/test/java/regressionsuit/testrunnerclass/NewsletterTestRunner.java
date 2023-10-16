@@ -3,16 +3,17 @@ package regressionsuit.testrunnerclass;
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import regressionsuit.cubecartobjects.NewsletterObject;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.NewslettersPage;
 import regressionsuit.testngproject.DataBase;
 import regressionsuit.testngproject.TestBaseForTestNG;
-import regressionsuit.testngproject.TestResultListener;
 
-@Listeners(TestResultListener.class)
 public class NewsletterTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
@@ -23,12 +24,16 @@ public class NewsletterTestRunner extends TestBaseForTestNG {
     NewsletterObject newsletterObject;
     @BeforeClass
     public void setUp(ITestContext context){
-        openBrowser();
+        testData=new DataBase();
+        if (testData.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else{
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         dashboardPage.verifyDashboardPage();
-        testData=new DataBase();
         newslettersPage=new NewslettersPage(driver);
         context.setAttribute("driver",driver);
     }

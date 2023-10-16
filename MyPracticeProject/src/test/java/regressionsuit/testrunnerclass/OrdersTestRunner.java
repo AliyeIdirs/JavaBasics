@@ -23,15 +23,19 @@ public class OrdersTestRunner extends TestBaseForTestNG {
     OrdersPage ordersPage;
     @BeforeClass
     public void setUp(){
-        openBrowser();
+        testData=new DataBase();
+        if (testData.headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
         dashboardPage.verifyDashboardPage();
-        testData=new DataBase();
         ordersPage=new OrdersPage(driver);
     }
-    @Test(dataProvider = "orderData",priority = 1)
+    @Test(dataProvider = "orderData")
     public void createOrderTest(String customerEmail, String dispatchDate, String shippingMethod, String shippingDate,
                                 List<String> trackingInfo, double weight, int quantity, String productName,
                                 double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes){
@@ -40,23 +44,23 @@ public class OrdersTestRunner extends TestBaseForTestNG {
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest",priority = 2)
+    @Test(dependsOnMethods = "createOrderTest")
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();
         Assert.assertTrue(ordersPage.verifySearchOrder());
     }
-    @Test(priority =4 )
+    @Test
     public void viewOrdersTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.viewOrders());
     }
-    @Test(dependsOnMethods = "createOrderTest",priority = 3)
+    @Test(dependsOnMethods = "createOrderTest")
     public void editOrderTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.editOrderFromEditIcon());
     }
-    @Test(dependsOnMethods = "createOrderTest",priority = 5)
+    @Test(dependsOnMethods = "editOrderTest")
     public void deleteOrderTest(){
         dashboardPage.clickOnOrders();
         Assert.assertTrue(ordersPage.deleteOrder());

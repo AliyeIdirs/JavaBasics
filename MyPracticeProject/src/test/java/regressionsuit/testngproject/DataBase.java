@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class DataBase {
     String configFile = "config.properties";
+    public int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"headless"));
+
     public String userName = ApplicationConfig.readConfigProperties(configFile, "username");
     public String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
     public String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");

@@ -1,6 +1,7 @@
 package regressionsuit.testngframework;
 
 import com.github.javafaker.Faker;
+import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,9 +18,14 @@ public class DataProviderDemo2 extends TestBaseForTestNG {
     DashboardPage dashboardPage;
     CustomerPage customerPage;
     FunctionLibrary functionLibrary;
+    int headlessMode= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     @BeforeClass
     public void setUp(){
-        openBrowser();
+        if (headlessMode==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         customerPage=new CustomerPage(driver);
