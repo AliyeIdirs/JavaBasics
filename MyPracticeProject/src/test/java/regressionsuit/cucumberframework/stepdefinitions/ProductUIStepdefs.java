@@ -8,7 +8,6 @@ import org.testng.Assert;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.cucumberframework.ProductTestRunner;
 import regressionsuit.pageobjectmodel.DashboardPage;
-import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.DataBase;
 
@@ -20,7 +19,6 @@ import regressionsuit.testngproject.DataBase;
 public class ProductUIStepdefs {
     WebDriver driver= ProductTestRunner.getDriver();
     DashboardPage dashboardPage;
-    LoginPage loginPage;
     ProductPage productPage;
     DataBase db;
     ProductObject productObject;

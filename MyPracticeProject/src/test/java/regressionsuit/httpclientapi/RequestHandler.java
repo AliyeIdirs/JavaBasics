@@ -148,9 +148,6 @@ public class RequestHandler {
             //response Body
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                /*String responseContent = EntityUtils.toString(entity);
-                System.out.println(responseContent);
-                responseHandler.setResponseContent(responseContent);*/
                 InputStream inputStream = entity.getContent();
                 JsonPath jsonPath = new JsonPath(inputStream);
                 responseHandler.setResponseContent(jsonPath.prettify());
