@@ -35,7 +35,7 @@ public class DashboardPage {
     WebElement mailingListLink;
     @FindBy(linkText = "Email Log")
     WebElement emailLogLink;
-    public boolean verifyDashboardPage(){
+    public boolean verifyLogin(){
         return dashBoardText.isDisplayed();
     }
 

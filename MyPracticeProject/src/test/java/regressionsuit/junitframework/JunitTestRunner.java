@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.CategoryPage;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
@@ -24,7 +23,7 @@ public class JunitTestRunner extends TestBase {
         customerPage=new CustomerPage(driver);
         categoryPage=new CategoryPage(driver);
         loginPage.login("testautomation1","automation123!");
-        Assertions.assertTrue(dashboardPage.verifyDashboardPage());
+        Assertions.assertTrue(dashboardPage.verifyLogin());
     }
     @Test
     public void addCustomerTest(){

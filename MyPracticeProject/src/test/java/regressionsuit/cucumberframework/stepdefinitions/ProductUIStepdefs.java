@@ -3,10 +3,9 @@ package regressionsuit.cucumberframework.stepdefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import regressionsuit.cubecartobjects.ProductObject;
-import regressionsuit.cucumberframework.ProductTestRunner;
+import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.DataBase;
@@ -16,8 +15,8 @@ import regressionsuit.testngproject.DataBase;
  * @created : 16.10.2023,14:24
  * @Email :aliyeidiris@gmail.com
  **/
-public class ProductUIStepdefs {
-    WebDriver driver= ProductTestRunner.getDriver();
+public class ProductUIStepdefs extends TestBase {
+    //WebDriver driver= CucumberTestRunner.getDriver();
     DashboardPage dashboardPage;
     ProductPage productPage;
     DataBase db;
@@ -27,7 +26,7 @@ public class ProductUIStepdefs {
         db=new DataBase();
         dashboardPage=new DashboardPage(driver);
         productPage=new ProductPage(driver);
-        Assert.assertTrue(dashboardPage.verifyDashboardPage());
+        Assert.assertTrue(dashboardPage.verifyLogin());
     }
 
     @When("the user fills out a new product form")

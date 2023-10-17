@@ -32,7 +32,7 @@ public class TestNGRunner1 extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        Assert.assertTrue(dashboardPage.verifyDashboardPage());
+        Assert.assertTrue(dashboardPage.verifyLogin());
         productPage=new ProductPage(driver);
         customerPage=new CustomerPage(driver);
     }

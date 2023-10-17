@@ -32,7 +32,7 @@ public class OrdersTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
         ordersPage=new OrdersPage(driver);
     }
     @Test(dataProvider = "orderData")

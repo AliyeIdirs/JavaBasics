@@ -1,11 +1,13 @@
+@ApiTest
 Feature: An authorized user should be able to manage customers and products using CubeCart swagger api documentation
 
+  @CustomerApi
   Scenario: an authorized user should be able to get all customers
     Given a valid username and password
     When the user sends a get request to the customer end point
     Then the api should return 200 response code
     And the api should return more than one customer
-
+  @ProductApi
   Scenario: an authorized user should be able to get all products
     Given a valid username and password
     When the user sends a get request to the product end point

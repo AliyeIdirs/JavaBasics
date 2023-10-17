@@ -46,7 +46,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
         customerPage=new CustomerPage(driver);
         testData=new DataBase();
         productPage=new ProductPage(driver);
@@ -72,7 +72,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
                 confirmPassword,addressDescription,companyName,address,city,country,state,zipCode,groupName);
         //customerGroupObject=(CustomerGroupObject)context.getAttribute("groupName");
         dashboardPage.clickCustomerList();
-        customerPage.addCustomer(customerObject);
+        customerPage.addCustomerDetailed(customerObject);
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
     }
     @Test(dataProvider = "productCategoryData")

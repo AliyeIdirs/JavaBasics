@@ -32,7 +32,7 @@ public class AnyTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
 
         mailingListPage=new MailingListPage(driver);
         fileManagerPage=new FileManagerPage(driver);
