@@ -1,3 +1,4 @@
+@DatabaseTest
 Feature: Admin user should be able to view product information from the cc_CuebCart_inventory table
 
   Scenario: user should be able to get product info

@@ -3,6 +3,7 @@ package regressionsuit.cucumberframework;
 import com.unitedcoder.configutility.ApplicationConfig;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import regressionsuit.junitframework.TestBase;
 
 /**
@@ -13,15 +14,29 @@ import regressionsuit.junitframework.TestBase;
 public class Hooks extends TestBase {
     int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     @Before
-    public void setUp(){
-        if (headless==1){
-            setUpBrowserInHeadlessMode();
-        }else {
-            openBrowser();
+    public void setUp(Scenario scenario){
+        if (scenario.getSourceTagNames().contains("@UITest")){
+            scenario.log("UI test started...");
+            if (headless==1){
+                setUpBrowserInHeadlessMode();
+            }else {
+                openBrowser();
+            }
+        } else  if (scenario.getSourceTagNames().contains("@DatabaseTest")){
+            scenario.log("Database test started...");
+        }else if(scenario.getSourceTagNames().contains("@ApiTest")){
+            scenario.log("Api test started");
         }
     }
     @After
-    public void tearDown(){
-        closeBrowser();
+    public void tearDown(Scenario scenario){
+        if (scenario.getSourceTagNames().contains("UITest")) {
+            scenario.log("UI test ended!");
+            closeBrowser();
+        }else if (scenario.getSourceTagNames().contains("@DatabaseTest")){
+            scenario.log("Database test ended!");
+        } else if (scenario.getSourceTagNames().contains("@ApiTest")) {
+            scenario.log("Api test ended!");
+        }
     }
 }

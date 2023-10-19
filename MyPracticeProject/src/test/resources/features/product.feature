@@ -1,4 +1,4 @@
-@RegressionTest @ProductFeature
+@RegressionTest @ProductFeature @UITest
 Feature: Admin user can manage products
   an an admin, the user should be able to add, update or delete products
 

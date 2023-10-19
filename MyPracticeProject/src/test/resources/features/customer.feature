@@ -1,4 +1,4 @@
-@CustomerFeature
+@CustomerFeature @UITest
 Feature: Admin user can manage customers in the CubeCart Application
 
   @AddCustomer
