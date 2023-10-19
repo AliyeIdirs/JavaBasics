@@ -6,10 +6,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import regressionsuit.restassuredapi.CustomerPayload;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 public class CustomerModuleTest {
-    DataBase db=new DataBase();
+    TestData db=new TestData();
     RequestHandler requestHandler;
     CustomerPayload customerPayload;
     int customerId;
@@ -17,7 +17,7 @@ public class CustomerModuleTest {
     JSONObject jsonObject;
     @BeforeClass
     public void setUp(){
-        db=new DataBase();
+        db=new TestData();
         requestHandler=new RequestHandler();
     }
     @Test

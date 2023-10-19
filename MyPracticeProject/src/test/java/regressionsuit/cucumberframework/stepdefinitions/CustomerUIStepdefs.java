@@ -9,7 +9,7 @@ import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 /**
  * @author : user
@@ -18,14 +18,14 @@ import regressionsuit.testngproject.DataBase;
  **/
 public class CustomerUIStepdefs extends TestBase {
     //WebDriver driver;//= CucumberTestRunner.getDriver();
-    DataBase db;
+    TestData db;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
     CustomerObject customerObject;
-    String email="emailho3336666@hotmail.com";
+    String email=TestData.email;
     @Given("user is on the customer list page")
     public void userIsOnTheCustomerListPage() {
-        db=new DataBase();
+        db=new TestData();
         openBrowser();
         LoginPage loginPage=new LoginPage(driver);
         loginPage.login(db.userName,db.userPassword);

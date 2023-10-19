@@ -8,7 +8,7 @@ import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.sql.Connection;
@@ -17,7 +17,7 @@ public class UIDBVerification extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
-    DataBase dataBase;
+    TestData testData;
     CustomerObject customerObject;
     Connection connection;
     DataBaseConnection dataBaseConnection;
@@ -26,15 +26,15 @@ public class UIDBVerification extends TestBaseForTestNG {
     @BeforeClass
     public void setUp(){
         openBrowser();
-        dataBase=new DataBase();
+        testData =new TestData();
         loginPage=new LoginPage(driver);
-        loginPage.login(dataBase.userName,dataBase.userPassword);
+        loginPage.login(testData.userName, testData.userPassword);
         dashboardPage=new DashboardPage(driver);
         customerPage=new CustomerPage(driver);
-        customerObject=new CustomerObject(dataBase.firstName,dataBase.lastName,dataBase.email);
+        customerObject=new CustomerObject(testData.firstName, testData.lastName, testData.email);
         dataBaseConnection=new DataBaseConnection();
-        connection=dataBaseConnection.connectToDataBaseServer(dataBase.dbUrl, dataBase.dbPort, dataBase.dbUserName,
-                dataBase.dbPassword, dataBase.defaultDB, ConnectionType.MYSQL);
+        connection=dataBaseConnection.connectToDataBaseServer(testData.dbUrl, testData.dbPort, testData.dbUserName,
+                testData.dbPassword, testData.defaultDB, ConnectionType.MYSQL);
         SQLScripts =new SQLScripts();
     }
     @Test

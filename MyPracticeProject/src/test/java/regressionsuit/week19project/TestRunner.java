@@ -6,23 +6,23 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 public class TestRunner extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    DataBase dataBase;
+    TestData testData;
     @BeforeClass
     public void setUp(){
-        dataBase=new DataBase();
-        if (dataBase.headlessMode==1){
+        testData =new TestData();
+        if (testData.headlessMode==1){
             setUpBrowserInHeadlessMode();
         }else {
             openBrowser();
         }
         loginPage=new LoginPage(driver);
-        loginPage.login(dataBase.userName, dataBase.userPassword);
+        loginPage.login(testData.userName, testData.userPassword);
         dashboardPage=new DashboardPage(driver);
     }
     @Test

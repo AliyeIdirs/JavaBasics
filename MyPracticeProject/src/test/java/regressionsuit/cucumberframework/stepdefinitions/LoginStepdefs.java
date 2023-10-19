@@ -7,7 +7,7 @@ import org.testng.Assert;
 import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 /**
  * @author : user
@@ -15,7 +15,7 @@ import regressionsuit.testngproject.DataBase;
  * @Email :aliyeidiris@gmail.com
  **/
 public class LoginStepdefs extends TestBase {
-    DataBase db;
+    TestData db;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     @Given("CubeCart login page opened")
@@ -25,7 +25,7 @@ public class LoginStepdefs extends TestBase {
 
     @When("user enter valid username and valid password")
     public void userEnterValidUsernameAndValidPassword() {
-        db=new DataBase();
+        db=new TestData();
         loginPage=new LoginPage(driver);
         loginPage.login(db.userName,db.userPassword);
     }

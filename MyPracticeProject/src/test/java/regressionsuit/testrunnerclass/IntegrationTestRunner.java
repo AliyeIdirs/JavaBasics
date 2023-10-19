@@ -12,7 +12,7 @@ import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.cubecartobjects.ProductCategoryObject;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.pageobjectmodel.*;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
     int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
-    DataBase testData;
+    TestData testData;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
@@ -48,7 +48,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
         dashboardPage=new DashboardPage(driver);
         dashboardPage.verifyLogin();
         customerPage=new CustomerPage(driver);
-        testData=new DataBase();
+        testData=new TestData();
         productPage=new ProductPage(driver);
         categoryPage=new CategoryPage(driver);
         newslettersPage=new NewslettersPage(driver);

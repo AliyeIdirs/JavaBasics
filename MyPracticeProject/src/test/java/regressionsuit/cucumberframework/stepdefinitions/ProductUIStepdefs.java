@@ -8,7 +8,7 @@ import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.ProductPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 /**
  * @author : user
@@ -19,14 +19,13 @@ public class ProductUIStepdefs extends TestBase {
     //WebDriver driver= CucumberTestRunner.getDriver();
     DashboardPage dashboardPage;
     ProductPage productPage;
-    DataBase db;
+    TestData db;
     ProductObject productObject;
     @Given("user is on the dashboard page")
     public void userIsOnTheDashboardPage() {
-        db=new DataBase();
+        db=new TestData();
         dashboardPage=new DashboardPage(driver);
         productPage=new ProductPage(driver);
-        Assert.assertTrue(dashboardPage.verifyLogin());
     }
 
     @When("the user fills out a new product form")

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.testngproject.FunctionLibrary;
 
@@ -119,16 +119,16 @@ public class ProductPage {
     }
     public void selectProductCondition(){
         Select select=new Select(conditionDropDown);
-        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.condition.NEW.getValue(),
-                DataBase.condition.DAMAGED.getValue(), DataBase.condition.USED.getValue(), DataBase.condition.REFURBISHED.getValue()));
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(TestData.condition.NEW.getValue(),
+                TestData.condition.DAMAGED.getValue(), TestData.condition.USED.getValue(), TestData.condition.REFURBISHED.getValue()));
         Random random=new Random();
         String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
         select.selectByVisibleText(toBeSelected);
     }
     public void selectDimensionUnit(){
         Select selectDimensionUnit = new Select(dimensionDropDown);
-        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.dimensionUnit.CENTIMETERS.getValue(),
-                DataBase.dimensionUnit.INCHES.getValue()));
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(TestData.dimensionUnit.CENTIMETERS.getValue(),
+                TestData.dimensionUnit.INCHES.getValue()));
         Random random=new Random();
         String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
         selectDimensionUnit.selectByVisibleText(toBeSelected);
@@ -136,8 +136,8 @@ public class ProductPage {
 
     public void selectTaxType(){
         Select select=new Select(taxDropDown);
-        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.taxType.STANDART_TAX.getValue(),
-                DataBase.taxType.REDUCED_RATE.getValue(), DataBase.taxType.TAX_EXEMPT.getValue()));
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(TestData.taxType.STANDART_TAX.getValue(),
+                TestData.taxType.REDUCED_RATE.getValue(), TestData.taxType.TAX_EXEMPT.getValue()));
         Random random=new Random();
         String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
         select.selectByVisibleText(toBeSelected);

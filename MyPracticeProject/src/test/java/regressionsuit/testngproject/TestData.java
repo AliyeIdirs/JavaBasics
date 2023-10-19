@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class DataBase {
+public class TestData {
     String configFile = "config.properties";
     public int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"headless"));
 
@@ -28,12 +28,12 @@ public class DataBase {
     public String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
     public String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
     int timeOut = Integer.parseInt(ApplicationConfig.readConfigProperties(configFile, "timeout"));
-    Faker faker = new Faker();
+    static Faker faker = new Faker();
     public String firstName = faker.name().firstName();
     public String lastName = faker.name().lastName();
     public String customerNotes = faker.friends().quote();
 
-    public String email = faker.internet().emailAddress();
+    public static String email = faker.internet().emailAddress();
     public String ipAddress=faker.internet().ipV4Address();
     public String phone = String.valueOf(faker.phoneNumber().phoneNumber());
     public String cellPhone = String.valueOf(faker.phoneNumber().cellPhone());
@@ -48,8 +48,9 @@ public class DataBase {
     public String zipCode = faker.address().zipCode();
     public String groupName = faker.funnyName().name();
     public String groupDescription = faker.dune().quote();
-    public String productName = faker.commerce().productName();
-    public String productCode = Faker.instance().code().asin() + timeStamp();
+
+    public static String productName = faker.commerce().productName();
+    public static String productCode = Faker.instance().code().asin();
     public double productWeight = Faker.instance().number().randomDouble(2, 1, 100);
     public double productWidth = Faker.instance().number().numberBetween(1, 100);
     public double productHeight = Faker.instance().number().numberBetween(1, 100);

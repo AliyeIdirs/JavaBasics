@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.*;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
@@ -16,13 +16,13 @@ public class TestNGRunner2 extends TestBaseForTestNG {
     DashboardPage dashboardPage;
     ProductPage productPage;
     CustomerPage customerPage;
-    DataBase testData;
+    TestData testData;
     OrdersPage ordersPage;
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     @BeforeClass
     public void setUp(){
-        testData=new DataBase();
+        testData=new TestData();
         if (testData.headlessMode==1){
             setUpBrowserInHeadlessMode();
         }else {

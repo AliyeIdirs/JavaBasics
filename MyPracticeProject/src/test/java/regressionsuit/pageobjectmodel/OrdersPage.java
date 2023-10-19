@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.ArrayList;
@@ -127,10 +127,10 @@ public class OrdersPage {
     public void selectOrderStatus(){
         functionLibrary.waitForElementPresent(orderStatusField);
         Select selectStatus = new Select(orderStatusField);
-        List<String> options=new ArrayList<>(Arrays.asList(DataBase.orderStatus.ORDER_COMPLETE.getValue(),
-                DataBase.orderStatus.PROCESSING.getValue(),DataBase.orderStatus.DECLINED.getValue(),
-                DataBase.orderStatus.PENDING.getValue(),DataBase.orderStatus.CANCELLED.getValue(),
-                DataBase.orderStatus.FAILED_FRAUD_REVIEW.getValue()));
+        List<String> options=new ArrayList<>(Arrays.asList(TestData.orderStatus.ORDER_COMPLETE.getValue(),
+                TestData.orderStatus.PROCESSING.getValue(), TestData.orderStatus.DECLINED.getValue(),
+                TestData.orderStatus.PENDING.getValue(), TestData.orderStatus.CANCELLED.getValue(),
+                TestData.orderStatus.FAILED_FRAUD_REVIEW.getValue()));
         Random random=new Random();
         String tobeSelected=options.get(random.nextInt(options.size()));
         selectStatus.selectByVisibleText(tobeSelected);
@@ -138,8 +138,8 @@ public class OrdersPage {
     public void selectDiscountType(){
         functionLibrary.waitForElementPresent(discountDropDown);
         Select select = new Select(discountDropDown);
-        List<String> options=new ArrayList<>(Arrays.asList(DataBase.discountType.FIXED_PRICE_DISCOUNT.getValue(),
-                DataBase.discountType.PERCENTAGE_DISCOUNT.getValue()));
+        List<String> options=new ArrayList<>(Arrays.asList(TestData.discountType.FIXED_PRICE_DISCOUNT.getValue(),
+                TestData.discountType.PERCENTAGE_DISCOUNT.getValue()));
         Random random=new Random();
         String tobeSelected=options.get(random.nextInt(options.size()));
         select.selectByVisibleText(tobeSelected);

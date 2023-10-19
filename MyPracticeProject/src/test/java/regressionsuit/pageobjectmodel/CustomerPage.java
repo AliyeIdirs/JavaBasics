@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import regressionsuit.cubecartobjects.CustomerGroupObject;
 import regressionsuit.cubecartobjects.CustomerObject;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.*;
@@ -128,16 +128,16 @@ public class CustomerPage {
     }
     public void selectCustomerType(){
         Select select=new Select(customerTypeDropDown);
-        List<String> options=new ArrayList<>(Arrays.asList(DataBase.customerType.REGISTERED_CUSTOMER.getValue(),
-                DataBase.customerType.UNREGISTERED_CUSTOMER.getValue()));
+        List<String> options=new ArrayList<>(Arrays.asList(TestData.customerType.REGISTERED_CUSTOMER.getValue(),
+                TestData.customerType.UNREGISTERED_CUSTOMER.getValue()));
         Random random=new Random();
         String toBeSelected=options.get(random.nextInt(options.size()));
         select.selectByVisibleText(toBeSelected);
     }
     public void selectSubscriptionStatus(){
         Select select=new Select(subscriptionDropDown);
-        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.subscriptionStatus.NO.getValue(),
-                DataBase.subscriptionStatus.YES1.getValue(), DataBase.subscriptionStatus.YES2.getValue()));
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(TestData.subscriptionStatus.NO.getValue(),
+                TestData.subscriptionStatus.YES1.getValue(), TestData.subscriptionStatus.YES2.getValue()));
         Random random=new Random();
         String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
         select.selectByVisibleText(toBeSelected);
@@ -251,7 +251,7 @@ public class CustomerPage {
         phoneNumberField.sendKeys(phone);
         cellphoneNumberField.sendKeys(cellPhone);
         Select selectSubscription=new Select(subscriptionDropDown);
-        selectSubscription.selectByVisibleText(DataBase.subscriptionStatus.YES1.getValue());
+        selectSubscription.selectByVisibleText(TestData.subscriptionStatus.YES1.getValue());
         try {
             passwordField.sendKeys(password);
             confirmPasswordField.sendKeys(confirmPassword);
@@ -310,9 +310,12 @@ public class CustomerPage {
     public void updateCustomer(String customerEmail){
         functionLibrary.waitForElementPresent(searchCustomerTab);
         searchCustomerTab.click();
+        functionLibrary.waitForElementPresent(searchCustomerTab);
         searchCustomerBar.click();
         searchCustomerBar.sendKeys(customerEmail);
+        functionLibrary.sleep(3);
         goButton.click();
+        functionLibrary.waitForElementPresent(editIcon);
         editIcon.click();
         customerNotesField.clear();
         customerNotesField.sendKeys("New customer note "+System.currentTimeMillis());

@@ -8,20 +8,20 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import static io.restassured.RestAssured.given;
 
 import java.util.List;
 import java.util.Random;
 
 public class UpdateExistingCategory {
-    DataBase db;
+    TestData db;
     List<Integer> catIds;
     int randomCatId;
     String responseBody;
     @BeforeClass
     public void setUp(){
-        db=new DataBase();
+        db=new TestData();
         RestAssured.baseURI=db.api_host;
         RestAssured.port=db.api_port;
         RestAssured.authentication=RestAssured.basic(db.api_username,db.api_password);
