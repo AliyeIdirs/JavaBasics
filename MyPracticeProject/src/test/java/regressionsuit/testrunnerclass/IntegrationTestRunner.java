@@ -144,7 +144,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
     public Object[][] customersData(){
         return new Object[][]{
                 {testData.customerTitle(),testData.firstName,testData.lastName,testData.customerNotes,testData.email,
-                testData.phone,testData.cellPhone,testData.password,testData.confirmPassword,testData.addressDescription(),
+                testData.phone,testData.cellPhone,testData.customerPassword,testData.confirmPassword,testData.addressDescription(),
                 testData.companyName,testData.address,testData.city,testData.country,testData.state,testData.zipCode,
                 customerGroupObject.getGroupName()}
         };

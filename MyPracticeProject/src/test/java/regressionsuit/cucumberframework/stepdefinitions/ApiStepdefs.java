@@ -95,6 +95,4 @@ public class ApiStepdefs {
         Assert.assertTrue(ApiResponseHolder.getCustomerId()>1);
 
     }
-
-
 }

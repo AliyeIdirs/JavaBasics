@@ -38,8 +38,8 @@ public class TestData {
     public String phone = String.valueOf(faker.phoneNumber().phoneNumber());
     public String cellPhone = String.valueOf(faker.phoneNumber().cellPhone());
 
-    public String password = faker.internet().password();
-    public String confirmPassword = password;
+    public String customerPassword = faker.internet().password();
+    public String confirmPassword = customerPassword;
     public String companyName = faker.company().name();
     public String address = faker.address().fullAddress();
     public String city = faker.country().capital();

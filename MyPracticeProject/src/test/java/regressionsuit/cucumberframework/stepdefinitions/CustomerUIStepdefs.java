@@ -26,7 +26,6 @@ public class CustomerUIStepdefs extends TestBase {
     @Given("user is on the customer list page")
     public void userIsOnTheCustomerListPage() {
         db=new TestData();
-        openBrowser();
         LoginPage loginPage=new LoginPage(driver);
         loginPage.login(db.userName,db.userPassword);
         dashboardPage=new DashboardPage(driver);

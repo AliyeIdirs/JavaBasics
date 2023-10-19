@@ -185,11 +185,21 @@ public class OrdersPage {
         actions.moveToElement(targetCustomer).click().build().perform();
         functionLibrary.waitForElementPresent(addressDropDown);
         Select selectAddress = new Select(addressDropDown);
-        selectAddress.selectByIndex(1);
+        List<WebElement> options=selectAddress.getOptions();
+        if (options.size()>1){
+            selectAddress.selectByValue("1");
+        } else{
+           selectAddress.selectByValue("0");
+        }
         deliveryLink.click();
         copyFromBillingAddress.click();
         Select selectDeliveryAddress = new Select(deliveryPageAddressField);
-        selectDeliveryAddress.selectByIndex(1);
+        List<WebElement> options2=selectDeliveryAddress.getOptions();
+        if (options2.size()>1){
+            selectDeliveryAddress.selectByValue("1");
+        }else {
+            selectDeliveryAddress.selectByValue("0");
+        }
         String dispatchDateValue[]=dispatchDate.split("-");
         enterDispatchDate(Integer.parseInt(dispatchDateValue[0]),Integer.parseInt(dispatchDateValue[1]),Integer.parseInt(dispatchDateValue[2]));
         shippingMethodField.sendKeys(shippingMethod);

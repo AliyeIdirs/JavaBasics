@@ -58,7 +58,7 @@ public class TestNGRunner2 extends TestBaseForTestNG {
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest",enabled = false)
+    @Test(dependsOnMethods = "createOrderTest")
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();
@@ -67,9 +67,9 @@ public class TestNGRunner2 extends TestBaseForTestNG {
     @DataProvider
     public Object[][] orderData(){
         return new Object[][]{
-                {"ernestine.morissette@yahoo.com",testData.dispatchDate(),testData.shippingMethod(),
+                {"dione.kessler@hotmail.com",testData.dispatchDate(),testData.shippingMethod(),
                         testData.shippingDate(),testData.trackingInfo(),100.54,testData.orderQuantity,
-                        "Sleek Plastic Table",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
+                        "Magic Hair Brush",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
                         testData.publicNote}
 
         };

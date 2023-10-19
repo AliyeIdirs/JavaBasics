@@ -7,6 +7,7 @@ import org.testng.Assert;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.junitframework.TestBase;
 import regressionsuit.pageobjectmodel.DashboardPage;
+import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.ProductPage;
 import regressionsuit.testngproject.TestData;
 
@@ -20,11 +21,16 @@ public class ProductUIStepdefs extends TestBase {
     DashboardPage dashboardPage;
     ProductPage productPage;
     TestData db;
+    LoginPage loginPage;
     ProductObject productObject;
+
     @Given("user is on the dashboard page")
     public void userIsOnTheDashboardPage() {
         db=new TestData();
+        loginPage=new LoginPage(driver);
+        loginPage.login(db.userName,db.userPassword);
         dashboardPage=new DashboardPage(driver);
+        dashboardPage.verifyLogin();
         productPage=new ProductPage(driver);
     }
 
@@ -53,5 +59,10 @@ public class ProductUIStepdefs extends TestBase {
     @Then("the product should be deleted")
     public void theProductShouldBeDeleted() {
         Assert.assertTrue(productPage.verifyProductDeleteSuccessfully());
+    }
+
+    @When("user enter product info {string} {string} {string}")
+    public void userEnterProductInfo(String arg0, String arg1, String arg2) {
+        productPage.addProduct(arg0,arg1,Integer.parseInt(arg2));
     }
 }

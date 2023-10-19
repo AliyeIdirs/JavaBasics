@@ -1,5 +1,6 @@
 package regressionsuit.databasetestautomation;
 
+import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -22,10 +23,15 @@ public class UIDBVerification extends TestBaseForTestNG {
     Connection connection;
     DataBaseConnection dataBaseConnection;
     SQLScripts SQLScripts;
+    int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
 
     @BeforeClass
     public void setUp(){
-        openBrowser();
+        if (headless==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
         testData =new TestData();
         loginPage=new LoginPage(driver);
         loginPage.login(testData.userName, testData.userPassword);
@@ -44,12 +50,8 @@ public class UIDBVerification extends TestBaseForTestNG {
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
     }
     @Test(dependsOnMethods = "addCustomerUITest")
-    public void addCustomerDBTest(){
+    public void CustomerInfoDBVerificationTest(){
         Assert.assertTrue(SQLScripts.getCustomerInfo(connection,customerObject.getFirstName(),customerObject.getEmail()));
-    }
-    @Test(description = "verify product exist in the database")
-    public void verifyCustomerInfo(){
-        Assert.assertTrue(SQLScripts.getCustomerInfo(connection,"Bilal","sss@hotmail.com"));
     }
     @AfterClass
     public void tearDown(){
