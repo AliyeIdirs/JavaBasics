@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
  **/
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty","html:target/cucumber-api-testReport.html"},
+        plugin = {"pretty","html:target/cucumber-browsercompatibility-testReport.html"},
         features = {"classpath:features/"},
-        tags = "@ApiTest"
+        tags = "@MultiBrowserTest"
 )
 public class CucumberTestRunner {
 

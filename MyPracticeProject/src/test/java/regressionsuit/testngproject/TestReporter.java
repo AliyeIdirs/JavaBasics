@@ -28,28 +28,22 @@ public class TestReporter implements ITestListener {
     ExtentSparkReporter sparkReporter;
     ExtentReports extentReports;
     ExtentTest extentTest;
+    WebDriver driver=null;
     public void onTestStart(ITestResult result) {
         extentTest=extentReports.createTest(result.getMethod().getMethodName());
-    }
-
-    public void onTestSuccess(ITestResult result) {
-        WebDriver driver=null;
         try {
             driver=(WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
         } catch (IllegalAccessException | IllegalArgumentException | NoSuchFieldException e) {
             e.printStackTrace();
         }
+    }
+
+    public void onTestSuccess(ITestResult result) {
         extentTest.log(Status.PASS,"Test Passed: "+result.getMethod().getMethodName());
         extentTest.addScreenCaptureFromPath(takeScreenshot(driver,result.getMethod().getMethodName().trim()+"_Passed"));
     }
 
     public void onTestFailure(ITestResult result) {
-        WebDriver driver=null;
-        try {
-            driver=(WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
-        } catch (IllegalAccessException | IllegalArgumentException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
         extentTest.log(Status.INFO,"Error/Exception: "+result.getThrowable());
         extentTest.log(Status.FAIL,"Test Failed:  "+result.getMethod().getMethodName());
         extentTest.addScreenCaptureFromPath(takeScreenshot(driver,result.getMethod().getMethodName().trim()+"_Failed"));

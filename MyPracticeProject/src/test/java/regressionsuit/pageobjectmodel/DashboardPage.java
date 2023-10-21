@@ -36,6 +36,7 @@ public class DashboardPage {
     @FindBy(linkText = "Email Log")
     WebElement emailLogLink;
     public boolean verifyLogin(){
+        functionLibrary.waitForElementPresent(dashBoardText);
         return dashBoardText.isDisplayed();
     }
 
@@ -73,6 +74,7 @@ public class DashboardPage {
         imagesLink.click();
     }
     public void clickLogOut(){
+        functionLibrary.waitForElementPresent(logoutLink);
         logoutLink.click();
     }
 

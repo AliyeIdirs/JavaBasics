@@ -13,10 +13,10 @@
 
         </classes>
     </test>
-    <test name="Integration-Test" preserve-order="true">
+<!--    <test name="Integration-Test" preserve-order="true">
         <packages>
             <package name="regressionsuit.testrunnerclass" />
             <package name="regressionsuit.week19project"></package>
         </packages>
-    </test>
+    </test>-->
 </suite>

@@ -1,9 +1,5 @@
 package regressionsuit.cucumberframework;
 
-import com.unitedcoder.configutility.ApplicationConfig;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import regressionsuit.junitframework.TestBase;
 
 /**
@@ -12,7 +8,7 @@ import regressionsuit.junitframework.TestBase;
  * @Email :aliyeidiris@gmail.com
  **/
 public class Hooks extends TestBase {
-    int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
+ /*   int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     @Before
     public void setUp(Scenario scenario){
         if (scenario.getSourceTagNames().contains("@UITest")){
@@ -38,5 +34,5 @@ public class Hooks extends TestBase {
         } else if (scenario.getSourceTagNames().contains("@ApiTest")) {
             scenario.log("Api test ended!");
         }
-    }
+    }*/
 }
