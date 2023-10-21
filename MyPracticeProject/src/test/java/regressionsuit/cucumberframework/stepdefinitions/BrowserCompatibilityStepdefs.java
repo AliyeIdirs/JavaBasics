@@ -64,7 +64,6 @@ public class BrowserCompatibilityStepdefs {
     @After
     public void tearDown(){
         dashboardPage.clickLogOut();
-        driver.close();
         driver.quit();
     }
 }
