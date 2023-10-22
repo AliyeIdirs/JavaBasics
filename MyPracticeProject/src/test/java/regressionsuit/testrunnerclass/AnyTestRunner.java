@@ -10,20 +10,20 @@ import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.FileManagerPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.MailingListPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 public class AnyTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
-    DataBase testData;
+    TestData testData;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     MailingListPage mailingListPage;
     FileManagerPage fileManagerPage;
     @BeforeClass
     public void setUp(ITestContext context){
-        testData=new DataBase();
+        testData=new TestData();
         if (testData.headlessMode==1){
             setUpBrowserInHeadlessMode();
         }else {
@@ -32,7 +32,7 @@ public class AnyTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
 
         mailingListPage=new MailingListPage(driver);
         fileManagerPage=new FileManagerPage(driver);

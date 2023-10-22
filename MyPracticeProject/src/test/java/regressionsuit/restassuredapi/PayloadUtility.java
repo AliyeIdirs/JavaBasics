@@ -7,26 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class PayloadUtility {
-    public static String getCustomerPayload(CustomerPayload customerPayload) {
-        String payload;
-        ObjectMapper objectMapper=new ObjectMapper();
-        try {
-            payload=objectMapper.writeValueAsString(customerPayload);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        return payload;
-    }
-    public static String getCategoryPayload(CategoryPayload categoryPayload){
-        String payload;
-        ObjectMapper objectMapper=new ObjectMapper();
-        try {
-            payload=objectMapper.writeValueAsString(categoryPayload);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        return payload;
-    }
     public static JsonNode updatePayload(String responseBody,String key,String newValue){
         ObjectMapper mapper=new ObjectMapper();
         JsonNode node= null;

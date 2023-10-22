@@ -2,11 +2,11 @@ package regressionsuit.week16junitproject;
 
 import com.unitedcoder.configutility.ApplicationConfig;
 import org.junit.jupiter.api.*;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestRunner extends TestLibrary{
-    DataBase testData=new DataBase();
+    TestData testData=new TestData();
     ProductObject productObject;
     static String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     static String password=ApplicationConfig.readConfigProperties("config.properties","password");

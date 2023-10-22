@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import regressionsuit.pageobjectmodel.*;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
@@ -16,13 +16,13 @@ public class TestNGRunner2 extends TestBaseForTestNG {
     DashboardPage dashboardPage;
     ProductPage productPage;
     CustomerPage customerPage;
-    DataBase testData;
+    TestData testData;
     OrdersPage ordersPage;
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
     @BeforeClass
     public void setUp(){
-        testData=new DataBase();
+        testData=new TestData();
         if (testData.headlessMode==1){
             setUpBrowserInHeadlessMode();
         }else {
@@ -31,7 +31,7 @@ public class TestNGRunner2 extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        Assert.assertTrue(dashboardPage.verifyDashboardPage());
+        Assert.assertTrue(dashboardPage.verifyLogin());
         productPage=new ProductPage(driver);
         customerPage=new CustomerPage(driver);
         ordersPage=new OrdersPage(driver);
@@ -58,7 +58,7 @@ public class TestNGRunner2 extends TestBaseForTestNG {
                 discountAmount,shippingCost,taxAmount,internalNotes,publicNotes);
         Assert.assertTrue(ordersPage.verifyCreateOrderSuccessful());
     }
-    @Test(dependsOnMethods = "createOrderTest",enabled = false)
+    @Test(dependsOnMethods = "createOrderTest")
     public void searchOrder(){
         dashboardPage.clickOnOrders();
         ordersPage.searchOrder();
@@ -67,9 +67,9 @@ public class TestNGRunner2 extends TestBaseForTestNG {
     @DataProvider
     public Object[][] orderData(){
         return new Object[][]{
-                {"ernestine.morissette@yahoo.com",testData.dispatchDate(),testData.shippingMethod(),
+                {"dione.kessler@hotmail.com",testData.dispatchDate(),testData.shippingMethod(),
                         testData.shippingDate(),testData.trackingInfo(),100.54,testData.orderQuantity,
-                        "Sleek Plastic Table",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
+                        "Magic Hair Brush",testData.discountAmount,testData.shippingCost,testData.taxAmount,testData.internalNote,
                         testData.publicNote}
 
         };

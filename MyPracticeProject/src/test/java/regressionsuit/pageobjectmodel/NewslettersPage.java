@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import regressionsuit.cubecartobjects.NewsletterObject;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.ArrayList;
@@ -61,8 +61,8 @@ public class NewslettersPage {
     List<WebElement> successMessage;
     public void selectTemplate(){
         Select select=new Select(templateField);
-        List<String> options=new ArrayList<>(Arrays.asList(DataBase.template.NONE.getValue(),
-                DataBase.template.DEFAULT_NEWSLETTER.getValue(),DataBase.template.DEFAULT_EMAILS.getValue()));
+        List<String> options=new ArrayList<>(Arrays.asList(TestData.template.NONE.getValue(),
+                TestData.template.DEFAULT_NEWSLETTER.getValue(), TestData.template.DEFAULT_EMAILS.getValue()));
         Random random=new Random();
         String toBeSelected= options.get(random.nextInt(options.size()));
         select.selectByVisibleText(toBeSelected);

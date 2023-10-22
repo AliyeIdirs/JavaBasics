@@ -11,20 +11,20 @@ import regressionsuit.cubecartobjects.NewsletterObject;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
 import regressionsuit.pageobjectmodel.NewslettersPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 public class NewsletterTestRunner extends TestBaseForTestNG {
     String userName= ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
-    DataBase testData;
+    TestData testData;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     NewslettersPage newslettersPage;
     NewsletterObject newsletterObject;
     @BeforeClass
     public void setUp(ITestContext context){
-        testData=new DataBase();
+        testData=new TestData();
         if (testData.headlessMode==1){
             setUpBrowserInHeadlessMode();
         }else{
@@ -33,7 +33,7 @@ public class NewsletterTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
         newslettersPage=new NewslettersPage(driver);
         context.setAttribute("driver",driver);
     }

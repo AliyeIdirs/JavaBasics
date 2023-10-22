@@ -9,37 +9,37 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class DataBase {
-    String configFile = "config.properties";
+public class TestData {
+    static String configFile = "config.properties";
     public int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"headless"));
 
-    public String userName = ApplicationConfig.readConfigProperties(configFile, "username");
-    public String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
-    public String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");
-    public String dbUrl= ApplicationConfig.readConfigProperties(configFile,"dburl");
-    public String dbPort=ApplicationConfig.readConfigProperties(configFile,"dbport");
-    public String dbUserName=ApplicationConfig.readConfigProperties(configFile,"dbusername");
-    public String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
-    public String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
+    public static String userName = ApplicationConfig.readConfigProperties(configFile, "username");
+    public static String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
+    public static String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");
+    public static String dbUrl= ApplicationConfig.readConfigProperties(configFile,"dburl");
+    public static String dbPort=ApplicationConfig.readConfigProperties(configFile,"dbport");
+    public static String dbUserName=ApplicationConfig.readConfigProperties(configFile,"dbusername");
+    public static String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
+    public static String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
     public String standAloneDB=ApplicationConfig.readConfigProperties(configFile,"standalonedbname");
 
-    public String api_host=ApplicationConfig.readConfigProperties(configFile,"api_host");
-    public int api_port=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"api_port"));
-    public String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
-    public String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
+    public static String api_host=ApplicationConfig.readConfigProperties(configFile,"api_host");
+    public static int api_port=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"api_port"));
+    public static String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
+    public static String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
     int timeOut = Integer.parseInt(ApplicationConfig.readConfigProperties(configFile, "timeout"));
-    Faker faker = new Faker();
+    static Faker faker = new Faker();
     public String firstName = faker.name().firstName();
     public String lastName = faker.name().lastName();
     public String customerNotes = faker.friends().quote();
 
-    public String email = faker.internet().emailAddress();
+    public static String email = faker.internet().emailAddress();
     public String ipAddress=faker.internet().ipV4Address();
     public String phone = String.valueOf(faker.phoneNumber().phoneNumber());
     public String cellPhone = String.valueOf(faker.phoneNumber().cellPhone());
 
-    public String password = faker.internet().password();
-    public String confirmPassword = password;
+    public String customerPassword = faker.internet().password();
+    public String confirmPassword = customerPassword;
     public String companyName = faker.company().name();
     public String address = faker.address().fullAddress();
     public String city = faker.country().capital();
@@ -48,8 +48,9 @@ public class DataBase {
     public String zipCode = faker.address().zipCode();
     public String groupName = faker.funnyName().name();
     public String groupDescription = faker.dune().quote();
-    public String productName = faker.commerce().productName();
-    public String productCode = Faker.instance().code().asin() + timeStamp();
+
+    public static String productName = faker.commerce().productName();
+    public static String productCode = Faker.instance().code().asin();
     public double productWeight = Faker.instance().number().randomDouble(2, 1, 100);
     public double productWidth = Faker.instance().number().numberBetween(1, 100);
     public double productHeight = Faker.instance().number().numberBetween(1, 100);
@@ -134,11 +135,7 @@ public class DataBase {
     }
 
     public String category() {
-        List<String> categories = new ArrayList<>(Arrays.asList("Animals & Pet Supplies", "Apparel & Accessories",
-                "Beauty & Cosmetics", "Arts & Entertainment", "Baby & Toddler", "Business & Industrial", "Cameras & Optics",
-                "Electronics", "Food, Beverages & Tobacco", "Furniture", "Hardware", "Health & Sports", "Home & Garden",
-                "Luggage & Bags", "Mature", "Media", "Office Supplies", "Religious & Ceremonial", "Software",
-                "Sporting Goods", "Toys & Games", "Vehicles & Parts"));
+        List<String> categories = new ArrayList<>(Arrays.asList("kitchenware","Music & Shoes","Postern of Fate"));
         Random randomCategory = new Random();
         String result = categories.get(randomCategory.nextInt(categories.size()));
         return result;

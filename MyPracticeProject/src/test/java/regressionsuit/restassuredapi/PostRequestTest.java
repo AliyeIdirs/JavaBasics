@@ -5,14 +5,14 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 public class PostRequestTest {
-    DataBase db;
+    TestData db;
     String path;
     @BeforeClass
     public void setUp(){
-        db =new DataBase();
+        db =new TestData();
         path= db.api_host+":"+ db.api_port+"/";
     }
     @Test(description = "Authorized user should be able to add customer")

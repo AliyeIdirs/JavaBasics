@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 public class RequestHandler {
-    DataBase db = new DataBase();
+    TestData db = new TestData();
     String userName;
     String password;
     String apiUrl;
@@ -148,9 +148,6 @@ public class RequestHandler {
             //response Body
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                /*String responseContent = EntityUtils.toString(entity);
-                System.out.println(responseContent);
-                responseHandler.setResponseContent(responseContent);*/
                 InputStream inputStream = entity.getContent();
                 JsonPath jsonPath = new JsonPath(inputStream);
                 responseHandler.setResponseContent(jsonPath.prettify());

@@ -1,5 +1,6 @@
 package regressionsuit.databasetestautomation;
 
+import com.unitedcoder.configutility.ApplicationConfig;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -8,7 +9,7 @@ import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.pageobjectmodel.CustomerPage;
 import regressionsuit.pageobjectmodel.DashboardPage;
 import regressionsuit.pageobjectmodel.LoginPage;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.sql.Connection;
@@ -17,24 +18,29 @@ public class UIDBVerification extends TestBaseForTestNG {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
-    DataBase dataBase;
+    TestData testData;
     CustomerObject customerObject;
     Connection connection;
     DataBaseConnection dataBaseConnection;
     SQLScripts SQLScripts;
+    int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
 
     @BeforeClass
     public void setUp(){
-        openBrowser();
-        dataBase=new DataBase();
+        if (headless==1){
+            setUpBrowserInHeadlessMode();
+        }else {
+            openBrowser();
+        }
+        testData =new TestData();
         loginPage=new LoginPage(driver);
-        loginPage.login(dataBase.userName,dataBase.userPassword);
+        loginPage.login(testData.userName, testData.userPassword);
         dashboardPage=new DashboardPage(driver);
         customerPage=new CustomerPage(driver);
-        customerObject=new CustomerObject(dataBase.firstName,dataBase.lastName,dataBase.email);
+        customerObject=new CustomerObject(testData.firstName, testData.lastName, testData.email);
         dataBaseConnection=new DataBaseConnection();
-        connection=dataBaseConnection.connectToDataBaseServer(dataBase.dbUrl, dataBase.dbPort, dataBase.dbUserName,
-                dataBase.dbPassword, dataBase.defaultDB, ConnectionType.MYSQL);
+        connection=dataBaseConnection.connectToDataBaseServer(testData.dbUrl, testData.dbPort, testData.dbUserName,
+                testData.dbPassword, testData.defaultDB, ConnectionType.MYSQL);
         SQLScripts =new SQLScripts();
     }
     @Test
@@ -44,12 +50,8 @@ public class UIDBVerification extends TestBaseForTestNG {
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
     }
     @Test(dependsOnMethods = "addCustomerUITest")
-    public void addCustomerDBTest(){
+    public void CustomerInfoDBVerificationTest(){
         Assert.assertTrue(SQLScripts.getCustomerInfo(connection,customerObject.getFirstName(),customerObject.getEmail()));
-    }
-    @Test(description = "verify product exist in the database")
-    public void verifyCustomerInfo(){
-        Assert.assertTrue(SQLScripts.getCustomerInfo(connection,"Bilal","sss@hotmail.com"));
     }
     @AfterClass
     public void tearDown(){

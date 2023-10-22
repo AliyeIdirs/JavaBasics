@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import regressionsuit.cubecartobjects.CustomerGroupObject;
 import regressionsuit.cubecartobjects.CustomerObject;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.FunctionLibrary;
 
 import java.util.*;
@@ -99,6 +99,18 @@ public class CustomerPage {
     WebElement groupSaveButton;
     @FindBy(xpath = "//div[contains(text(),'group added.')]")
     WebElement groupSuccessMessage;
+    @FindBy(linkText = "Search Customers")
+    WebElement searchCustomerTab;
+    @FindBy(id = "customer_id")
+    WebElement searchCustomerBar;
+    @FindBy(xpath = "//*[@id=\"sidebar_content\"]/div[1]/form/input[3]")
+    WebElement goButton;
+    @FindBy(css = ".fa.fa-pencil-square-o")
+    WebElement editIcon;
+    @FindAll(
+            @FindBy(xpath = "//div[text()='Customer successfully updated.']")
+    )
+    List<WebElement> updateSuccessMessage;
 
     public void addCustomerGroup(CustomerGroupObject customerGroupObject){
         customerGroupsLink.click();
@@ -116,16 +128,16 @@ public class CustomerPage {
     }
     public void selectCustomerType(){
         Select select=new Select(customerTypeDropDown);
-        List<String> options=new ArrayList<>(Arrays.asList(DataBase.customerType.REGISTERED_CUSTOMER.getValue(),
-                DataBase.customerType.UNREGISTERED_CUSTOMER.getValue()));
+        List<String> options=new ArrayList<>(Arrays.asList(TestData.customerType.REGISTERED_CUSTOMER.getValue(),
+                TestData.customerType.UNREGISTERED_CUSTOMER.getValue()));
         Random random=new Random();
         String toBeSelected=options.get(random.nextInt(options.size()));
         select.selectByVisibleText(toBeSelected);
     }
     public void selectSubscriptionStatus(){
         Select select=new Select(subscriptionDropDown);
-        List<String> selectOptions=new ArrayList<>(Arrays.asList(DataBase.subscriptionStatus.NO.getValue(),
-                DataBase.subscriptionStatus.YES1.getValue(), DataBase.subscriptionStatus.YES2.getValue()));
+        List<String> selectOptions=new ArrayList<>(Arrays.asList(TestData.subscriptionStatus.NO.getValue(),
+                TestData.subscriptionStatus.YES1.getValue(), TestData.subscriptionStatus.YES2.getValue()));
         Random random=new Random();
         String toBeSelected=selectOptions.get(random.nextInt(selectOptions.size()));
         select.selectByVisibleText(toBeSelected);
@@ -139,7 +151,7 @@ public class CustomerPage {
         emailField.sendKeys(functionLibrary.generateFakeName(0)+"@hotmail.com");
         saveButton.click();
     }
-    public void addCustomer(String firstName,String lastName,String email){
+    public void addCustomer(String firstName, String lastName, String email){
         functionLibrary.waitForElementPresent(addCustomerLink);
         addCustomerLink.click();
         functionLibrary.sleep();
@@ -148,7 +160,17 @@ public class CustomerPage {
         emailField.sendKeys(email);
         saveButton.click();
     }
-    public void addCustomer(CustomerObject customerObject) {
+    public void addCustomerSimple(CustomerObject customerObject){
+        functionLibrary.waitForElementPresent(addCustomerLink);
+        addCustomerLink.click();
+        functionLibrary.waitForElementPresent(statusField);
+        statusField.click();
+        firstNameField.sendKeys(customerObject.getFirstName());
+        lastNameField.sendKeys(customerObject.getLastName());
+        emailField.sendKeys(customerObject.getEmail());
+        saveButton.click();
+    }
+    public void addCustomerDetailed(CustomerObject customerObject) {
         functionLibrary.waitForElementPresent(addCustomerLink);
         addCustomerLink.click();
         functionLibrary.waitForElementPresent(statusField);
@@ -214,8 +236,8 @@ public class CustomerPage {
         System.out.println("Customer Name: " + customerObject.getFirstName());
     }
         public void addCustomer(String title, String firstName, String lastName, String customerNotes, String email, String phone, String cellPhone,
-                            String password, String confirmPassword, String addressDescription, String companyName, String address, String city,
-                            String country, String state, String zipCode, String customerGroup){
+                                String password, String confirmPassword, String addressDescription, String companyName, String address, String city,
+                                String country, String state, String zipCode, String customerGroup){
         functionLibrary.waitForElementPresent(addCustomerLink);
         addCustomerLink.click();
         functionLibrary.waitForElementPresent(statusField);
@@ -229,7 +251,7 @@ public class CustomerPage {
         phoneNumberField.sendKeys(phone);
         cellphoneNumberField.sendKeys(cellPhone);
         Select selectSubscription=new Select(subscriptionDropDown);
-        selectSubscription.selectByVisibleText(DataBase.subscriptionStatus.YES1.getValue());
+        selectSubscription.selectByVisibleText(TestData.subscriptionStatus.YES1.getValue());
         try {
             passwordField.sendKeys(password);
             confirmPasswordField.sendKeys(confirmPassword);
@@ -284,5 +306,22 @@ public class CustomerPage {
     }
     public boolean verifyAddCustomerSuccessfully(){
         return successMessage.size()>=1;
+    }
+    public void updateCustomer(String customerEmail){
+        functionLibrary.waitForElementPresent(searchCustomerTab);
+        searchCustomerTab.click();
+        functionLibrary.waitForElementPresent(searchCustomerTab);
+        searchCustomerBar.click();
+        searchCustomerBar.sendKeys(customerEmail);
+        functionLibrary.sleep(3);
+        goButton.click();
+        functionLibrary.waitForElementPresent(editIcon);
+        editIcon.click();
+        customerNotesField.clear();
+        customerNotesField.sendKeys("New customer note "+System.currentTimeMillis());
+        saveButton.click();
+    }
+    public boolean verifyUpdateCustomer(){
+        return updateSuccessMessage.size()>=1;
     }
 }

@@ -10,15 +10,15 @@ import static org.hamcrest.Matchers.equalTo;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 public class CategoryPostPutIntegration {
-    DataBase db;
+    TestData db;
     String responseBody;
     int catId;
     CategoryPayload categoryPayload;
     @BeforeClass
     public void setUp(){
-        db=new DataBase();
+        db=new TestData();
         RestAssured.baseURI=db.api_host;
         RestAssured.port=db.api_port;
         RestAssured.authentication=RestAssured.basic(db.api_username,db.api_password);

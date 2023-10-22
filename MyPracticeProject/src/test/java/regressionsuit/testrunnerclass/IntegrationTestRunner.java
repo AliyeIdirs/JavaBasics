@@ -12,7 +12,7 @@ import regressionsuit.cubecartobjects.CustomerObject;
 import regressionsuit.cubecartobjects.ProductCategoryObject;
 import regressionsuit.cubecartobjects.ProductObject;
 import regressionsuit.pageobjectmodel.*;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 import regressionsuit.testngproject.TestBaseForTestNG;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
     int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     String userName=ApplicationConfig.readConfigProperties("config.properties","username");
     String password=ApplicationConfig.readConfigProperties("config.properties","password");
-    DataBase testData;
+    TestData testData;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     CustomerPage customerPage;
@@ -46,9 +46,9 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
         loginPage=new LoginPage(driver);
         loginPage.login(userName,password);
         dashboardPage=new DashboardPage(driver);
-        dashboardPage.verifyDashboardPage();
+        dashboardPage.verifyLogin();
         customerPage=new CustomerPage(driver);
-        testData=new DataBase();
+        testData=new TestData();
         productPage=new ProductPage(driver);
         categoryPage=new CategoryPage(driver);
         newslettersPage=new NewslettersPage(driver);
@@ -72,7 +72,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
                 confirmPassword,addressDescription,companyName,address,city,country,state,zipCode,groupName);
         //customerGroupObject=(CustomerGroupObject)context.getAttribute("groupName");
         dashboardPage.clickCustomerList();
-        customerPage.addCustomer(customerObject);
+        customerPage.addCustomerDetailed(customerObject);
         Assert.assertTrue(customerPage.verifyAddCustomerSuccessfully());
     }
     @Test(dataProvider = "productCategoryData")
@@ -144,7 +144,7 @@ public class IntegrationTestRunner extends TestBaseForTestNG {
     public Object[][] customersData(){
         return new Object[][]{
                 {testData.customerTitle(),testData.firstName,testData.lastName,testData.customerNotes,testData.email,
-                testData.phone,testData.cellPhone,testData.password,testData.confirmPassword,testData.addressDescription(),
+                testData.phone,testData.cellPhone,testData.customerPassword,testData.confirmPassword,testData.addressDescription(),
                 testData.companyName,testData.address,testData.city,testData.country,testData.state,testData.zipCode,
                 customerGroupObject.getGroupName()}
         };

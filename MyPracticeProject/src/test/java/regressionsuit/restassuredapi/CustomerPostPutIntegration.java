@@ -7,18 +7,18 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 import static io.restassured.RestAssured.given;
 
 public class CustomerPostPutIntegration {
-    DataBase db;
+    TestData db;
     String responseBody;
     int customerId;
     CustomerPayload  customerPayload;
     @BeforeClass
     public void setUp(){
-        db =new DataBase();
+        db =new TestData();
         RestAssured.baseURI=db.api_host;
         RestAssured.port=db.api_port;
         RestAssured.authentication=RestAssured.basic(db.api_username,db.api_password);

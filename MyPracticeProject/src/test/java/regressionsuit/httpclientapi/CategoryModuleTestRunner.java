@@ -5,13 +5,13 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import regressionsuit.restassuredapi.CategoryPayload;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 import java.util.List;
 import java.util.Random;
 
 public class CategoryModuleTestRunner {
-    DataBase db=new DataBase();
+    TestData db=new TestData();
     RequestHandler requestHandler;
     CategoryPayload categoryPayload;
     int categoryId;
@@ -19,7 +19,7 @@ public class CategoryModuleTestRunner {
     JSONObject jsonObject;
     @BeforeClass
     public void setUp(){
-        db=new DataBase();
+        db=new TestData();
         requestHandler=new RequestHandler();
     }
     @Test

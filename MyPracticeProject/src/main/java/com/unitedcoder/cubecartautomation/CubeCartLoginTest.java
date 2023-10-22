@@ -13,7 +13,7 @@ public class CubeCartLoginTest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions=new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        chromeOptions.setHeadless(false);//if we send true in the (),this code will execute the test without UI
+        chromeOptions.addArguments("headless");
         ChromeDriver driver= new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.navigate().to("http://cubecartuat.unitedcoder.com/admin_tu8sml.php?");

@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 import java.sql.Connection;
 
@@ -20,14 +20,14 @@ public class DBTestRunner {
     Connection connection;
     DataBaseConnection dataBaseConnection;
     SQLScripts SQLScripts;
-    DataBase dataBase;
+    TestData testData;
     @BeforeClass
     public void establishConnection(){
         dataBaseConnection=new DataBaseConnection();
         connection=dataBaseConnection.connectToDataBaseServer(dbUrl,dbPort,dbUserName,dbPassword,standAloneDB,
                 ConnectionType.MYSQL);
         SQLScripts =new SQLScripts();
-        dataBase=new DataBase();
+        testData =new TestData();
     }
     @Test(description = "Verify a product in the database")
     public void verifyProductTest(){
@@ -36,9 +36,9 @@ public class DBTestRunner {
     }
     @Test(description = "insert record into category table")
     public void insertCategoryTable(){
-        Category category=new Category("Cosmetics","Huda beauty"+dataBase.timeStamp(),
-                1,0,0,0,0,0,dataBase.metaTitle,
-                dataBase.metaDescription,1,1,0,"meta"+dataBase.timeStamp());
+        Category category=new Category("Cosmetics","Huda beauty"+ testData.timeStamp(),
+                1,0,0,0,0,0, testData.metaTitle,
+                testData.metaDescription,1,1,0,"meta"+ testData.timeStamp());
         Assert.assertTrue(SQLScripts.insertNewCategory(connection,category));
     }
 

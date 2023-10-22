@@ -3,15 +3,15 @@ package regressionsuit.httpclientapi;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import regressionsuit.testngproject.DataBase;
+import regressionsuit.testngproject.TestData;
 
 public class ApiTestRunner {
-    DataBase db;
+    TestData db;
     RequestHandler requestHandler;
     ResponseHandler responseHandler;
     @BeforeClass
     public void setUp(){
-        db=new DataBase();
+        db=new TestData();
         requestHandler=new RequestHandler();
     }
     @Test
