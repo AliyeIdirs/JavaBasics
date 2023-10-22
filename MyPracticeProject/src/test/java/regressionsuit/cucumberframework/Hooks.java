@@ -1,6 +1,11 @@
 package regressionsuit.cucumberframework;
 
+import com.unitedcoder.configutility.ApplicationConfig;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import regressionsuit.junitframework.TestBase;
+import regressionsuit.pageobjectmodel.DashboardPage;
 
 /**
  * @author : user
@@ -8,7 +13,7 @@ import regressionsuit.junitframework.TestBase;
  * @Email :aliyeidiris@gmail.com
  **/
 public class Hooks extends TestBase {
- /*   int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
+    int headless= Integer.parseInt(ApplicationConfig.readConfigProperties("config.properties","headless"));
     @Before
     public void setUp(Scenario scenario){
         if (scenario.getSourceTagNames().contains("@UITest")){
@@ -24,15 +29,20 @@ public class Hooks extends TestBase {
             scenario.log("Api test started");
         }
     }
-    @After
-    public void tearDown(Scenario scenario){
-        if (scenario.getSourceTagNames().contains("UITest")) {
-            scenario.log("UI test ended!");
-            closeBrowser();
-        }else if (scenario.getSourceTagNames().contains("@DatabaseTest")){
-            scenario.log("Database test ended!");
-        } else if (scenario.getSourceTagNames().contains("@ApiTest")) {
+   @After("@UITest")
+    public void tearDownBrowser(Scenario scenario) {
+       scenario.log("UI test ended!");
+       DashboardPage dashboardPage = new DashboardPage(driver);
+       dashboardPage.clickLogOut();
+       closeBrowser();
+   }
+   @After("@DatabaseTest")
+    public void tearDownDatabase(Scenario scenario) {
+       scenario.log("Database test ended!");
+   }
+
+   @After("@ApiTest")
+    public void tearDownApi(Scenario scenario){
             scenario.log("Api test ended!");
-        }
-    }*/
+    }
 }

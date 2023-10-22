@@ -37,6 +37,7 @@ public class DashboardPage {
     WebElement emailLogLink;
     public boolean verifyLogin(){
         functionLibrary.waitForElementPresent(dashBoardText);
+        System.out.println("Dashboard page displayed...");
         return dashBoardText.isDisplayed();
     }
 

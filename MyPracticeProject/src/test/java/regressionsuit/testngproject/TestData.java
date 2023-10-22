@@ -10,23 +10,23 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class TestData {
-    String configFile = "config.properties";
+    static String configFile = "config.properties";
     public int headlessMode=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"headless"));
 
-    public String userName = ApplicationConfig.readConfigProperties(configFile, "username");
-    public String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
-    public String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");
-    public String dbUrl= ApplicationConfig.readConfigProperties(configFile,"dburl");
-    public String dbPort=ApplicationConfig.readConfigProperties(configFile,"dbport");
-    public String dbUserName=ApplicationConfig.readConfigProperties(configFile,"dbusername");
-    public String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
-    public String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
+    public static String userName = ApplicationConfig.readConfigProperties(configFile, "username");
+    public static String userPassword = ApplicationConfig.readConfigProperties(configFile, "password");
+    public static String uiUrl = ApplicationConfig.readConfigProperties(configFile, "qaurl");
+    public static String dbUrl= ApplicationConfig.readConfigProperties(configFile,"dburl");
+    public static String dbPort=ApplicationConfig.readConfigProperties(configFile,"dbport");
+    public static String dbUserName=ApplicationConfig.readConfigProperties(configFile,"dbusername");
+    public static String dbPassword=ApplicationConfig.readConfigProperties(configFile,"dbpassword");
+    public static String defaultDB=ApplicationConfig.readConfigProperties(configFile,"dbname");
     public String standAloneDB=ApplicationConfig.readConfigProperties(configFile,"standalonedbname");
 
-    public String api_host=ApplicationConfig.readConfigProperties(configFile,"api_host");
-    public int api_port=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"api_port"));
-    public String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
-    public String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
+    public static String api_host=ApplicationConfig.readConfigProperties(configFile,"api_host");
+    public static int api_port=Integer.parseInt(ApplicationConfig.readConfigProperties(configFile,"api_port"));
+    public static String api_username=ApplicationConfig.readConfigProperties(configFile,"api_username");
+    public static String api_password=ApplicationConfig.readConfigProperties(configFile,"api_password");
     int timeOut = Integer.parseInt(ApplicationConfig.readConfigProperties(configFile, "timeout"));
     static Faker faker = new Faker();
     public String firstName = faker.name().firstName();

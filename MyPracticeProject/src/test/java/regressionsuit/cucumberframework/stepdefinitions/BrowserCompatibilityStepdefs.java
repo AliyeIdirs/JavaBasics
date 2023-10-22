@@ -1,7 +1,6 @@
 package regressionsuit.cucumberframework.stepdefinitions;
 
 import com.unitedcoder.configutility.ApplicationConfig;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -60,11 +59,6 @@ public class BrowserCompatibilityStepdefs {
     public void theUserShouldSeeTheAdminDashboardPage() {
         dashboardPage=new DashboardPage(driver);
         Assert.assertTrue(dashboardPage.verifyLogin());
-    }
-    @After
-    public void tearDown(){
-        dashboardPage.clickLogOut();
-        driver.quit();
     }
 }
 

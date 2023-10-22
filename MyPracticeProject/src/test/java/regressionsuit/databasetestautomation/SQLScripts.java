@@ -168,6 +168,39 @@ public class SQLScripts {
             throw new RuntimeException(e);
         }
     }
+    public boolean getCategoryInfo(Connection connection, int catId){
+        Statement statement;
+        ResultSet resultSet;
+        CachedRowSet cachedRowSet;
+        try {
+            statement=connection.createStatement();
+            String sqlScriptForCategory=String.format("Select * from cc_CubeCart_category where cat_id='%d'",
+                    catId);
+            resultSet=statement.executeQuery(sqlScriptForCategory);
+            cachedRowSet=RowSetProvider.newFactory().createCachedRowSet();
+            cachedRowSet.populate(resultSet);
+            if(!cachedRowSet.next()) {
+                System.out.println("No record found!");
+                return false;
+            }else{
+                int rowCount;
+                do{
+                    rowCount=cachedRowSet.getRow();
+                    int cat_id = cachedRowSet.getInt("cat_id");
+                    String catName = cachedRowSet.getString("cat_name");
+                    if (cat_id==catId) {
+                        System.out.printf("Category_Id: %d, Category Name: %s",
+                                cat_id,catName);
+                    }else
+                        System.out.println("Category info dose not match!!!");
+                }while (cachedRowSet.next());
+                System.out.println("\nRow count is:" + rowCount);
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public boolean insertNewCategory(Connection connection,Category category){
         String insertCategorySqlScript="insert into cc_CubeCart_category"+
