@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty","html:target/cucumber-browsercompatibility-testReport.html"},
         features = {"classpath:features/"},
-        tags = "@MultiBrowserTest"
+        tags = "@GetCategory"
 )
 public class CucumberTestRunner {
 
