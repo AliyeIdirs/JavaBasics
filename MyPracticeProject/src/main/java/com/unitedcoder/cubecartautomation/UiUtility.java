@@ -45,4 +45,7 @@ public class UiUtility {
     public static String getCurrentUserName(){
         return System.getProperty("user.name");
     }
+    public static String readConfig(String key){
+        return ApplicationConfig.readConfigProperties("config.properties",key);
+    }
 }
