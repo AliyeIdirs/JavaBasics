@@ -26,7 +26,7 @@ public class CategoryDBSteps {
         connection=dataBaseConnection.connectToDataBaseServer(TestData.dbUrl,TestData.dbPort,TestData.dbUserName,TestData.dbPassword,
                 TestData.defaultDB, ConnectionType.MYSQL);
     }
-    @When("user query to get the category information with id <{int}>")
+    @When("user query to get the category information with id {int}")
     public void userQueryToGetTheCategoryInformationWithId(int id) {
         SQLScripts sqlScripts=new SQLScripts();
         isCategoryExist=sqlScripts.getCategoryInfo(connection,id);
