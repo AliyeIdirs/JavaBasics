@@ -27,9 +27,6 @@ public class TestNGDemo2 {
     }
     @Test
     public void anyTest(){
-                String a="/Users/user/Documents/Desktop Pics/image-from-rawpixel-id-3814725-jpeg.jpg";
-                String c=(a.split("/"))[a.split("/").length-1];
-
-        System.out.println(c);
+        System.out.println(System.getProperty("user.dir"));
     }
 }

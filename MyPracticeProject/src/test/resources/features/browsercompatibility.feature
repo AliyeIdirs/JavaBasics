@@ -1,4 +1,4 @@
-@MultiBrowserTest
+@MultiBrowserTest @UITest
 Feature: Admin user should be able to login the system with different browsers
 
   Scenario Outline: on the login page, admin user should be able to login the system using multiple browsers

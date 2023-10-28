@@ -25,7 +25,7 @@ public class TestNGRunner1 extends TestBaseForTestNG {
     @BeforeClass
     public void setUp(){
         if (headlessMode==1){
-            setUpBrowserInHeadlessMode();
+            setUpBrowserWithHeadlessMode1();
         }else {
             openBrowser();
         }
