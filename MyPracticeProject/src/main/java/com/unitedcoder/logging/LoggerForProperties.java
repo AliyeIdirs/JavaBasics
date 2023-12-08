@@ -8,13 +8,13 @@ import org.apache.log4j.Logger;
  * @created : 24.10.2023,17:05
  * @Email :aliyeidiris@gmail.com
  **/
-public class Log4jDemo{
+public class LoggerForProperties {
 
-    final static Logger logger = Logger.getLogger(Log4jDemo.class);
+    final static Logger logger = Logger.getLogger(LoggerForProperties.class);
     public static void main(String[] args) {
-        Log4jDemo log4jDemo = new Log4jDemo();
+        LoggerForProperties loggerForProperties = new LoggerForProperties();
         BasicConfigurator.configure();
-        log4jDemo.createApplicationLog("Selenium Master Log Test");
+        loggerForProperties.createApplicationLog("Selenium Master Log Test");
 
     }
 
